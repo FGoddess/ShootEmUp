@@ -1,41 +1,39 @@
+using System;
+using Character;
 using UnityEngine;
 
-namespace ShootEmUp
+namespace Input
 {
-    public sealed class InputManager : MonoBehaviour
-    {
-        public float HorizontalDirection { get; private set; }
+public sealed class InputManager : MonoBehaviour
+{
+	public event Action<Vector2> MoveDirChanged;
+	public event Action          Fired;
 
-        [SerializeField]
-        private GameObject character;
+	private Vector2 _moveDir;
+	private Vector2 _previousMoveDir;
+	private bool    _isFired;
 
-        [SerializeField]
-        private CharacterController characterController;
+	private void Update()
+	{
+		if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
+			_isFired = true;
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                characterController._fireRequired = true;
-            }
+		_moveDir = new Vector2(UnityEngine.Input.GetAxis("Horizontal"), 0);
+	}
 
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                this.HorizontalDirection = -1;
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                this.HorizontalDirection = 1;
-            }
-            else
-            {
-                this.HorizontalDirection = 0;
-            }
-        }
-        
-        private void FixedUpdate()
-        {
-            this.character.GetComponent<MoveComponent>().MoveByRigidbodyVelocity(new Vector2(this.HorizontalDirection, 0) * Time.fixedDeltaTime);
-        }
-    }
+	private void FixedUpdate()
+	{
+		//if (_moveDir != _previousMoveDir)
+		//{
+			MoveDirChanged?.Invoke(_moveDir);
+			_previousMoveDir = _moveDir;
+		//}
+		
+		if (_isFired)
+		{
+			Fired?.Invoke();
+			_isFired = false;
+		}
+	}
+}
 }

@@ -1,3 +1,5 @@
+using Bullets;
+using Components;
 using UnityEngine;
 
 namespace ShootEmUp
