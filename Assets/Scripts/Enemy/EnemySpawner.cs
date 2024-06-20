@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Bullets;
-using Components;
 using Enemy.Agents;
-using ShootEmUp;
 using UnityEngine;
 
 namespace Enemy
@@ -13,14 +10,15 @@ public sealed class EnemySpawner : MonoBehaviour
 {
 	[SerializeField]
 	private EnemyPool _enemyPool;
-
 	[SerializeField]
 	private BulletSetupSystem _bulletSetupSystem;
 
 	private const float SPAWN_INTERVAL = 1f;
 
-	public event Action<EnemyAgent> EnemySpawned; 
+	public event Action<EnemyAgent> EnemySpawned;
+	public event Action<EnemyAgent> EnemyDied;
 
+	
 	private IEnumerator Start()
 	{
 		while (true)
@@ -29,18 +27,17 @@ public sealed class EnemySpawner : MonoBehaviour
 			var enemy = _enemyPool.SpawnEnemy();
 			if (enemy == null)
 				yield break;
-			
+
+			enemy.Died += OnEnemyDied;
 			EnemySpawned?.Invoke(enemy);
-			enemy.Died  += HitPointsComponentOnHpEmpty;
-			enemy.Fired += _bulletSetupSystem.OnEnemyFired;
 		}
 	}
 
-	private void HitPointsComponentOnHpEmpty(EnemyAgent enemy)
+	private void OnEnemyDied(EnemyAgent enemy)
 	{
-		enemy.Died  -= HitPointsComponentOnHpEmpty;
-		enemy.Fired -= _bulletSetupSystem.OnEnemyFired;
 		_enemyPool.ReturnToPool(enemy);
+		enemy.Died -= OnEnemyDied;
+		EnemyDied?.Invoke(enemy);
 	}
 }
 }

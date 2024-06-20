@@ -7,32 +7,27 @@ namespace Input
 public sealed class InputManager : MonoBehaviour
 {
 	public event Action<Vector2> MoveDirChanged;
-	public event Action          Fired;
+	public event Action          FireRequired;
 
 	private Vector2 _moveDir;
-	private Vector2 _previousMoveDir;
-	private bool    _isFired;
+	private bool    _isFireRequired;
 
 	private void Update()
 	{
 		if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
-			_isFired = true;
+			_isFireRequired = true;
 
 		_moveDir = new Vector2(UnityEngine.Input.GetAxis("Horizontal"), 0);
 	}
 
 	private void FixedUpdate()
 	{
-		//if (_moveDir != _previousMoveDir)
-		//{
-			MoveDirChanged?.Invoke(_moveDir);
-			_previousMoveDir = _moveDir;
-		//}
-		
-		if (_isFired)
+		MoveDirChanged?.Invoke(_moveDir);
+
+		if (_isFireRequired)
 		{
-			Fired?.Invoke();
-			_isFired = false;
+			FireRequired?.Invoke();
+			_isFireRequired = false;
 		}
 	}
 }

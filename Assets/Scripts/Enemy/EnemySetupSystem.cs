@@ -1,7 +1,6 @@
 ﻿using Bullets;
 using Components;
 using Enemy.Agents;
-using ShootEmUp;
 using UnityEngine;
 
 namespace Enemy
@@ -9,11 +8,27 @@ namespace Enemy
 public class EnemySetupSystem : MonoBehaviour
 {
 	[SerializeField]
-	private BulletSystem _bulletSystem;
+	private BulletSetupSystem _bulletSetupSystem;
+	[SerializeField]
+	private EnemyPositions _enemyPositions;
+	[SerializeField]
+	private HitPointsComponent _characterHitPoints;
 	
-	/*public void Setup(EnemyAgent enemy)
+	
+	public void OnEnemySpawned(EnemyAgent enemy)
 	{
-		enemy.OnFire -= OnFire;
-	}*/
+		var spawnPosition = _enemyPositions.RandomSpawnPosition();
+		enemy.transform.position = spawnPosition.position;
+		var attackPosition = _enemyPositions.RandomAttackPosition();
+		enemy.SetDestination(attackPosition.position);
+		
+		enemy.SetTarget(_characterHitPoints);
+		enemy.WeaponComponent.Fired += _bulletSetupSystem.OnEnemyFired;
+	}
+	
+	public void OnEnemyDied(EnemyAgent enemy)
+	{
+		enemy.WeaponComponent.Fired -= _bulletSetupSystem.OnEnemyFired;
+	}
 }
 }

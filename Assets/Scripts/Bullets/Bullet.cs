@@ -3,42 +3,35 @@ using UnityEngine;
 
 namespace Bullets
 {
+[RequireComponent(typeof(Rigidbody2D))]
 public sealed class Bullet : MonoBehaviour
 {
+	[SerializeField]
+	private Rigidbody2D _rigidbody2D;
+	[SerializeField]
+	private SpriteRenderer _spriteRenderer;
+
+
 	public event Action<Bullet, Collision2D> OnCollisionEntered;
 
-	[NonSerialized] public bool isPlayer;
-	[NonSerialized] public int  damage;
 
-	[SerializeField]
-	private new Rigidbody2D rigidbody2D;
+	public bool IsPlayer { get; private set; }
+	public int  Damage   { get; private set; }
 
-	[SerializeField]
-	private SpriteRenderer spriteRenderer;
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		OnCollisionEntered?.Invoke(this, collision);
 	}
 
-	public void SetVelocity(Vector2 velocity)
+	public void Setup(BulletSystem.Args args)
 	{
-		rigidbody2D.velocity = velocity;
-	}
-
-	public void SetPhysicsLayer(int physicsLayer)
-	{
-		gameObject.layer = physicsLayer;
-	}
-
-	public void SetPosition(Vector3 position)
-	{
-		transform.position = position;
-	}
-
-	public void SetColor(Color color)
-	{
-		spriteRenderer.color = color;
+		_rigidbody2D.velocity = args.Velocity;
+		gameObject.layer     = args.PhysicsLayer;
+		transform.position   = args.Position;
+		_spriteRenderer.color = args.Color;
+		IsPlayer             = args.IsPlayer;
+		Damage               = args.Damage;
 	}
 }
 }

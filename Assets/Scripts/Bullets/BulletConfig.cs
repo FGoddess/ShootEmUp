@@ -6,16 +6,16 @@ namespace Bullets
 [CreateAssetMenu(fileName = "BulletConfig", menuName = "Bullets/New BulletConfig")]
 public sealed class BulletConfig : ScriptableObject
 {
-	[SerializeField]
-	public PhysicsLayer physicsLayer;
+	[field: SerializeField]
+	public PhysicsLayer PhysicsLayer { get; private set; }
 
-	[SerializeField]
-	public Color color;
+	[field: SerializeField]
+	public Color Color { get; private set; }
 
-	[SerializeField]
-	public int damage;
+	[field: SerializeField]
+	public int Damage { get; private set; }
 
-	[SerializeField]
-	public float speed;
+	[field: SerializeField]
+	public float Speed { get; private set; }
 }
 }

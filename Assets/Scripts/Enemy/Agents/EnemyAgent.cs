@@ -1,46 +1,43 @@
 ﻿using System;
 using Character;
 using Components;
-using ShootEmUp;
 using UnityEngine;
 
 namespace Enemy.Agents
 {
 public class EnemyAgent : MonoBehaviour
 {
-	[SerializeField] private MoveComponent      _moveComponent;
-	[SerializeField] private WeaponComponent    weaponComponent;
-	[SerializeField] private HitPointsComponent _hitPointsComponent;
-	[SerializeField] private float              countdown;
-
-
-	public event Action<Vector2, Vector2> Fired;
-	public event Action<EnemyAgent>       Died;
-
+	[SerializeField]
+	private MoveComponent _moveComponent;
+	[SerializeField]
+	private WeaponComponent _weaponComponent;
+	[SerializeField]
+	private HitPointsComponent _hitPointsComponent;
+	[SerializeField]
+	private float _cooldown;
+	
+	
+	public event Action<EnemyAgent> Died;
 
 	private Vector2 _destination;
 	private bool    _isReached;
 
-	private CharacterTemp _target;
-	private float         _currentTime;
+	private HitPointsComponent _target;
+	private float              _currentTime;
 
 	private const float DESTINATION_TOLERANCE = 0.25f;
 
-
+	public WeaponComponent WeaponComponent => _weaponComponent;
+	
+	
 	private void OnEnable()
 	{
 		_hitPointsComponent.HpEmpty += OnDied;
 	}
 
-	private void OnDied()
+	private void OnDisable()
 	{
-		Died?.Invoke(this);
-	}
-
-	public void SetDestination(Vector2 endPoint)
-	{
-		_destination = endPoint;
-		_isReached   = false;
+		_hitPointsComponent.HpEmpty += OnDied;
 	}
 
 	private void FixedUpdate()
@@ -49,6 +46,35 @@ public class EnemyAgent : MonoBehaviour
 			UpdateAttack();
 		else
 			UpdateMove();
+	}
+
+	public void SetTarget(HitPointsComponent target)
+	{
+		_target = target;
+	}
+
+	public void SetDestination(Vector2 endPoint)
+	{
+		_destination = endPoint;
+		_isReached   = false;
+	}
+
+	public void Reset()
+	{
+		_currentTime = _cooldown;
+	}
+
+	private void UpdateAttack()
+	{
+		if (!_target.IsHitPointsExists())
+			return;
+
+		_currentTime -= Time.fixedDeltaTime;
+		if (_currentTime <= 0)
+		{
+			Fire();
+			_currentTime += _cooldown;
+		}
 	}
 
 	private void UpdateMove()
@@ -64,36 +90,15 @@ public class EnemyAgent : MonoBehaviour
 		_moveComponent.MoveByRigidbodyVelocity(direction);
 	}
 
-
-	public void SetTarget(CharacterTemp target)
-	{
-		_target = target;
-	}
-
-	public void Reset()
-	{
-		_currentTime = countdown;
-	}
-
-	private void UpdateAttack()
-	{
-		if (!_target.IsHitPointsExists)
-			return;
-
-		_currentTime -= Time.fixedDeltaTime;
-		if (_currentTime <= 0)
-		{
-			Fire();
-			_currentTime += countdown;
-		}
-	}
-
 	private void Fire()
 	{
-		var startPosition = weaponComponent.Position;
-		var vector        = (Vector2)_target.transform.position - startPosition;
-		var direction     = vector.normalized;
-		Fired?.Invoke(startPosition, direction);
+		var vector = (Vector2)_target.transform.position - _weaponComponent.Position;
+		_weaponComponent.Fire(vector.normalized);
+	}
+
+	private void OnDied()
+	{
+		Died?.Invoke(this);
 	}
 }
 }

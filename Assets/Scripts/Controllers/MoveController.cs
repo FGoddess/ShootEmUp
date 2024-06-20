@@ -17,10 +17,10 @@ public class MoveController : MonoBehaviour
 	{
 		_inputManager.MoveDirChanged += _moveComponent.MoveByRigidbodyVelocity;
 	}
-	
+
 	public void OnDisable()
 	{
-		_inputManager.MoveDirChanged += _moveComponent.MoveByRigidbodyVelocity;
+		_inputManager.MoveDirChanged -= _moveComponent.MoveByRigidbodyVelocity;
 	}
 }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Level;
 using ShootEmUp;
 using UnityEngine;
 
@@ -7,22 +8,27 @@ namespace Bullets
 public sealed class BulletSystem : MonoBehaviour
 {
 	[SerializeField]
-	private int initialCount = 50;
+	private Transform _container;
+	[SerializeField]
+	private Bullet _prefab;
+	[SerializeField]
+	private Transform _worldTransform;
+	[SerializeField]
+	private LevelBounds _levelBounds;
+	[SerializeField]
+	private int _initialCount = 50;
 
-	[SerializeField] private Transform   container;
-	[SerializeField] private Bullet      prefab;
-	[SerializeField] private Transform   worldTransform;
-	[SerializeField] private LevelBounds levelBounds;
 
 	private readonly Queue<Bullet>   _bulletPool    = new();
 	private readonly HashSet<Bullet> _activeBullets = new();
 	private readonly List<Bullet>    _cache         = new();
 
+
 	private void Awake()
 	{
-		for (var i = 0; i < initialCount; i++)
+		for (var i = 0; i < _initialCount; i++)
 		{
-			var bullet = Instantiate(prefab, container);
+			var bullet = Instantiate(_prefab, _container);
 			_bulletPool.Enqueue(bullet);
 		}
 	}
@@ -35,25 +41,19 @@ public sealed class BulletSystem : MonoBehaviour
 		for (int i = 0, count = _cache.Count; i < count; i++)
 		{
 			var bullet = _cache[i];
-			if (!levelBounds.InBounds(bullet.transform.position))
+			if (!_levelBounds.InBounds(bullet.transform.position))
 				RemoveBullet(bullet);
 		}
 	}
 
 	public void FlyBulletByArgs(Args args)
 	{
-		Debug.Log("da)");
 		if (_bulletPool.TryDequeue(out var bullet))
-			bullet.transform.SetParent(worldTransform);
+			bullet.transform.SetParent(_worldTransform);
 		else
-			bullet = Instantiate(prefab, worldTransform);
+			bullet = Instantiate(_prefab, _worldTransform);
 
-		bullet.SetPosition(args.position);
-		bullet.SetColor(args.color);
-		bullet.SetPhysicsLayer(args.physicsLayer);
-		bullet.damage   = args.damage;
-		bullet.isPlayer = args.isPlayer;
-		bullet.SetVelocity(args.velocity);
+		bullet.Setup(args);
 
 		if (_activeBullets.Add(bullet))
 			bullet.OnCollisionEntered += OnBulletCollision;
@@ -70,19 +70,19 @@ public sealed class BulletSystem : MonoBehaviour
 		if (_activeBullets.Remove(bullet))
 		{
 			bullet.OnCollisionEntered -= OnBulletCollision;
-			bullet.transform.SetParent(container);
+			bullet.transform.SetParent(_container);
 			_bulletPool.Enqueue(bullet);
 		}
 	}
 
 	public struct Args
 	{
-		public Vector2 position;
-		public Vector2 velocity;
-		public Color   color;
-		public int     physicsLayer;
-		public int     damage;
-		public bool    isPlayer;
+		public Vector2 Position;
+		public Vector2 Velocity;
+		public Color   Color;
+		public int     PhysicsLayer;
+		public int     Damage;
+		public bool    IsPlayer;
 	}
 }
 }

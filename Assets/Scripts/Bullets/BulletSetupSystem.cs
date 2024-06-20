@@ -1,4 +1,5 @@
 ﻿using Character;
+using Components;
 using Enemy;
 using UnityEngine;
 
@@ -7,10 +8,6 @@ namespace Bullets
 public class BulletSetupSystem : MonoBehaviour
 {
 	[SerializeField]
-	private CharacterTemp _characterTemp;
-	[SerializeField]
-	private EnemySpawner _enemySpawner;
-	[SerializeField]
 	private BulletSystem _bulletSystem;
 	[SerializeField]
 	private BulletConfig _enemyConfig;
@@ -18,17 +15,7 @@ public class BulletSetupSystem : MonoBehaviour
 	private BulletConfig _playerConfig;
 
 
-	private void OnEnable()
-	{
-		_characterTemp.Fired += OnCharacterFired;
-	}
-	
-	private void OnDisable()
-	{
-		_characterTemp.Fired -= OnCharacterFired;
-	}
-
-	private void OnCharacterFired(Vector2 position, Vector2 direction)
+	public void OnCharacterFired(Vector2 position, Vector2 direction)
 	{
 		Fire(true, position, direction);
 	}
@@ -41,15 +28,15 @@ public class BulletSetupSystem : MonoBehaviour
 	private void Fire(bool isPlayer, Vector2 position, Vector2 direction)
 	{
 		var config = isPlayer ? _playerConfig : _enemyConfig;
-		
+
 		_bulletSystem.FlyBulletByArgs(new BulletSystem.Args
 		{
-			isPlayer     = false,
-			physicsLayer = (int)config.physicsLayer,
-			color        = config.color,
-			damage       = config.damage,
-			position     = position,
-			velocity     = direction * _enemyConfig.speed
+			IsPlayer     = isPlayer,
+			PhysicsLayer = (int)config.PhysicsLayer,
+			Color        = config.Color,
+			Damage       = config.Damage,
+			Position     = position,
+			Velocity     = direction * config.Speed
 		});
 	}
 }
