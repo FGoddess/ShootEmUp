@@ -1,5 +1,5 @@
-﻿using Bullets;
-using Components;
+﻿using Components;
+using Controllers;
 using Enemy.Agents;
 using UnityEngine;
 
@@ -8,11 +8,11 @@ namespace Enemy
 public class EnemySetupSystem : MonoBehaviour
 {
 	[SerializeField]
-	private BulletSetupSystem _bulletSetupSystem;
-	[SerializeField]
 	private EnemyPositions _enemyPositions;
 	[SerializeField]
 	private HitPointsComponent _characterHitPoints;
+	[SerializeField]
+	private EnemyFireController _enemyFireController;
 	
 	
 	public void OnEnemySpawned(EnemyAgent enemy)
@@ -23,12 +23,13 @@ public class EnemySetupSystem : MonoBehaviour
 		enemy.SetDestination(attackPosition.position);
 		
 		enemy.SetTarget(_characterHitPoints);
-		enemy.WeaponComponent.Fired += _bulletSetupSystem.OnEnemyFired;
+		
+		_enemyFireController.OnEnemySpawned(enemy.AttackAgent);
 	}
 	
 	public void OnEnemyDied(EnemyAgent enemy)
 	{
-		enemy.WeaponComponent.Fired -= _bulletSetupSystem.OnEnemyFired;
+		_enemyFireController.OnEnemyDied(enemy.AttackAgent);
 	}
 }
 }

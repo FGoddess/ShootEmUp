@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Bullets;
 using Enemy.Agents;
 using UnityEngine;
 
@@ -11,25 +10,30 @@ public sealed class EnemySpawner : MonoBehaviour
 	[SerializeField]
 	private EnemyPool _enemyPool;
 	[SerializeField]
-	private BulletSetupSystem _bulletSetupSystem;
+	private int _maxActiveEnemiesCount = 7;
+
+	private int _activeEnemiesCount;
 
 	private const float SPAWN_INTERVAL = 1f;
 
 	public event Action<EnemyAgent> EnemySpawned;
 	public event Action<EnemyAgent> EnemyDied;
 
-	
+
 	private IEnumerator Start()
 	{
 		while (true)
 		{
 			yield return new WaitForSeconds(SPAWN_INTERVAL);
-			var enemy = _enemyPool.SpawnEnemy();
-			if (enemy == null)
+
+			if (_activeEnemiesCount >= _maxActiveEnemiesCount)
 				yield break;
 
+			var enemy = _enemyPool.GetFromPool();
 			enemy.Died += OnEnemyDied;
 			EnemySpawned?.Invoke(enemy);
+
+			_activeEnemiesCount++;
 		}
 	}
 
@@ -38,6 +42,8 @@ public sealed class EnemySpawner : MonoBehaviour
 		_enemyPool.ReturnToPool(enemy);
 		enemy.Died -= OnEnemyDied;
 		EnemyDied?.Invoke(enemy);
+
+		_activeEnemiesCount--;
 	}
 }
 }

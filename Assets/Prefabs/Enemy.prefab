@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5568771391735819375}
   - component: {fileID: 659620479434099170}
   - component: {fileID: 7187397270041634114}
+  - component: {fileID: 7946316664020267719}
+  - component: {fileID: 3282358867970100929}
   - component: {fileID: 5568771391735819379}
   - component: {fileID: 5568771391735819372}
   - component: {fileID: 5568771391735819373}
@@ -141,9 +143,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8bfeacd27f4f3296bfd3a2fd2077ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveComponent: {fileID: 5568771391735819372}
-  _weaponComponent: {fileID: 5568771391735819374}
+  _attackAgent: {fileID: 3282358867970100929}
+  _moveAgent: {fileID: 7946316664020267719}
   _hitPointsComponent: {fileID: 5568771391735819373}
+--- !u!114 &7946316664020267719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559606060570185700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f048ace54b94aa8a358eecab407f594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveComponent: {fileID: 5568771391735819372}
+--- !u!114 &3282358867970100929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559606060570185700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d5be22ed2c142e4b075e9e4f3616c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponComponent: {fileID: 5568771391735819374}
   _cooldown: 2
 --- !u!114 &5568771391735819379
 MonoBehaviour:

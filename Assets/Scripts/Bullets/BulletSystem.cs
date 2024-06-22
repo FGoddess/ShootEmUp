@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Level;
-using ShootEmUp;
 using UnityEngine;
 
 namespace Bullets
@@ -8,31 +7,16 @@ namespace Bullets
 public sealed class BulletSystem : MonoBehaviour
 {
 	[SerializeField]
-	private Transform _container;
-	[SerializeField]
-	private Bullet _prefab;
+	private BulletsPool _bulletsPool;
 	[SerializeField]
 	private Transform _worldTransform;
 	[SerializeField]
 	private LevelBounds _levelBounds;
-	[SerializeField]
-	private int _initialCount = 50;
-
-
-	private readonly Queue<Bullet>   _bulletPool    = new();
+	
 	private readonly HashSet<Bullet> _activeBullets = new();
 	private readonly List<Bullet>    _cache         = new();
 
-
-	private void Awake()
-	{
-		for (var i = 0; i < _initialCount; i++)
-		{
-			var bullet = Instantiate(_prefab, _container);
-			_bulletPool.Enqueue(bullet);
-		}
-	}
-
+	
 	private void FixedUpdate()
 	{
 		_cache.Clear();
@@ -48,11 +32,8 @@ public sealed class BulletSystem : MonoBehaviour
 
 	public void FlyBulletByArgs(Args args)
 	{
-		if (_bulletPool.TryDequeue(out var bullet))
-			bullet.transform.SetParent(_worldTransform);
-		else
-			bullet = Instantiate(_prefab, _worldTransform);
-
+		var bullet = _bulletsPool.GetFromPool();
+		bullet.transform.SetParent(_worldTransform);
 		bullet.Setup(args);
 
 		if (_activeBullets.Add(bullet))
@@ -70,8 +51,7 @@ public sealed class BulletSystem : MonoBehaviour
 		if (_activeBullets.Remove(bullet))
 		{
 			bullet.OnCollisionEntered -= OnBulletCollision;
-			bullet.transform.SetParent(_container);
-			_bulletPool.Enqueue(bullet);
+			_bulletsPool.ReturnToPool(bullet);
 		}
 	}
 

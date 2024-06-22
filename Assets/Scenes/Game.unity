@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 363245576}
   - component: {fileID: 363245577}
   - component: {fileID: 363245578}
+  - component: {fileID: 363245579}
   m_Layer: 0
   m_Name: BulletSystem
   m_TagString: Untagged
@@ -262,11 +263,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37bd15923a144ffbab0333dc6e74e641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _container: {fileID: 1831741369}
-  _prefab: {fileID: 201757604187811891, guid: 5fe72886874b4e445b06cf777ca4920d, type: 3}
+  _bulletsPool: {fileID: 363245579}
   _worldTransform: {fileID: 1683128698}
   _levelBounds: {fileID: 2572952653776768186}
-  _initialCount: 50
 --- !u!114 &363245578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,6 +281,22 @@ MonoBehaviour:
   _bulletSystem: {fileID: 363245577}
   _enemyConfig: {fileID: 11400000, guid: df8f4fe04e1288d49bebf469a6db333d, type: 2}
   _playerConfig: {fileID: 11400000, guid: 7138ae5d32d814e0ca50c616c65ea105, type: 2}
+--- !u!114 &363245579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363245575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea1bedb6a32f47b1a654d1978e689fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 201757604187811891, guid: 5fe72886874b4e445b06cf777ca4920d, type: 3}
+  _container: {fileID: 1831741369}
+  _worldTransform: {fileID: 1683128698}
+  _initialCount: 50
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,10 +390,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 562298204}
-  - component: {fileID: 562298207}
   - component: {fileID: 562298205}
+  - component: {fileID: 562298207}
   - component: {fileID: 562298209}
   - component: {fileID: 562298208}
+  - component: {fileID: 562298210}
   m_Layer: 0
   m_Name: EnemySystem
   m_TagString: Untagged
@@ -415,7 +431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPool: {fileID: 562298207}
-  _bulletSetupSystem: {fileID: 363245578}
+  _maxActiveEnemiesCount: 7
 --- !u!114 &562298207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,10 +444,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bdcdf257e0242258e7a67fe13d80e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _worldTransform: {fileID: 1683128698}
-  _container: {fileID: 178513672}
   _prefab: {fileID: 7187397270041634114, guid: 87fe189881a524806800482ac8eaaa83, type: 3}
-  _initialEnemiesCount: 7
+  _container: {fileID: 178513672}
+  _worldTransform: {fileID: 1683128698}
+  _initialCount: 7
 --- !u!114 &562298208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,9 +474,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba7d5b2ecd7645d493e3dd6ffbbad464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletSetupSystem: {fileID: 363245578}
   _enemyPositions: {fileID: 7166351703523243261}
   _characterHitPoints: {fileID: 4414282821800802401}
+  _enemyFireController: {fileID: 562298210}
+--- !u!114 &562298210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562298203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73beaaefd614a629256dd96b33ecaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletSetupSystem: {fileID: 363245578}
 --- !u!1 &883274639
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 ﻿using System;
-using Character;
 using Components;
 using UnityEngine;
 
@@ -8,28 +7,16 @@ namespace Enemy.Agents
 public class EnemyAgent : MonoBehaviour
 {
 	[SerializeField]
-	private MoveComponent _moveComponent;
+	private EnemyAttackAgent _attackAgent;
 	[SerializeField]
-	private WeaponComponent _weaponComponent;
+	private EnemyMoveAgent _moveAgent;
 	[SerializeField]
 	private HitPointsComponent _hitPointsComponent;
-	[SerializeField]
-	private float _cooldown;
-	
 	
 	public event Action<EnemyAgent> Died;
 
-	private Vector2 _destination;
-	private bool    _isReached;
+	public EnemyAttackAgent AttackAgent => _attackAgent;
 
-	private HitPointsComponent _target;
-	private float              _currentTime;
-
-	private const float DESTINATION_TOLERANCE = 0.25f;
-
-	public WeaponComponent WeaponComponent => _weaponComponent;
-	
-	
 	private void OnEnable()
 	{
 		_hitPointsComponent.HpEmpty += OnDied;
@@ -42,63 +29,25 @@ public class EnemyAgent : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (_isReached)
-			UpdateAttack();
+		if (_moveAgent.IsReached)
+			_attackAgent.UpdateAttack();
 		else
-			UpdateMove();
+			_moveAgent.UpdateMove();
+	}
+	
+	private void OnDied()
+	{
+		Died?.Invoke(this);
+	}
+
+	public void SetDestination(Vector3 attackPos)
+	{
+		_moveAgent.SetDestination(attackPos);
 	}
 
 	public void SetTarget(HitPointsComponent target)
 	{
-		_target = target;
-	}
-
-	public void SetDestination(Vector2 endPoint)
-	{
-		_destination = endPoint;
-		_isReached   = false;
-	}
-
-	public void Reset()
-	{
-		_currentTime = _cooldown;
-	}
-
-	private void UpdateAttack()
-	{
-		if (!_target.IsHitPointsExists())
-			return;
-
-		_currentTime -= Time.fixedDeltaTime;
-		if (_currentTime <= 0)
-		{
-			Fire();
-			_currentTime += _cooldown;
-		}
-	}
-
-	private void UpdateMove()
-	{
-		var vector = _destination - (Vector2)transform.position;
-		if (vector.magnitude <= DESTINATION_TOLERANCE)
-		{
-			_isReached = true;
-			return;
-		}
-
-		var direction = vector.normalized;
-		_moveComponent.MoveByRigidbodyVelocity(direction);
-	}
-
-	private void Fire()
-	{
-		var vector = (Vector2)_target.transform.position - _weaponComponent.Position;
-		_weaponComponent.Fire(vector.normalized);
-	}
-
-	private void OnDied()
-	{
-		Died?.Invoke(this);
+		_attackAgent.SetTarget(target);
 	}
 }
 }

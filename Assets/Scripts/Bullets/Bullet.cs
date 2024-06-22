@@ -27,11 +27,11 @@ public sealed class Bullet : MonoBehaviour
 	public void Setup(BulletSystem.Args args)
 	{
 		_rigidbody2D.velocity = args.Velocity;
-		gameObject.layer     = args.PhysicsLayer;
-		transform.position   = args.Position;
+		gameObject.layer      = args.PhysicsLayer;
+		transform.position    = args.Position;
 		_spriteRenderer.color = args.Color;
-		IsPlayer             = args.IsPlayer;
-		Damage               = args.Damage;
+		IsPlayer              = args.IsPlayer;
+		Damage                = args.Damage;
 	}
 }
 }
