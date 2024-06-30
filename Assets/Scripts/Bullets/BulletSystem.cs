@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Components;
 using Level;
 using UnityEngine;
 
@@ -7,52 +8,65 @@ namespace Bullets
 public sealed class BulletSystem : MonoBehaviour
 {
 	[SerializeField]
-	private BulletsPool _bulletsPool;
+	private Transform _container;
 	[SerializeField]
 	private Transform _worldTransform;
 	[SerializeField]
+	private Bullet _bulletPrefab;
+	[SerializeField]
+	private int _initialCount = 10;
+	[SerializeField]
 	private LevelBounds _levelBounds;
 	
-	private readonly HashSet<Bullet> _activeBullets = new();
-	private readonly List<Bullet>    _cache         = new();
+	
+	private BulletsPool _bulletsPool;
 
+	private readonly HashSet<Bullet> _activeBullets = new();
+
+	
+	private void Awake()
+	{
+		_bulletsPool = new BulletsPool(_bulletPrefab, _container, _initialCount);
+	}
 	
 	private void FixedUpdate()
 	{
-		_cache.Clear();
-		_cache.AddRange(_activeBullets);
-
-		for (int i = 0, count = _cache.Count; i < count; i++)
-		{
-			var bullet = _cache[i];
+		foreach (var bullet in _activeBullets)
 			if (!_levelBounds.InBounds(bullet.transform.position))
 				RemoveBullet(bullet);
-		}
 	}
 
 	public void FlyBulletByArgs(Args args)
 	{
-		var bullet = _bulletsPool.GetFromPool();
-		bullet.transform.SetParent(_worldTransform);
+		var bullet = _bulletsPool.GetFromPool(_worldTransform);
 		bullet.Setup(args);
 
-		if (_activeBullets.Add(bullet))
-			bullet.OnCollisionEntered += OnBulletCollision;
+		_activeBullets.Add(bullet);
+		bullet.OnCollisionEntered += OnBulletCollision;
 	}
 
 	private void OnBulletCollision(Bullet bullet, Collision2D collision)
 	{
-		BulletUtils.DealDamage(bullet, collision.gameObject);
+		DealDamage(bullet, collision.gameObject);
 		RemoveBullet(bullet);
+	}
+
+	private void DealDamage(Bullet bullet, GameObject other)
+	{
+		if (!other.TryGetComponent(out TeamComponent team))
+			return;
+		if (bullet.IsPlayer == team.IsPlayer)
+			return;
+
+		if (other.TryGetComponent(out HitPointsComponent hitPoints))
+			hitPoints.TakeDamage(bullet.Damage);
 	}
 
 	private void RemoveBullet(Bullet bullet)
 	{
-		if (_activeBullets.Remove(bullet))
-		{
-			bullet.OnCollisionEntered -= OnBulletCollision;
-			_bulletsPool.ReturnToPool(bullet);
-		}
+		_activeBullets.Remove(bullet);
+		bullet.OnCollisionEntered -= OnBulletCollision;
+		_bulletsPool.ReturnToPool(bullet);
 	}
 
 	public struct Args
