@@ -17,23 +17,23 @@ public sealed class BulletSystem : MonoBehaviour
 	private int _initialCount = 10;
 	[SerializeField]
 	private LevelBounds _levelBounds;
-	
-	
+
+
 	private BulletsPool _bulletsPool;
 
-	private readonly HashSet<Bullet> _activeBullets = new();
+	private readonly List<Bullet> _activeBullets = new();
 
-	
+
 	private void Awake()
 	{
 		_bulletsPool = new BulletsPool(_bulletPrefab, _container, _initialCount);
 	}
-	
+
 	private void FixedUpdate()
 	{
-		foreach (var bullet in _activeBullets)
-			if (!_levelBounds.InBounds(bullet.transform.position))
-				RemoveBullet(bullet);
+		for (var i = 0; i < _activeBullets.Count; i++)
+			if (!_levelBounds.InBounds(_activeBullets[i].transform.position))
+				RemoveBullet(_activeBullets[i]);
 	}
 
 	public void FlyBulletByArgs(Args args)
