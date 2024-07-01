@@ -1,26 +1,24 @@
-﻿using Bullets;
-using Components;
+﻿using Common;
 using Enemy;
-using Enemy.Agents;
 using UnityEngine;
 
 namespace Controllers
 {
-public class EnemySetupController : MonoBehaviour
+public class EnemySetupController : MonoBehaviour, IGameResumeListener, IGamePauseListener
 {
 	[SerializeField]
 	private EnemySpawner _enemySpawner;
 	[SerializeField]
 	private EnemySetupSystem _enemySetupSystem;
-
 	
-	private void OnEnable()
+
+	public void OnResume()
 	{
 		_enemySpawner.EnemySpawned += _enemySetupSystem.OnEnemySpawned;
 		_enemySpawner.EnemyDied    += _enemySetupSystem.OnEnemyDied;
 	}
 
-	private void OnDisable()
+	public void OnPause()
 	{
 		_enemySpawner.EnemySpawned -= _enemySetupSystem.OnEnemySpawned;
 		_enemySpawner.EnemyDied    -= _enemySetupSystem.OnEnemyDied;

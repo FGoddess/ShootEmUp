@@ -1,23 +1,24 @@
 ﻿using Character;
+using Common;
 using Input;
 using UnityEngine;
 
 namespace Controllers
 {
-public class InputController : MonoBehaviour
+public class InputController : MonoBehaviour, IGameResumeListener, IGamePauseListener
 {
 	[SerializeField]
 	private InputManager _inputManager;
 	[SerializeField]
 	private CharacterAgent _characterAgent;
+	
 
-
-	private void OnEnable()
+	public void OnResume()
 	{
 		_inputManager.FireRequired += _characterAgent.SetFireRequired;
 	}
 
-	private void OnDisable()
+	public void OnPause()
 	{
 		_inputManager.FireRequired -= _characterAgent.SetFireRequired;
 	}

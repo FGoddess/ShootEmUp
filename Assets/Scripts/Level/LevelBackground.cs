@@ -1,9 +1,10 @@
 using System;
+using Common;
 using UnityEngine;
 
 namespace Level
 {
-public sealed class LevelBackground : MonoBehaviour
+public sealed class LevelBackground : MonoBehaviour, IGameStartListener, IGameFixedUpdateListener
 {
 	[SerializeField]
 	private Params _params;
@@ -13,7 +14,8 @@ public sealed class LevelBackground : MonoBehaviour
 	private Vector3   _endPosition;
 	private Vector3   _movementVector;
 
-	private void Awake()
+
+	public void OnStart()
 	{
 		_transform = transform;
 		var position = _transform.position;
@@ -22,7 +24,7 @@ public sealed class LevelBackground : MonoBehaviour
 		_movementVector = new Vector3(position.x, position.y, position.z);
 	}
 
-	private void FixedUpdate()
+	public void OnFixedUpdate()
 	{
 		if (_transform.position.y <= _endPosition.y)
 			_transform.position = _startPosition;

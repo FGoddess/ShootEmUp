@@ -1,18 +1,19 @@
 using System;
-using Character;
+using Common;
 using UnityEngine;
 
 namespace Input
 {
-public sealed class InputManager : MonoBehaviour
+public sealed class InputManager : MonoBehaviour, IGameFixedUpdateListener, IGameUpdateListener
 {
-	public event Action<Vector2> MoveDirChanged;
-	public event Action          FireRequired;
-
 	private Vector2 _moveDir;
 	private bool    _isFireRequired;
 
-	private void Update()
+	public event Action<Vector2> MoveDirChanged;
+	public event Action          FireRequired;
+
+
+	public void OnUpdate()
 	{
 		if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
 			_isFireRequired = true;
@@ -20,7 +21,7 @@ public sealed class InputManager : MonoBehaviour
 		_moveDir = new Vector2(UnityEngine.Input.GetAxis("Horizontal"), 0);
 	}
 
-	private void FixedUpdate()
+	public void OnFixedUpdate()
 	{
 		MoveDirChanged?.Invoke(_moveDir);
 

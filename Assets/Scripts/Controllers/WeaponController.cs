@@ -1,24 +1,25 @@
 ﻿using System;
 using Bullets;
+using Common;
 using Components;
 using UnityEngine;
 
 namespace Controllers
 {
-public class WeaponController : MonoBehaviour
+public class WeaponController : MonoBehaviour, IGameResumeListener, IGamePauseListener
 {
 	[SerializeField]
 	private WeaponComponent _weaponComponent;
 	[SerializeField]
 	private BulletSetupSystem _bulletSystem;
 
-
-	private void OnEnable()
+	
+	public void OnResume()
 	{
 		_weaponComponent.Fired += _bulletSystem.OnCharacterFired;
 	}
 
-	private void OnDisable()
+	public void OnPause()
 	{
 		_weaponComponent.Fired -= _bulletSystem.OnCharacterFired;
 	}

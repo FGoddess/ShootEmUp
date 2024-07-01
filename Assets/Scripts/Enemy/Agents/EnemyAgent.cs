@@ -1,10 +1,11 @@
 ﻿using System;
+using Common;
 using Components;
 using UnityEngine;
 
 namespace Enemy.Agents
 {
-public class EnemyAgent : MonoBehaviour
+public class EnemyAgent : MonoBehaviour, IGameResumeListener, IGamePauseListener, IGameFixedUpdateListener
 {
 	[SerializeField]
 	private EnemyAttackAgent _attackAgent;
@@ -12,29 +13,30 @@ public class EnemyAgent : MonoBehaviour
 	private EnemyMoveAgent _moveAgent;
 	[SerializeField]
 	private HitPointsComponent _hitPointsComponent;
-	
+
 	public event Action<EnemyAgent> Died;
 
 	public EnemyAttackAgent AttackAgent => _attackAgent;
 
-	private void OnEnable()
+
+	public void OnResume()
 	{
 		_hitPointsComponent.HpEmpty += OnDied;
 	}
 
-	private void OnDisable()
+	public void OnPause()
 	{
 		_hitPointsComponent.HpEmpty += OnDied;
 	}
 
-	private void FixedUpdate()
+	public void OnFixedUpdate()
 	{
 		if (_moveAgent.IsReached)
 			_attackAgent.UpdateAttack();
 		else
 			_moveAgent.UpdateMove();
 	}
-	
+
 	private void OnDied()
 	{
 		Died?.Invoke(this);

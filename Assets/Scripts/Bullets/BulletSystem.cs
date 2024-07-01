@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using Common;
 using Components;
 using Level;
 using UnityEngine;
 
 namespace Bullets
 {
-public sealed class BulletSystem : MonoBehaviour
+public sealed class BulletSystem : MonoBehaviour, IGameStartListener, IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener
 {
 	[SerializeField]
 	private Transform _container;
@@ -24,12 +25,12 @@ public sealed class BulletSystem : MonoBehaviour
 	private readonly List<Bullet> _activeBullets = new();
 
 
-	private void Awake()
+	public void OnStart()
 	{
 		_bulletsPool = new BulletsPool(_bulletPrefab, _container, _initialCount);
 	}
 
-	private void FixedUpdate()
+	public void OnFixedUpdate()
 	{
 		for (var i = 0; i < _activeBullets.Count; i++)
 			if (!_levelBounds.InBounds(_activeBullets[i].transform.position))
@@ -77,6 +78,18 @@ public sealed class BulletSystem : MonoBehaviour
 		public int     PhysicsLayer;
 		public int     Damage;
 		public bool    IsPlayer;
+	}
+
+	public void OnPause()
+	{
+		foreach (var bullet in _activeBullets)
+			bullet.OnPause();
+	}
+
+	public void OnResume()
+	{
+		foreach (var bullet in _activeBullets)
+			bullet.OnResume();
 	}
 }
 }

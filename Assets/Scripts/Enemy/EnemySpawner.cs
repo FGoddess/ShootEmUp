@@ -1,11 +1,11 @@
 using System;
-using System.Collections;
+using Common;
 using Enemy.Agents;
 using UnityEngine;
 
 namespace Enemy
 {
-public sealed class EnemySpawner : MonoBehaviour
+public sealed class EnemySpawner : MonoBehaviour, IGameStartListener, IGameUpdateListener
 {
 	[SerializeField]
 	private Transform _container;
@@ -17,37 +17,41 @@ public sealed class EnemySpawner : MonoBehaviour
 	private int _initialCount = 10;
 	[SerializeField]
 	private int _maxActiveEnemiesCount = 7;
-	
+
 	private EnemyPool _enemyPool;
 
-	private int _activeEnemiesCount;
+	private float _spawnTimer;
+	private int   _activeEnemiesCount;
 
 	private const float SPAWN_INTERVAL = 1f;
 
 	public event Action<EnemyAgent> EnemySpawned;
 	public event Action<EnemyAgent> EnemyDied;
+	
 
-
-	private void Awake()
+	public void OnStart()
 	{
 		_enemyPool = new EnemyPool(_enemyPrefab, _container, _initialCount);
 	}
 
-	private IEnumerator Start()
+	public void OnUpdate()
 	{
-		while (true)
+		if (_spawnTimer < SPAWN_INTERVAL)
 		{
-			yield return new WaitForSeconds(SPAWN_INTERVAL);
-
-			if (_activeEnemiesCount >= _maxActiveEnemiesCount)
-				yield break;
-
-			var enemy = _enemyPool.GetFromPool(_worldTransform);
-			enemy.Died += OnEnemyDied;
-			EnemySpawned?.Invoke(enemy);
-
-			_activeEnemiesCount++;
+			_spawnTimer += Time.deltaTime;
+			return;
 		}
+
+		_spawnTimer = 0f;
+
+		if (_activeEnemiesCount >= _maxActiveEnemiesCount)
+			return;
+		
+		var enemy = _enemyPool.GetFromPool(_worldTransform);
+		enemy.Died += OnEnemyDied;
+		EnemySpawned?.Invoke(enemy);
+
+		_activeEnemiesCount++;
 	}
 
 	private void OnEnemyDied(EnemyAgent enemy)
