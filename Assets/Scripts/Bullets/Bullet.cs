@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Bullets
 {
 [RequireComponent(typeof(Rigidbody2D))]
-public sealed class Bullet : MonoBehaviour, IGamePauseListener, IGameResumeListener
+public sealed class Bullet : MonoBehaviour
 {
 	[SerializeField]
 	private Rigidbody2D _rigidbody2D;

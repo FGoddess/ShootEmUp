@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Enemy.Agents
 {
-public class EnemyAgent : MonoBehaviour, IGameResumeListener, IGamePauseListener, IGameFixedUpdateListener
+public class EnemyAgent : MonoBehaviour, IGameFixedUpdateListener
 {
 	[SerializeField]
 	private EnemyAttackAgent _attackAgent;

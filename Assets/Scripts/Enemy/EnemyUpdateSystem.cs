@@ -9,24 +9,24 @@ public class EnemyUpdateSystem : MonoBehaviour, IGameResumeListener, IGamePauseL
 {
 	[SerializeField]
 	private EnemySpawner _enemySpawner;
-	
+
 	private readonly List<EnemyAgent> _activeEnemies = new();
 
 
 	public void OnResume()
 	{
 		_enemySpawner.EnemySpawned += OnEnemySpawned;
-		_enemySpawner.EnemyDied += OnEnemyDied;
-		
+		_enemySpawner.EnemyDied    += OnEnemyDied;
+
 		foreach (var enemy in _activeEnemies)
 			enemy.OnResume();
 	}
-	
+
 	public void OnPause()
 	{
 		_enemySpawner.EnemySpawned -= OnEnemySpawned;
 		_enemySpawner.EnemyDied    -= OnEnemyDied;
-		
+
 		foreach (var enemy in _activeEnemies)
 			enemy.OnPause();
 	}
@@ -35,16 +35,16 @@ public class EnemyUpdateSystem : MonoBehaviour, IGameResumeListener, IGamePauseL
 	{
 		_activeEnemies.Add(enemy);
 	}
-	
+
 	private void OnEnemyDied(EnemyAgent enemy)
 	{
 		_activeEnemies.Remove(enemy);
 	}
-	
+
 	public void OnFixedUpdate()
 	{
-		foreach (var enemy in _activeEnemies)
-			enemy.OnFixedUpdate();
+		for (var i = 0; i < _activeEnemies.Count; i++)
+			_activeEnemies[i].OnFixedUpdate();
 	}
 }
 }
