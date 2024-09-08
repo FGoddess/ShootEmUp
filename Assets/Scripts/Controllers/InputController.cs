@@ -5,13 +5,17 @@ using UnityEngine;
 
 namespace Controllers
 {
-public class InputController : MonoBehaviour, IGameResumeListener, IGamePauseListener
+public class InputController : IGameResumeListener, IGamePauseListener
 {
-	[SerializeField]
-	private InputManager _inputManager;
-	[SerializeField]
-	private CharacterAgent _characterAgent;
+	private readonly InputManager   _inputManager;
+	private readonly CharacterAgent _characterAgent;
 	
+	public InputController(InputManager inputManager, CharacterAgent characterAgent)
+	{
+		_inputManager        = inputManager;
+		_characterAgent = characterAgent;
+	}
+
 
 	public void OnResume()
 	{

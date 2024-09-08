@@ -2,18 +2,23 @@
 using Controllers;
 using Enemy.Agents;
 using UnityEngine;
+using Zenject;
 
 namespace Enemy
 {
-public class EnemySetupSystem : MonoBehaviour
+public class EnemySetupSystem
 {
-	[SerializeField]
-	private EnemyPositions _enemyPositions;
-	[SerializeField]
-	private HitPointsComponent _characterHitPoints;
-	[SerializeField]
-	private EnemyFireController _enemyFireController;
-	
+	private readonly HitPointsComponent  _characterHitPoints;
+	private readonly EnemyFireController _enemyFireController;
+	private readonly EnemyPositions      _enemyPositions;
+
+	public EnemySetupSystem(HitPointsComponent characterHitPoints, EnemyFireController enemyFireController, EnemyPositions enemyPositions)
+	{
+		_characterHitPoints  = characterHitPoints;
+		_enemyFireController = enemyFireController;
+		_enemyPositions = enemyPositions;
+	}
+
 	
 	public void OnEnemySpawned(EnemyAgent enemy)
 	{

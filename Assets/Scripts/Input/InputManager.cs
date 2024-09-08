@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Input
 {
-public sealed class InputManager : MonoBehaviour, IGameFixedUpdateListener, IGameUpdateListener
+public sealed class InputManager : IGameFixedUpdateListener, IGameUpdateListener
 {
 	private Vector2 _moveDir;
 	private bool    _isFireRequired;

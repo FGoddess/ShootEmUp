@@ -1,16 +1,22 @@
 ﻿using Common;
 using Enemy;
 using UnityEngine;
+using Zenject;
 
 namespace Controllers
 {
-public class EnemySetupController : MonoBehaviour, IGameResumeListener, IGamePauseListener
+public class EnemySetupController : IGameResumeListener, IGamePauseListener
 {
-	[SerializeField]
-	private EnemySpawner _enemySpawner;
-	[SerializeField]
-	private EnemySetupSystem _enemySetupSystem;
+	private readonly EnemySpawner     _enemySpawner;
+	private readonly EnemySetupSystem _enemySetupSystem;
 	
+
+	public EnemySetupController(EnemySpawner enemySpawner, EnemySetupSystem enemySetupSystem)
+	{
+		_enemySpawner     = enemySpawner;
+		_enemySetupSystem = enemySetupSystem;
+	}
+
 
 	public void OnResume()
 	{

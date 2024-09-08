@@ -5,7 +5,7 @@ namespace Components
 {
 public sealed class HitPointsComponent : MonoBehaviour
 {
-	[SerializeField] 
+	[SerializeField]
 	private int _hitPoints;
 
 	public event Action HpEmpty;

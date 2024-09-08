@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace Controllers
 {
-public class GamePauseController : MonoBehaviour, IGameStartListener, IGameFinishListener
+public class GamePauseController : IGameStartListener, IGameFinishListener
 {
-	[SerializeField]
-	private UiPauseScreen _pauseScreen;
-	[SerializeField]
-	private GameManager _gameManager;
+	private readonly UiPauseScreen _pauseScreen;
+	private readonly GameManager   _gameManager;
 
+	public GamePauseController(UiPauseScreen pauseScreen, GameManager gameManager)
+	{
+		_pauseScreen      = pauseScreen;
+		_gameManager = gameManager;
+	}
 	
 	public void OnStart()
 	{

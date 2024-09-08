@@ -5,12 +5,16 @@ using UnityEngine;
 
 namespace Controllers
 {
-public class GameEndController : MonoBehaviour, IGameResumeListener, IGamePauseListener
+public class GameEndController : IGameResumeListener, IGamePauseListener
 {
-	[SerializeField]
-	private GameManager _gameManager;
-	[SerializeField]
-	private HitPointsComponent _characterHitPoints;
+	private readonly GameManager        _gameManager;
+	private readonly HitPointsComponent _characterHitPoints;
+
+	public GameEndController(GameManager gameManager, HitPointsComponent characterHitPoints)
+	{
+		_gameManager             = gameManager;
+		_characterHitPoints = characterHitPoints;
+	}
 	
 	
 	public void OnResume()

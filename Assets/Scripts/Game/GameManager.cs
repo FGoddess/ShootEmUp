@@ -1,16 +1,12 @@
-using System;
 using System.Collections.Generic;
 using Common;
-using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using UnityEngine;
+using Zenject;
 
 namespace Game
 {
-public sealed class GameManager : SerializedMonoBehaviour
+public sealed class GameManager : IInitializable, ITickable, IFixedTickable
 {
-	[OdinSerialize] [ShowInInspector]
-	[ListDrawerSettings(ShowIndexLabels = true)]
 	private List<IGameListener> _gameListeners = new();
 
 	private readonly List<IGameStartListener>       _startListeners       = new();
@@ -19,10 +15,15 @@ public sealed class GameManager : SerializedMonoBehaviour
 	private readonly List<IGameUpdateListener>      _updateListeners      = new();
 	private readonly List<IGameFixedUpdateListener> _fixedUpdateListeners = new();
 	private readonly List<IGameFinishListener>      _finishListeners      = new();
-	
 
-	private void Awake()
+	private bool _isActive;
+
+
+	[Inject]
+	private void Construct(List<IGameListener> gameListeners)
 	{
+		_gameListeners = gameListeners;
+		
 		foreach (var listener in _gameListeners)
 		{
 			if (listener is IGameStartListener startListener)
@@ -40,38 +41,44 @@ public sealed class GameManager : SerializedMonoBehaviour
 		}
 	}
 
-	private void Start()
+	public void Initialize()
 	{
-		enabled = false;
-		
+		_isActive = false;
+
 		foreach (var listener in _startListeners)
 			listener.OnStart();
 	}
-
+	
 	public void PauseGame()
 	{
-		enabled = false;
-		
+		_isActive = false;
+
 		foreach (var listener in _pauseListeners)
 			listener.OnPause();
 	}
 
 	public void ResumeGame()
 	{
-		enabled = true;
-		
+		_isActive = true;
+
 		foreach (var listener in _resumeListeners)
 			listener.OnResume();
 	}
-
-	public void Update()
+	
+	public void Tick()
 	{
+		if(!_isActive)
+			return;
+		
 		foreach (var listener in _updateListeners)
 			listener.OnUpdate();
 	}
 
-	public void FixedUpdate()
+	public void FixedTick()
 	{
+		if(!_isActive)
+			return;
+		
 		foreach (var listener in _fixedUpdateListeners)
 			listener.OnFixedUpdate();
 	}

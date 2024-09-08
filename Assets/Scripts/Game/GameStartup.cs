@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 namespace Game
 {
 public class GameStartup : MonoBehaviour
 {
 	[SerializeField]
-	private GameManager _gameManager;
-
-	[SerializeField]
-	private float _startDelay;
-
+	private float _startDelay = 3f;
+	
 	private float _countdown;
 
 	private const float SEC_TICK = 1f;
 
 	public event Action        CountdownEnded;
 	public event Action<float> CountdownTimeChanged;
-
-
+	
+	
 	public void Startup()
 	{
 		_countdown = _startDelay;

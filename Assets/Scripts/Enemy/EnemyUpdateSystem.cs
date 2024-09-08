@@ -2,15 +2,20 @@
 using Common;
 using Enemy.Agents;
 using UnityEngine;
+using Zenject;
 
 namespace Enemy
 {
-public class EnemyUpdateSystem : MonoBehaviour, IGameResumeListener, IGamePauseListener, IGameFixedUpdateListener
+public class EnemyUpdateSystem : IGameResumeListener, IGamePauseListener, IGameFixedUpdateListener
 {
-	[SerializeField]
-	private EnemySpawner _enemySpawner;
+	private readonly EnemySpawner _enemySpawner;
 
 	private readonly List<EnemyAgent> _activeEnemies = new();
+	
+	public EnemyUpdateSystem(EnemySpawner enemySpawner)
+	{
+		_enemySpawner = enemySpawner;
+	}
 
 
 	public void OnResume()

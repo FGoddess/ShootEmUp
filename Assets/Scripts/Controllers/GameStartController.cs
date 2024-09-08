@@ -1,24 +1,26 @@
-﻿using System;
-using Common;
+﻿using Common;
 using Game;
-using UnityEngine;
 
 namespace Controllers
 {
-public class GameStartController : MonoBehaviour, IGameStartListener, IGameFinishListener
+public class GameStartController : IGameStartListener, IGameFinishListener
 {
-	[SerializeField]
-	private GameStartup _gameStartup;
-	[SerializeField]
-	private UiStartScreen _startScreen;
-	[SerializeField]
-	private GameManager _gameManager;
+	private readonly GameStartup   _gameStartup;
+	private readonly UiStartScreen _startScreen;
+	private readonly GameManager   _gameManager;
+
+	public GameStartController(GameStartup gameStartup, UiStartScreen startScreen, GameManager gameManager)
+	{
+		_gameStartup = gameStartup;
+		_startScreen = startScreen;
+		_gameManager = gameManager;
+	}
 
 
 	public void OnStart()
 	{
 		_startScreen.gameObject.SetActive(true);
-		
+
 		_startScreen.StartButtonPressed   += _gameStartup.Startup;
 		_gameStartup.CountdownEnded       += _gameManager.ResumeGame;
 		_gameStartup.CountdownEnded       += _startScreen.Deactivate;

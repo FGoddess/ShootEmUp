@@ -58,7 +58,7 @@ public sealed class BulletSystem : MonoBehaviour, IGameStartListener, IGameFixed
 			return;
 		if (bullet.IsPlayer == team.IsPlayer)
 			return;
-
+		
 		if (other.TryGetComponent(out HitPointsComponent hitPoints))
 			hitPoints.TakeDamage(bullet.Damage);
 	}

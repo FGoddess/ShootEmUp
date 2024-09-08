@@ -1,18 +1,22 @@
-﻿using Character;
-using Components;
-using Enemy;
-using UnityEngine;
+﻿using UnityEngine;
+using Zenject;
 
 namespace Bullets
 {
-public class BulletSetupSystem : MonoBehaviour
+public sealed class BulletSetupSystem
 {
-	[SerializeField]
-	private BulletSystem _bulletSystem;
-	[SerializeField]
-	private BulletConfig _enemyConfig;
-	[SerializeField]
-	private BulletConfig _playerConfig;
+	private readonly BulletConfig _enemyConfig;
+	private readonly BulletConfig _playerConfig;
+	private readonly BulletSystem _bulletSystem;
+
+	private BulletSetupSystem([Inject(Id = "playerBulletConfig")] BulletConfig playerConfig,
+	                          [Inject(Id = "enemyBulletConfig")]  BulletConfig enemyConfig,
+	                          BulletSystem                                     bulletSystem)
+	{
+		_playerConfig = playerConfig;
+		_enemyConfig  = enemyConfig;
+		_bulletSystem = bulletSystem;
+	}
 
 
 	public void OnCharacterFired(Vector2 position, Vector2 direction)

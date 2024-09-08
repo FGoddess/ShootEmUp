@@ -1,19 +1,21 @@
-﻿using System;
-using Common;
+﻿using Common;
 using Components;
 using Input;
-using UnityEngine;
 
 namespace Controllers
 {
-public class MoveController : MonoBehaviour, IGameResumeListener, IGamePauseListener
+public class MoveController : IGameResumeListener, IGamePauseListener
 {
-	[SerializeField]
-	private MoveComponent _moveComponent;
-	[SerializeField]
-	private InputManager _inputManager;
+	private readonly MoveComponent _moveComponent;
+	private readonly InputManager  _inputManager;
 
-	
+	public MoveController(MoveComponent moveComponent, InputManager inputManager)
+	{
+		_moveComponent = moveComponent;
+		_inputManager  = inputManager;
+	}
+
+
 	public void OnResume()
 	{
 		_inputManager.MoveDirChanged += _moveComponent.MoveByRigidbodyVelocity;

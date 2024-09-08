@@ -1,13 +1,18 @@
 ﻿using Bullets;
 using Enemy.Agents;
 using UnityEngine;
+using Zenject;
 
 namespace Controllers
 {
-public class EnemyFireController : MonoBehaviour
+public class EnemyFireController 
 {
-	[SerializeField]
-	private BulletSetupSystem _bulletSetupSystem;
+	private readonly BulletSetupSystem _bulletSetupSystem;
+
+	public EnemyFireController(BulletSetupSystem bulletSetupSystem)
+	{
+		_bulletSetupSystem = bulletSetupSystem;
+	}
 
 	public void OnEnemySpawned(EnemyAttackAgent agent)
 	{
@@ -18,6 +23,5 @@ public class EnemyFireController : MonoBehaviour
 	{
 		agent.WeaponComponent.Fired -= _bulletSetupSystem.OnEnemyFired;
 	}
-	
 }
 }
