@@ -1,24 +1,26 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Common
 {
 public abstract class ObjectPool<T> where T : MonoBehaviour
 {
-	private readonly T         _prefab;
-	private readonly Transform _container;
+	private readonly IFactory<Transform, T> _factory;
+	private readonly Transform              _container;
 
 	private readonly Queue<T> _pool = new();
 
 
-	protected ObjectPool(T prefab, Transform container, int initialCount)
+	protected ObjectPool(IFactory<Transform, T> factory, Transform container, int initialCount)
 	{
-		_prefab       = prefab;
-		_container    = container;
-		
+		_factory   = factory;
+		_container = container;
+
 		for (var i = 0; i < initialCount; i++)
 		{
-			var obj = Object.Instantiate(_prefab, _container);
+			var obj = _factory.Create(_container);
+			obj.gameObject.SetActive(false);
 			_pool.Enqueue(obj);
 		}
 	}
@@ -26,7 +28,7 @@ public abstract class ObjectPool<T> where T : MonoBehaviour
 	public T GetFromPool(Transform container)
 	{
 		T obj;
-		
+
 		if (_pool.Count > 0)
 		{
 			obj = _pool.Dequeue();
@@ -34,12 +36,13 @@ public abstract class ObjectPool<T> where T : MonoBehaviour
 			return obj;
 		}
 
-		obj = Object.Instantiate(_prefab, container);
+		obj = _factory.Create(container);
 		return obj;
 	}
 
 	public void ReturnToPool(T obj)
 	{
+		obj.gameObject.SetActive(false);
 		obj.transform.SetParent(_container);
 		_pool.Enqueue(obj);
 	}

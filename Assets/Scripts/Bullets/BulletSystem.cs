@@ -1,33 +1,43 @@
 using System.Collections.Generic;
 using Common;
 using Components;
+using Enemy;
 using Level;
 using UnityEngine;
+using Zenject;
 
 namespace Bullets
 {
-public sealed class BulletSystem : MonoBehaviour, IGameStartListener, IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener
+public sealed class BulletSystem : IGameStartListener, IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener
 {
-	[SerializeField]
-	private Transform _container;
-	[SerializeField]
-	private Transform _worldTransform;
-	[SerializeField]
-	private Bullet _bulletPrefab;
-	[SerializeField]
-	private int _initialCount = 10;
-	[SerializeField]
-	private LevelBounds _levelBounds;
-
+	private readonly Transform     _container;
+	private readonly Transform     _worldTransform;
+	private readonly int           _initialCount;
+	private readonly LevelBounds   _levelBounds;
+	private readonly BulletFactory _bulletFactory;
 
 	private BulletsPool _bulletsPool;
 
 	private readonly List<Bullet> _activeBullets = new();
 
+	public BulletSystem([Inject(Id = DiHelper.BULLET_CONTAINER)] Transform container,
+	                    [Inject(Id = DiHelper.WORLD_TRANSFORM)]
+	                    Transform worldTransform,
+	                    BulletFactory bulletFactory,
+	                    LevelBounds   levelBounds,
+	                    int           initialCount)
+	{
+		_container      = container;
+		_worldTransform = worldTransform;
+		_bulletFactory  = bulletFactory;
+		_levelBounds    = levelBounds;
+		_initialCount   = initialCount;
+	}
+
 
 	public void OnStart()
 	{
-		_bulletsPool = new BulletsPool(_bulletPrefab, _container, _initialCount);
+		_bulletsPool = new BulletsPool(_bulletFactory, _container, _initialCount);
 	}
 
 	public void OnFixedUpdate()
@@ -58,7 +68,7 @@ public sealed class BulletSystem : MonoBehaviour, IGameStartListener, IGameFixed
 			return;
 		if (bullet.IsPlayer == team.IsPlayer)
 			return;
-		
+
 		if (other.TryGetComponent(out HitPointsComponent hitPoints))
 			hitPoints.TakeDamage(bullet.Damage);
 	}
@@ -68,16 +78,6 @@ public sealed class BulletSystem : MonoBehaviour, IGameStartListener, IGameFixed
 		_activeBullets.Remove(bullet);
 		bullet.OnCollisionEntered -= OnBulletCollision;
 		_bulletsPool.ReturnToPool(bullet);
-	}
-
-	public struct Args
-	{
-		public Vector2 Position;
-		public Vector2 Velocity;
-		public Color   Color;
-		public int     PhysicsLayer;
-		public int     Damage;
-		public bool    IsPlayer;
 	}
 
 	public void OnPause()
@@ -90,6 +90,17 @@ public sealed class BulletSystem : MonoBehaviour, IGameStartListener, IGameFixed
 	{
 		foreach (var bullet in _activeBullets)
 			bullet.OnResume();
+	}
+
+
+	public struct Args
+	{
+		public Vector2 Position;
+		public Vector2 Velocity;
+		public Color   Color;
+		public int     PhysicsLayer;
+		public int     Damage;
+		public bool    IsPlayer;
 	}
 }
 }

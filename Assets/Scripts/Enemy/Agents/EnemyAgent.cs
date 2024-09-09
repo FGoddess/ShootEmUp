@@ -26,7 +26,7 @@ public class EnemyAgent : MonoBehaviour, IGameFixedUpdateListener
 
 	public void OnPause()
 	{
-		_hitPointsComponent.HpEmpty += OnDied;
+		_hitPointsComponent.HpEmpty -= OnDied;
 	}
 
 	public void OnFixedUpdate()

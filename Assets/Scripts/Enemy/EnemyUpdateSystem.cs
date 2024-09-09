@@ -39,6 +39,7 @@ public class EnemyUpdateSystem : IGameResumeListener, IGamePauseListener, IGameF
 	private void OnEnemySpawned(EnemyAgent enemy)
 	{
 		_activeEnemies.Add(enemy);
+		enemy.OnResume();
 	}
 
 	private void OnEnemyDied(EnemyAgent enemy)

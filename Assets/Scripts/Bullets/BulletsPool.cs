@@ -1,10 +1,12 @@
 ﻿using Common;
 using UnityEngine;
+using Zenject;
 
 namespace Bullets
 {
 public class BulletsPool : ObjectPool<Bullet>
 {
-	public BulletsPool(Bullet prefab, Transform container, int initialCount) : base(prefab, container, initialCount) { }
+	public BulletsPool(IFactory<Transform, Bullet> factory, Transform container, int initialCount) :
+		base(factory, container, initialCount) { }
 }
 }

@@ -14,14 +14,14 @@ public sealed class Bullet : MonoBehaviour
 
 
 	private Vector2 _velocity;
-	
+
 	public event Action<Bullet, Collision2D> OnCollisionEntered;
 
 
 	public bool IsPlayer { get; private set; }
 	public int  Damage   { get; private set; }
 
-	
+
 	public void OnPause()
 	{
 		_rigidbody2D.velocity = Vector2.zero;
@@ -39,6 +39,8 @@ public sealed class Bullet : MonoBehaviour
 
 	public void Setup(BulletSystem.Args args)
 	{
+		gameObject.SetActive(true);
+		
 		_velocity             = args.Velocity;
 		_rigidbody2D.velocity = _velocity;
 		gameObject.layer      = args.PhysicsLayer;
@@ -47,7 +49,5 @@ public sealed class Bullet : MonoBehaviour
 		IsPlayer              = args.IsPlayer;
 		Damage                = args.Damage;
 	}
-
-	
 }
 }

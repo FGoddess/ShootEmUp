@@ -2,23 +2,20 @@ using System;
 using Common;
 using Enemy.Agents;
 using UnityEngine;
+using Zenject;
 
 namespace Enemy
 {
-public sealed class EnemySpawner : MonoBehaviour, IGameStartListener, IGameUpdateListener
+public sealed class EnemySpawner : IGameStartListener, IGameUpdateListener
 {
-	[SerializeField]
-	private Transform _container;
-	[SerializeField]
-	private Transform _worldTransform;
-	[SerializeField]
-	private EnemyAgent _enemyPrefab;
-	[SerializeField]
-	private int _initialCount = 10;
-	[SerializeField]
-	private int _maxActiveEnemiesCount = 7;
-
 	private EnemyPool _enemyPool;
+
+	private readonly Transform _container;
+	private readonly Transform _worldTransform;
+	private readonly int       _initialCount;
+	private readonly int       _maxActiveEnemiesCount;
+
+	private readonly EnemyFactory _enemyFactory;
 
 	private float _spawnTimer;
 	private int   _activeEnemiesCount;
@@ -27,11 +24,25 @@ public sealed class EnemySpawner : MonoBehaviour, IGameStartListener, IGameUpdat
 
 	public event Action<EnemyAgent> EnemySpawned;
 	public event Action<EnemyAgent> EnemyDied;
-	
+
+	public EnemySpawner([Inject(Id = DiHelper.ENEMY_CONTAINER)] Transform container,
+	                    [Inject(Id = DiHelper.WORLD_TRANSFORM)]
+	                    Transform worldTransform,
+	                    EnemyFactory enemyFactory,
+	                    int          initialCount,
+	                    int          maxActiveEnemiesCount)
+	{
+		_container             = container;
+		_worldTransform        = worldTransform;
+		_enemyFactory          = enemyFactory;
+		_initialCount          = initialCount;
+		_maxActiveEnemiesCount = maxActiveEnemiesCount;
+	}
+
 
 	public void OnStart()
 	{
-		_enemyPool = new EnemyPool(_enemyPrefab, _container, _initialCount);
+		_enemyPool = new EnemyPool(_enemyFactory, _container, _initialCount);
 	}
 
 	public void OnUpdate()
@@ -41,12 +52,11 @@ public sealed class EnemySpawner : MonoBehaviour, IGameStartListener, IGameUpdat
 			_spawnTimer += Time.deltaTime;
 			return;
 		}
-
 		_spawnTimer = 0f;
 
 		if (_activeEnemiesCount >= _maxActiveEnemiesCount)
 			return;
-		
+
 		var enemy = _enemyPool.GetFromPool(_worldTransform);
 		enemy.Died += OnEnemyDied;
 		EnemySpawned?.Invoke(enemy);

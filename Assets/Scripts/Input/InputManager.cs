@@ -1,6 +1,7 @@
 using System;
 using Common;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Input
 {
@@ -19,12 +20,13 @@ public sealed class InputManager : IGameFixedUpdateListener, IGameUpdateListener
 			_isFireRequired = true;
 
 		_moveDir = new Vector2(UnityEngine.Input.GetAxis("Horizontal"), 0);
+		
 	}
 
 	public void OnFixedUpdate()
 	{
 		MoveDirChanged?.Invoke(_moveDir);
-
+		
 		if (_isFireRequired)
 		{
 			FireRequired?.Invoke();

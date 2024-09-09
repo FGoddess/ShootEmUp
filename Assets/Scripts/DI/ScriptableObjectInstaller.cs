@@ -1,4 +1,5 @@
 ﻿using Bullets;
+using Common;
 using UnityEngine;
 
 namespace DI
@@ -10,11 +11,11 @@ public class ScriptableObjectInstaller : Zenject.ScriptableObjectInstaller<Scrip
 	private BulletConfig _playerBulletConfig;
 	[SerializeField]
 	private BulletConfig _enemyBulletConfig;
-	
+
 	public override void InstallBindings()
 	{
-		Container.Bind<BulletConfig>().WithId("playerBulletConfig").FromInstance(_playerBulletConfig);
-		Container.Bind<BulletConfig>().WithId("enemyBulletConfig").FromInstance(_enemyBulletConfig);
+		Container.Bind<BulletConfig>().WithId(DiHelper.PLAYER_BULLET_CONFIG).FromInstance(_playerBulletConfig);
+		Container.Bind<BulletConfig>().WithId(DiHelper.ENEMY_BULLET_CONFIG).FromInstance(_enemyBulletConfig);
 	}
 }
 }

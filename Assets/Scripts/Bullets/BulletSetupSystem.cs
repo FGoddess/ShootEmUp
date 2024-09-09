@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Common;
+using UnityEngine;
 using Zenject;
 
 namespace Bullets
@@ -9,9 +10,10 @@ public sealed class BulletSetupSystem
 	private readonly BulletConfig _playerConfig;
 	private readonly BulletSystem _bulletSystem;
 
-	private BulletSetupSystem([Inject(Id = "playerBulletConfig")] BulletConfig playerConfig,
-	                          [Inject(Id = "enemyBulletConfig")]  BulletConfig enemyConfig,
-	                          BulletSystem                                     bulletSystem)
+	private BulletSetupSystem([Inject(Id = DiHelper.PLAYER_BULLET_CONFIG)] BulletConfig playerConfig,
+	                          [Inject(Id = DiHelper.ENEMY_BULLET_CONFIG)]
+	                          BulletConfig enemyConfig,
+	                          BulletSystem bulletSystem)
 	{
 		_playerConfig = playerConfig;
 		_enemyConfig  = enemyConfig;
