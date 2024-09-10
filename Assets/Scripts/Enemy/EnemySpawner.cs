@@ -25,9 +25,8 @@ public sealed class EnemySpawner : IGameStartListener, IGameUpdateListener
 	public event Action<EnemyAgent> EnemySpawned;
 	public event Action<EnemyAgent> EnemyDied;
 
-	public EnemySpawner([Inject(Id = DiHelper.ENEMY_CONTAINER)] Transform container,
-	                    [Inject(Id = DiHelper.WORLD_TRANSFORM)]
-	                    Transform worldTransform,
+	public EnemySpawner(Transform    container,
+	                    Transform    worldTransform,
 	                    EnemyFactory enemyFactory,
 	                    int          initialCount,
 	                    int          maxActiveEnemiesCount)

@@ -10,8 +10,7 @@ public sealed class BulletSetupSystem
 	private readonly BulletConfig _playerConfig;
 	private readonly BulletSystem _bulletSystem;
 
-	private BulletSetupSystem([Inject(Id = DiHelper.PLAYER_BULLET_CONFIG)] BulletConfig playerConfig,
-	                          [Inject(Id = DiHelper.ENEMY_BULLET_CONFIG)]
+	private BulletSetupSystem(BulletConfig playerConfig,
 	                          BulletConfig enemyConfig,
 	                          BulletSystem bulletSystem)
 	{

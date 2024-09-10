@@ -20,9 +20,8 @@ public sealed class BulletSystem : IGameStartListener, IGameFixedUpdateListener,
 
 	private readonly List<Bullet> _activeBullets = new();
 
-	public BulletSystem([Inject(Id = DiHelper.BULLET_CONTAINER)] Transform container,
-	                    [Inject(Id = DiHelper.WORLD_TRANSFORM)]
-	                    Transform worldTransform,
+	public BulletSystem(Transform     container,
+	                    Transform     worldTransform,
 	                    BulletFactory bulletFactory,
 	                    LevelBounds   levelBounds,
 	                    int           initialCount)

@@ -53,30 +53,25 @@ public class SceneInstaller : MonoInstaller
 		Container.BindInterfacesAndSelfTo<GameManager>().AsSingle().NonLazy();
 		Container.BindInterfacesAndSelfTo<InputManager>().AsSingle().NonLazy();
 
-		Container.BindInterfacesAndSelfTo<BulletSetupSystem>().AsSingle();
-
 		Container.BindInterfacesAndSelfTo<EnemyPositions>().FromComponentInHierarchy().AsSingle();
 		Container.BindInterfacesAndSelfTo<EnemySetupSystem>().AsSingle();
 		Container.BindInterfacesAndSelfTo<EnemyUpdateSystem>().AsSingle().NonLazy();
-		
+
 		Container.BindInterfacesAndSelfTo<LevelBounds>().FromComponentInHierarchy().AsSingle();
 		Container.BindInterfacesAndSelfTo<LevelBackground>().FromComponentInHierarchy().AsSingle();
 	}
 
 	private void InstallFactories()
 	{
-		Container.Bind<Transform>().WithId(DiHelper.ENEMY_CONTAINER).FromInstance(_enemyContainer);
-		Container.Bind<Transform>().WithId(DiHelper.BULLET_CONTAINER).FromInstance(_bulletContainer);
-		Container.Bind<Transform>().WithId(DiHelper.WORLD_TRANSFORM).FromInstance(_worldTransform);
-
 		Container.Bind<EnemyAgent>().FromInstance(_enemyPrefab);
 		Container.Bind<EnemyFactory>().AsSingle();
 
 		Container.Bind<Bullet>().FromInstance(_bulletPrefab);
 		Container.Bind<BulletFactory>().AsSingle();
-		
-		Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle().WithArguments(_initialCount, _maxActiveEnemiesCount);
-		Container.BindInterfacesAndSelfTo<BulletSystem>().AsSingle().WithArguments(_initialCount);
+
+		Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle()
+		         .WithArguments(_enemyContainer, _worldTransform, _initialCount, _maxActiveEnemiesCount);
+		Container.BindInterfacesAndSelfTo<BulletSystem>().AsSingle().WithArguments(_bulletContainer, _worldTransform, _initialCount);
 	}
 
 	private void InstallControllers()

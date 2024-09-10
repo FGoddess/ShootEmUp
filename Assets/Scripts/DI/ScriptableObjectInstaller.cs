@@ -14,8 +14,7 @@ public class ScriptableObjectInstaller : Zenject.ScriptableObjectInstaller<Scrip
 
 	public override void InstallBindings()
 	{
-		Container.Bind<BulletConfig>().WithId(DiHelper.PLAYER_BULLET_CONFIG).FromInstance(_playerBulletConfig);
-		Container.Bind<BulletConfig>().WithId(DiHelper.ENEMY_BULLET_CONFIG).FromInstance(_enemyBulletConfig);
+		Container.BindInterfacesAndSelfTo<BulletSetupSystem>().AsSingle().WithArguments(_playerBulletConfig, _enemyBulletConfig);
 	}
 }
 }
