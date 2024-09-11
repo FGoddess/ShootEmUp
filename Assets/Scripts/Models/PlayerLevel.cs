@@ -2,7 +2,10 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public sealed class PlayerLevel : MonoBehaviour
+namespace Models
+{
+[Serializable]
+public sealed class PlayerLevel
 {
 	public event Action      OnLevelUp;
 	public event Action<int> OnExperienceChanged;
@@ -15,6 +18,11 @@ public sealed class PlayerLevel : MonoBehaviour
 
 	[ShowInInspector] [ReadOnly]
 	public int RequiredExperience => 100 * (CurrentLevel + 1);
+
+	public PlayerLevel(int currentExperience)
+	{
+		CurrentExperience = currentExperience;
+	}
 
 	[Button]
 	public void AddExperience(int range)
@@ -39,4 +47,5 @@ public sealed class PlayerLevel : MonoBehaviour
 	{
 		return CurrentExperience == RequiredExperience;
 	}
+}
 }

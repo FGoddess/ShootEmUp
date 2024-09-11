@@ -2,6 +2,9 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+namespace Models
+{
+[Serializable]
 public sealed class UserInfo
 {
 	public event Action<string> OnNameChanged;
@@ -16,6 +19,13 @@ public sealed class UserInfo
 
 	[ShowInInspector] [ReadOnly]
 	public Sprite Icon { get; private set; }
+
+	public UserInfo(string name, string description, Sprite icon)
+	{
+		Name        = name;
+		Description = description;
+		Icon        = icon;
+	}
 
 	[Button]
 	public void ChangeName(string name)
@@ -37,4 +47,5 @@ public sealed class UserInfo
 		Icon = icon;
 		OnIconChanged?.Invoke(icon);
 	}
+}
 }

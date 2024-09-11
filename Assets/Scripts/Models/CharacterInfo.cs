@@ -3,31 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 
+namespace Models
+{
+[Serializable]
 public sealed class CharacterInfo
 {
 	public event Action<CharacterStat> OnStatAdded;
 	public event Action<CharacterStat> OnStatRemoved;
 
 	[ShowInInspector]
-	private readonly HashSet<CharacterStat> stats = new();
+	private readonly HashSet<CharacterStat> _stats;
+
+	public CharacterInfo(HashSet<CharacterStat> stats)
+	{
+		_stats = stats;
+	}
 
 	[Button]
 	public void AddStat(CharacterStat stat)
 	{
-		if (stats.Add(stat))
+		if (_stats.Add(stat))
 			OnStatAdded?.Invoke(stat);
 	}
 
 	[Button]
 	public void RemoveStat(CharacterStat stat)
 	{
-		if (stats.Remove(stat))
+		if (_stats.Remove(stat))
 			OnStatRemoved?.Invoke(stat);
 	}
 
 	public CharacterStat GetStat(string name)
 	{
-		foreach (var stat in stats)
+		foreach (var stat in _stats)
 			if (stat.Name == name)
 				return stat;
 
@@ -36,6 +44,7 @@ public sealed class CharacterInfo
 
 	public CharacterStat[] GetStats()
 	{
-		return stats.ToArray();
+		return _stats.ToArray();
 	}
+}
 }
