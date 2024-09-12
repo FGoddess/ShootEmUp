@@ -1,10 +1,15 @@
+using UniRx;
+
 namespace Presenters.Interfaces
 {
 public interface IPlayerLevelPresenter : IPresenter
 {
-	public int  Level              { get; }
-	public int  CurrentExperience  { get; }
-	public int  RequiredExperience { get; }
-	public bool CanLevelUp         { get; }
+	public ReadOnlyReactiveProperty<int>  Level              { get; }
+	public ReadOnlyReactiveProperty<int>  CurrentExperience  { get; }
+	public ReadOnlyReactiveProperty<int>  RequiredExperience { get; }
+	public ReadOnlyReactiveProperty<bool> CanLevelUp         { get; }
+
+	public ReactiveCommand LevelUpCommand { get; }
+	public void LevelUp();
 }
 }

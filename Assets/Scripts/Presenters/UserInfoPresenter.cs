@@ -1,6 +1,7 @@
 using System;
 using Models;
 using Presenters.Interfaces;
+using UniRx;
 using UnityEngine;
 using Views;
 
@@ -8,48 +9,43 @@ namespace Presenters
 {
 public class UserInfoPresenter : IUserInfoPresenter, IDisposable
 {
-	public string Nickname    { get; }
-	public string Description { get; }
-	public Sprite Icon        { get; }
+	public ReadOnlyReactiveProperty<string> Nickname    { get; }
+	public ReadOnlyReactiveProperty<string> Description { get; }
+	public ReadOnlyReactiveProperty<Sprite> Icon        { get; }
 
 
-	private readonly UserInfo     _userInfo;
-	private readonly UserInfoView _view;
+	private readonly UserInfo _userInfo;
 
-	public UserInfoPresenter(UserInfo userInfo, UserInfoView view)
+	public UserInfoPresenter(UserInfo userInfo)
 	{
 		_userInfo = userInfo;
-		_view     = view;
 
-		Nickname    = userInfo.Name;
-		Description = userInfo.Description;
-		Icon        = userInfo.Icon;
-
-		userInfo.OnNameChanged        += HandleNicknameChanged;
-		userInfo.OnDescriptionChanged += HandleDescriptionChanged;
-		userInfo.OnIconChanged        += HandleIconChanged;
+		Nickname    = new ReadOnlyReactiveProperty<string>(userInfo.Name);
+		Description = new ReadOnlyReactiveProperty<string>(userInfo.Description);
+		Icon        = new ReadOnlyReactiveProperty<Sprite>(userInfo.Icon);
 	}
 
-	private void HandleNicknameChanged(string nickname)
+	/*private void OnNicknameChanged(string nickname)
 	{
 		_view.ChangeNickname(nickname);
 	}
 
-	private void HandleDescriptionChanged(string description)
+	private void OnDescriptionChanged(string description)
 	{
 		_view.ChangeDescription(description);
 	}
 
-	private void HandleIconChanged(Sprite icon)
+	private void OnIconChanged(Sprite icon)
 	{
 		_view.ChangeIcon(icon);
 	}
 
 	public void Dispose()
 	{
-		_userInfo.OnNameChanged        -= HandleNicknameChanged;
-		_userInfo.OnDescriptionChanged -= HandleDescriptionChanged;
-		_userInfo.OnIconChanged        -= HandleIconChanged;
-	}
+		_userInfo.OnNameChanged        -= OnNicknameChanged;
+		_userInfo.OnDescriptionChanged -= OnDescriptionChanged;
+		_userInfo.OnIconChanged        -= OnIconChanged;
+	}*/
+	public void Dispose() { }
 }
 }

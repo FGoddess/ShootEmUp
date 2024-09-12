@@ -1,52 +1,49 @@
 ﻿using System;
 using Models;
 using Presenters.Interfaces;
-using UnityEngine;
-using Views;
+using UniRx;
 
 namespace Presenters
 {
 public class PlayerLevelPresenter : IPlayerLevelPresenter, IDisposable
 {
-	public int  Level              { get; }
-	public int  CurrentExperience  { get; }
-	public int  RequiredExperience { get; }
-	public bool CanLevelUp         { get; }
+	public ReadOnlyReactiveProperty<int>  Level              { get; }
+	public ReadOnlyReactiveProperty<int>  CurrentExperience  { get; }
+	public ReadOnlyReactiveProperty<int>  RequiredExperience { get; }
+	public ReadOnlyReactiveProperty<bool> CanLevelUp         { get; }
+	public ReactiveCommand                LevelUpCommand     { get; }
+
+	private readonly PlayerLevel _playerLevel;
+
+	private readonly CompositeDisposable _disposables = new();
 
 
-	private readonly PlayerLevel     _playerLevel;
-	private readonly PlayerLevelView _view;
-
-
-	public PlayerLevelPresenter(PlayerLevel playerLevel, PlayerLevelView view)
+	public PlayerLevelPresenter(PlayerLevel playerLevel)
 	{
 		_playerLevel = playerLevel;
-		_view        = view;
 
-		Level              = playerLevel.CurrentLevel;
-		CurrentExperience  = playerLevel.CurrentExperience;
-		RequiredExperience = playerLevel.RequiredExperience;
-		CanLevelUp         = playerLevel.CanLevelUp();
+		Level              = new ReadOnlyReactiveProperty<int>(_playerLevel.CurrentLevel);
+		CurrentExperience  = new ReadOnlyReactiveProperty<int>(_playerLevel.CurrentExperience);
+		RequiredExperience = new ReadOnlyReactiveProperty<int>(_playerLevel.RequiredExperience);
+		CanLevelUp         = new ReadOnlyReactiveProperty<bool>(_playerLevel.CanLevelUp);
 
-		playerLevel.OnLevelUp           += OnLevelUp;
-		playerLevel.OnExperienceChanged += OnExperienceChanged;
+		LevelUpCommand = new ReactiveCommand(CanLevelUp);
+		LevelUpCommand.Subscribe(OnLevelUpCommand).AddTo(_disposables);
 	}
 
-	private void OnLevelUp()
+	private void OnLevelUpCommand(Unit _)
 	{
-		_view.SetLevel(_playerLevel.CurrentLevel);
-		OnExperienceChanged(_playerLevel.CurrentExperience);
+		LevelUp();
 	}
 
-	private void OnExperienceChanged(int experience)
+	public void LevelUp()
 	{
-		_view.SetExperienceChanged(experience, _playerLevel.RequiredExperience);
+		_playerLevel.LevelUp();
 	}
 
 	public void Dispose()
 	{
-		_playerLevel.OnLevelUp           -= OnLevelUp;
-		_playerLevel.OnExperienceChanged -= OnExperienceChanged;
+		_disposables.Dispose();
 	}
 }
 }

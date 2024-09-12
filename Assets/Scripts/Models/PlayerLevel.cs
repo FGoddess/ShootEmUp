@@ -1,5 +1,6 @@
 using System;
 using Sirenix.OdinInspector;
+using UniRx;
 using UnityEngine;
 
 namespace Models
@@ -7,45 +8,42 @@ namespace Models
 [Serializable]
 public sealed class PlayerLevel
 {
-	public event Action      OnLevelUp;
-	public event Action<int> OnExperienceChanged;
+	[ShowInInspector] [ReadOnly]
+	public ReactiveProperty<int> CurrentLevel { get; private set; } = new(1);
 
 	[ShowInInspector] [ReadOnly]
-	public int CurrentLevel { get; private set; } = 1;
+	public ReactiveProperty<int> CurrentExperience { get; private set; } = new(0);
 
 	[ShowInInspector] [ReadOnly]
-	public int CurrentExperience { get; private set; }
-
+	public IReadOnlyReactiveProperty<int> RequiredExperience { get; private set; }
 	[ShowInInspector] [ReadOnly]
-	public int RequiredExperience => 100 * (CurrentLevel + 1);
+	public IReadOnlyReactiveProperty<bool> CanLevelUp { get; private set; }
 
-	public PlayerLevel(int currentExperience)
+	public PlayerLevel()
 	{
-		CurrentExperience = currentExperience;
+		RequiredExperience = CurrentLevel
+		                     .Select(level => 100 * (level + 1))
+		                     .ToReactiveProperty();
+
+		CanLevelUp = CurrentExperience.CombineLatest(RequiredExperience, (current, required) => current == required)
+		                              .ToReactiveProperty();
 	}
 
 	[Button]
 	public void AddExperience(int range)
 	{
-		int xp = Math.Min(CurrentExperience + range, RequiredExperience);
-		CurrentExperience = xp;
-		OnExperienceChanged?.Invoke(xp);
+		int xp = Math.Min(CurrentExperience.Value + range, RequiredExperience.Value);
+		CurrentExperience.SetValueAndForceNotify(xp);
 	}
 
 	[Button]
 	public void LevelUp()
 	{
-		if (CanLevelUp())
-		{
-			CurrentExperience = 0;
-			CurrentLevel++;
-			OnLevelUp?.Invoke();
-		}
-	}
+		if (!CanLevelUp.Value)
+			return;
 
-	public bool CanLevelUp()
-	{
-		return CurrentExperience == RequiredExperience;
+		CurrentExperience.SetValueAndForceNotify(0);
+		CurrentLevel.SetValueAndForceNotify(CurrentLevel.Value + 1);
 	}
 }
 }

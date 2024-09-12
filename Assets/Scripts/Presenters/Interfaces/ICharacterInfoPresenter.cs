@@ -1,9 +1,10 @@
-﻿using Models;
+﻿using System.Collections.Generic;
+using Models;
 
 namespace Presenters.Interfaces
 {
 public interface ICharacterInfoPresenter : IPresenter
 {
-	public CharacterStat[] Stats { get; }
+	public IReadOnlyList<ICharacterStatPresenter> ProductPresenters { get; }
 }
 }

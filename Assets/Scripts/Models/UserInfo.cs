@@ -1,5 +1,6 @@
 using System;
 using Sirenix.OdinInspector;
+using UniRx;
 using UnityEngine;
 
 namespace Models
@@ -7,45 +8,38 @@ namespace Models
 [Serializable]
 public sealed class UserInfo
 {
-	public event Action<string> OnNameChanged;
-	public event Action<string> OnDescriptionChanged;
-	public event Action<Sprite> OnIconChanged;
+	[ShowInInspector] [ReadOnly]
+	public ReactiveProperty<string> Name { get; private set; }
 
 	[ShowInInspector] [ReadOnly]
-	public string Name { get; private set; }
+	public ReactiveProperty<string> Description { get; private set; }
 
 	[ShowInInspector] [ReadOnly]
-	public string Description { get; private set; }
-
-	[ShowInInspector] [ReadOnly]
-	public Sprite Icon { get; private set; }
+	public ReactiveProperty<Sprite> Icon { get; private set; }
 
 	public UserInfo(string name, string description, Sprite icon)
 	{
-		Name        = name;
-		Description = description;
-		Icon        = icon;
+		Name        = new ReactiveProperty<string>(name);
+		Description = new ReactiveProperty<string>(description);
+		Icon        = new ReactiveProperty<Sprite>(icon);
 	}
 
 	[Button]
 	public void ChangeName(string name)
 	{
-		Name = name;
-		OnNameChanged?.Invoke(name);
+		Name.Value = name;
 	}
 
 	[Button]
 	public void ChangeDescription(string description)
 	{
-		Description = description;
-		OnDescriptionChanged?.Invoke(description);
+		Description.Value = description;
 	}
 
 	[Button]
 	public void ChangeIcon(Sprite icon)
 	{
-		Icon = icon;
-		OnIconChanged?.Invoke(icon);
+		Icon.Value = icon;
 	}
 }
 }

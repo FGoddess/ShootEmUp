@@ -22,5 +22,10 @@ public class CharacterInfoView : MonoBehaviour
 		for (var i = 0; i < _stats.Length; i++)
 			_stats[i].text = $"{characterInfoPresenter.Stats[i].Name}: {characterInfoPresenter.Stats[i].Value}";*/
 	}
+
+	public void Hide()
+	{
+		
+	}
 }
 }

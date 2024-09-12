@@ -1,6 +1,7 @@
 ﻿using System;
 using Presenters.Interfaces;
 using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,30 +16,41 @@ public class UserInfoView : MonoBehaviour
 	[SerializeField]
 	private Image _icon;
 
+	private          IUserInfoPresenter  _userInfoPresenter;
+	private readonly CompositeDisposable _disposables = new();
+
+
 	public void Show(IPresenter presenter)
 	{
 		if (presenter is not IUserInfoPresenter userInfoPresenter)
 			throw new ArgumentException("CharacterPopup must implement ICharacterPresenter");
 
+		_userInfoPresenter = userInfoPresenter;
 
-		_nickname.text    = "@" + userInfoPresenter.Nickname;
-		_description.text = userInfoPresenter.Description;
-		_icon.sprite      = userInfoPresenter.Icon;
+		_userInfoPresenter.Nickname.Subscribe(ChangeNickname).AddTo(_disposables);
+		_userInfoPresenter.Description.Subscribe(ChangeDescription).AddTo(_disposables);
+		_userInfoPresenter.Icon.Subscribe(ChangeIcon).AddTo(_disposables);
 	}
 
-	public void ChangeNickname(string nickname)
+	private void ChangeNickname(string nickname)
 	{
-		_nickname.text = nickname;
+		_nickname.text = "@" + nickname;
 	}
 
-	public void ChangeDescription(string description)
+	private void ChangeDescription(string description)
 	{
 		_description.text = description;
 	}
 
-	public void ChangeIcon(Sprite icon)
+	private void ChangeIcon(Sprite icon)
 	{
 		_icon.sprite = icon;
+	}
+
+	public void Hide()
+	{
+		gameObject.SetActive(false);
+		_disposables.Clear();
 	}
 }
 }

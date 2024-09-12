@@ -1,12 +1,13 @@
 using System;
+using UniRx;
 using UnityEngine;
 
 namespace Presenters.Interfaces
 {
 public interface IUserInfoPresenter : IPresenter
 {
-	public string Nickname    { get; }
-	public string Description { get; }
-	public Sprite Icon        { get; }
+	public ReadOnlyReactiveProperty<string> Nickname    { get; }
+	public ReadOnlyReactiveProperty<string> Description { get; }
+	public ReadOnlyReactiveProperty<Sprite> Icon        { get; }
 }
 }

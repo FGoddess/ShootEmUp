@@ -2,6 +2,7 @@
 using Configs;
 using Models;
 using Presenters;
+using Presenters.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Views;
@@ -14,13 +15,9 @@ public class CharacterHelper : MonoBehaviour
 {
 	[SerializeField]
 	private ConfigCharacter _configCharacter;
-	[SerializeField]
-	private CharacterInfoView _characterInfoView;
-	[SerializeField]
-	private UserInfoView _userInfoView;
-	[SerializeField]
-	private PlayerLevelView _playerLevelView;
 
+	[Inject]
+	private CharacterPopup _characterPopup;
 
 	[SerializeField]
 	private UserInfo _userInfo;
@@ -48,15 +45,13 @@ public class CharacterHelper : MonoBehaviour
 
 		_userInfo      = new UserInfo(_configCharacter.Nickname, _configCharacter.Description, _configCharacter.Icon);
 		_characterInfo = new CharacterInfo(stats);
-		_playerLevel   = new PlayerLevel(_configCharacter.ExperienceCurrent);
+		_playerLevel   = new PlayerLevel();
 
-		var presenter            = _characterPresenterFactory.CreateCharacter(_characterInfo, _characterInfoView);
-		var userPresenter        = _characterPresenterFactory.CreateUser(_userInfo, _userInfoView);
-		var playerLevelPresenter = _characterPresenterFactory.CreatePlayer(_playerLevel, _playerLevelView);
+		//var presenter            = _characterPresenterFactory.CreateCharacter(_characterInfo);
+		var userPresenter        = _characterPresenterFactory.Create(_userInfo);
+		var playerLevelPresenter = _characterPresenterFactory.Create(_playerLevel);
 
-		_characterInfoView.Show(presenter);
-		_userInfoView.Show(userPresenter);
-		_playerLevelView.Show(playerLevelPresenter);
+		_characterPopup.Show(new[] { userPresenter, playerLevelPresenter });
 	}
 }
 }

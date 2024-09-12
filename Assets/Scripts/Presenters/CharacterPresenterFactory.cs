@@ -7,21 +7,24 @@ namespace Presenters
 {
 public class CharacterPresenterFactory
 {
-	public CharacterPresenterFactory() { }
-
-	public ICharacterInfoPresenter CreateCharacter(CharacterInfo characterInfo, CharacterInfoView view)
+	public CharacterPresenterFactory()
 	{
-		return new CharacterInfoInfoPresenter(characterInfo, view);
+		
 	}
 
-	public IUserInfoPresenter CreateUser(UserInfo userInfo, UserInfoView view)
+	/*public ICharacterInfoPresenter CreateCharacter(CharacterInfo characterInfo)
 	{
-		return new UserInfoPresenter(userInfo, view);
+		return new CharacterInfoPresenter(characterInfo);
+	}*/
+
+	public IPresenter Create(UserInfo userInfo)
+	{
+		return new UserInfoPresenter(userInfo);
 	}
 
-	public IPlayerLevelPresenter CreatePlayer(PlayerLevel playerLevel, PlayerLevelView view)
+	public IPresenter Create(PlayerLevel playerLevel)
 	{
-		return new PlayerLevelPresenter(playerLevel, view);
+		return new PlayerLevelPresenter(playerLevel);
 	}
 }
 }
