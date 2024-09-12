@@ -1,4 +1,6 @@
-﻿using Presenters;
+﻿using Configs;
+using Presenters;
+using UnityEngine;
 using Views;
 using Zenject;
 
@@ -10,6 +12,8 @@ public class SceneInstaller : MonoInstaller
 	{
 		InstallFactory();
 		InstallViews();
+		InstallManagers();
+		InstallUi();
 	}
 
 	private void InstallFactory()
@@ -23,6 +27,17 @@ public class SceneInstaller : MonoInstaller
 		Container.Bind<CharacterInfoView>().FromComponentInHierarchy().AsSingle();
 		Container.Bind<PlayerLevelView>().FromComponentInHierarchy().AsSingle();
 		Container.Bind<UserInfoView>().FromComponentInHierarchy().AsSingle();
+	}
+
+	private void InstallManagers()
+	{
+		Container.BindInterfacesAndSelfTo<CharactersManager>().AsSingle().NonLazy();
+	}
+
+	private void InstallUi()
+	{
+		Container.BindInterfacesAndSelfTo<UiCharactersScreen>().FromComponentInHierarchy().AsSingle();
+
 	}
 }
 }

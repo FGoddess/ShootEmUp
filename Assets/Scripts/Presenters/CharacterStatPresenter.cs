@@ -1,32 +1,25 @@
-﻿using Models;
+﻿using System;
+using Models;
 using Presenters.Interfaces;
-using Views;
+using UniRx;
 
 namespace Presenters
 {
-public class CharacterStatPresenter : ICharacterStatPresenter
+public class CharacterStatPresenter : ICharacterStatPresenter, IDisposable
 {
-	public string Name  { get; }
-	public int    Value { get; }
+	public string                        Name  { get; }
+	public ReadOnlyReactiveProperty<int> Value { get; }
 
-	private readonly CharacterStat     _characterStat;
-	private readonly CharacterStatView _view;
-
-
-	public CharacterStatPresenter(CharacterStat characterStat, CharacterStatView view)
+	
+	public CharacterStatPresenter(CharacterStat characterStat)
 	{
-		_characterStat     = characterStat;
-		_view = view;
-		
 		Name  = characterStat.Name;
-		Value = characterStat.Value;
-		
-		characterStat.OnValueChanged += OnValueChanged;
+		Value = new ReadOnlyReactiveProperty<int>(characterStat.Value);
 	}
-
-	private void OnValueChanged(int value)
+	
+	public void Dispose()
 	{
-		_view.SetValue(value);
+		Value?.Dispose();
 	}
 }
 }

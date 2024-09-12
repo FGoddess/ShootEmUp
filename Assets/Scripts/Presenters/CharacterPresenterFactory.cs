@@ -7,19 +7,19 @@ namespace Presenters
 {
 public class CharacterPresenterFactory
 {
-	public CharacterPresenterFactory()
+	public ICharacterInfoPresenter Create(CharacterInfo characterInfo)
 	{
-		
+		return new CharacterInfoPresenter(characterInfo, this);
 	}
-
-	/*public ICharacterInfoPresenter CreateCharacter(CharacterInfo characterInfo)
-	{
-		return new CharacterInfoPresenter(characterInfo);
-	}*/
 
 	public IPresenter Create(UserInfo userInfo)
 	{
 		return new UserInfoPresenter(userInfo);
+	}
+
+	public IPresenter Create(CharacterStat characterStat)
+	{
+		return new CharacterStatPresenter(characterStat);
 	}
 
 	public IPresenter Create(PlayerLevel playerLevel)

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Models;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -12,9 +11,6 @@ public class ConfigCharacter : SerializedScriptableObject
 	public string Nickname { get; private set; }
 	[field: SerializeField]
 	public string Description { get; private set; }
-	[field: SerializeField]
-	public string Level { get; private set; }
-	
 	[field: SerializeField]
 	public Sprite Icon { get; private set; }
 

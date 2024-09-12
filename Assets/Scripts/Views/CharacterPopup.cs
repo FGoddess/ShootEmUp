@@ -11,14 +11,19 @@ public class CharacterPopup : MonoBehaviour
 {
 	[SerializeField]
 	private Button _closeButton;
-
-	[Inject]
+	
 	private UserInfoView _userInfoView;
-	[Inject]
 	private PlayerLevelView _playerLevelView;
-	[Inject]
 	private CharacterInfoView _characterInfoView;
 
+
+	[Inject]
+	private void Construct(UserInfoView userInfoView, PlayerLevelView playerLevelView, CharacterInfoView characterInfoView)
+	{
+		_userInfoView      = userInfoView;
+		_playerLevelView   = playerLevelView;
+		_characterInfoView = characterInfoView;
+	}
 
 	private void Awake()
 	{

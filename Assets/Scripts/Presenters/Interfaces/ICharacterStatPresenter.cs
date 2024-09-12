@@ -1,8 +1,10 @@
-﻿namespace Presenters.Interfaces
+﻿using UniRx;
+
+namespace Presenters.Interfaces
 {
 public interface ICharacterStatPresenter : IPresenter
 {
-	public string Name  { get; }
-	public int    Value { get; }
+	public string                        Name  { get; }
+	public ReadOnlyReactiveProperty<int> Value { get; }
 }
 }

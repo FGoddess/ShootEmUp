@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Models;
+using UniRx;
 
 namespace Presenters.Interfaces
 {
 public interface ICharacterInfoPresenter : IPresenter
 {
-	public IReadOnlyList<ICharacterStatPresenter> ProductPresenters { get; }
+	public ReactiveDictionary<CharacterStat, ICharacterStatPresenter> StatsPresenters { get; }
 }
 }
