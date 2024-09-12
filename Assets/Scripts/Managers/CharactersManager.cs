@@ -4,8 +4,9 @@ using Configs;
 using Helpers;
 using Presenters;
 using Sirenix.OdinInspector;
+using Views;
 
-namespace Views
+namespace Managers
 {
 [Serializable]
 public class CharactersManager
