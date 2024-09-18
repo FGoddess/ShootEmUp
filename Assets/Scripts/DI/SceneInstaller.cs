@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core;
 using GameEngine;
+using SaveSystem.Encryption;
+using SaveSystem.Helpers;
 using SaveSystem.Repository;
 using SaveSystem.SaveLoad;
+using UnityEngine;
 using Zenject;
 
 namespace DI
@@ -20,10 +22,12 @@ public class SceneInstaller : MonoInstaller
 		         .AsSingle();
 		
 		Container.Bind<ServiceContext>().AsSingle().NonLazy();
-		Container.Bind<ResourceSaveLoader>().AsSingle().NonLazy();
-		Container.Bind<UnitSaveLoader>().AsSingle().NonLazy();
-		Container.Bind<GameRepository>().AsSingle().NonLazy();
-		Container.Bind<EntryPoint>().FromComponentInHierarchy().AsSingle();
+		Container.BindInterfacesAndSelfTo<ResourceSaveLoader>().AsSingle().NonLazy();
+		Container.BindInterfacesAndSelfTo<UnitSaveLoader>().AsSingle().NonLazy();
+		Container.BindInterfacesAndSelfTo<GameRepository>().AsSingle().NonLazy();
+		Container.BindInterfacesAndSelfTo<XorEncryptionService>().AsSingle().NonLazy();
+		
+		Container.Bind<SavesHelper>().FromComponentInHierarchy().AsSingle();
 	}
 
 	private List<object> GetAllServices(InjectContext context)

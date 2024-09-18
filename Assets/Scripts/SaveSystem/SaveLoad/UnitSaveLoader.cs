@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using GameEngine;
 using SaveSystem.Data;
-using UnityEditor;
 
 namespace SaveSystem.SaveLoad
 {
@@ -20,32 +20,55 @@ public class UnitSaveLoader : SaveLoader<UnitManager, List<UnitData>>
 				Position  = unit.transform.position,
 				Rotation  = unit.transform.eulerAngles
 			});
+
 		return data;
 	}
 
 	protected override void SetupData(UnitManager service, List<UnitData> data)
 	{
-		foreach (var unit in service.GetAllUnits().ToList())
-			service.DestroyUnit(unit);
+		var existingUnits  = service.GetAllUnits().ToList();
+		var unitsData      = new List<UnitData>(data);
+		var unitsToDestroy = new List<Unit>();
 
-		foreach (var unitData in data)
+		foreach (var unit in existingUnits)
 		{
-			var prefab = GetUnitPrefabByType(unitData.Type);
-			if (prefab != null)
+			var matchingData = unitsData.FirstOrDefault(u => u.Type == unit.Type);
+			if (matchingData != null)
 			{
-				var unit = service.SpawnUnit(prefab, unitData.Position, Quaternion.Euler(unitData.Rotation));
-				unit.HitPoints = unitData.HitPoints;
+				UpdateUnit(unit, matchingData);
+				unitsData.Remove(matchingData);
+			}
+			else
+			{
+				unitsToDestroy.Add(unit);
 			}
 		}
+
+		foreach (var unit in unitsToDestroy)
+			service.DestroyUnit(unit);
+
+		foreach (var unitData in unitsData)
+		{
+			var prefab = GetUnitPrefabByType(unitData.Type);
+			var unit = service.SpawnUnit(prefab, unitData.Position, Quaternion.Euler(unitData.Rotation));
+			unit.HitPoints = unitData.HitPoints;
+		}
+	}
+
+	private void UpdateUnit(Unit unit, UnitData data)
+	{
+		unit.HitPoints          = data.HitPoints;
+		unit.transform.position = data.Position;
+		unit.transform.rotation = Quaternion.Euler(data.Rotation);
 	}
 
 	private Unit GetUnitPrefabByType(string unitType)
 	{
 		var path   = $"Prefabs/UnitObjects/{unitType}";
 		var prefab = Resources.Load<Unit>(path);
-
+		
 		if (prefab == null)
-			Debug.LogError($"There is no prefab for type {unitType}");
+			throw new Exception($"There is no prefab for type {unitType}");
 
 		return prefab;
 	}

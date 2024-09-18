@@ -621,6 +621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7badd9ed2b8e49019f0a1a46ad5cf3bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unitsContainer: {fileID: 1263304700}
   unitManager:
     container: {fileID: 1263304700}
 --- !u!1001 &710706770

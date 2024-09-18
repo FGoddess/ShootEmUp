@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-namespace Core
+namespace SaveSystem.SaveLoad
 {
 public class ServiceContext
 {
