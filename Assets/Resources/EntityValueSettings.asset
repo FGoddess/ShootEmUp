@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44bae1cf0fb645f197e54e0bd53a7b2f, type: 3}
+  m_Name: EntityValueSettings
+  m_EditorClassIdentifier: 
+  local: 0
+  namespace: Atomic.Entities
+  directoryPath: Assets/Codegen
+  suffix: API
+  imports:
+  - Atomic.Elements
+  categories:
+  - name: Player
+    indexes:
+    - id: 0
+      name: HitPoints
+      type: ReactiveInt
+    - id: 1
+      name: Bullets
+      type: ReactiveInt
+    - id: 2
+      name: Kills
+      type: ReactiveInt
+    - id: 3
+      name: MaxBullets
+      type: int
+    - id: 4
+      name: MoveSpeed
+      type: float
+    - id: 5
+      name: RotationSpeed
+      type: float
+    - id: 6
+      name: IsShooting
+      type: bool
+    - id: 7
+      name: IsShootingPressed
+      type: ReactiveBool
+    - id: 8
+      name: ShootingCooldown
+      type: float
+    - id: 9
+      name: Root
+      type: Transform
+    - id: 10
+      name: RootView
+      type: Transform
+    - id: 11
+      name: InputDir
+      type: Vector2
+    - id: 12
+      name: LookTarget
+      type: Vector3
+    - id: 13
+      name: Animator
+      type: Animator
+    - id: 14
+      name: AnimatorDispatcher
+      type: AnimatorDispatcher
+    - id: 15
+      name: DamageRequest
+      type: BaseEvent<int>
+    - id: 16
+      name: DamageVFX
+      type: ParticleSystem
+    - id: 17
+      name: DamageSFX
+      type: AudioSource
+  - name: Enemy
+    indexes:
+    - id: 1
+      name: Target
+      type: Transform
+  - name: Spawner
+    indexes:
+    - id: 1
+      name: Prefab
+      type: SceneEntity
+    - id: 2
+      name: Points
+      type: Transform[]
