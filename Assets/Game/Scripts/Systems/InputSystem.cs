@@ -15,16 +15,16 @@ public class InputSystem : IExecuteSystem
 	
 	public void Execute()
 	{
-		if (Input.GetKeyDown(KeyCode.Keypad1))
+		if (Input.GetKeyDown(KeyCode.Alpha1))
 			Create(EUnitType.Swordsman, ETeamColor.Blue);
 
-		if (Input.GetKeyDown(KeyCode.Keypad2))
+		if (Input.GetKeyDown(KeyCode.Alpha2))
 			Create(EUnitType.Archer, ETeamColor.Blue);
 
-		if (Input.GetKeyDown(KeyCode.Keypad3))
+		if (Input.GetKeyDown(KeyCode.Alpha3))
 			Create(EUnitType.Swordsman, ETeamColor.Red);
 
-		if (Input.GetKeyDown(KeyCode.Keypad4))
+		if (Input.GetKeyDown(KeyCode.Alpha4))
 			Create(EUnitType.Archer, ETeamColor.Red);
 	}
 

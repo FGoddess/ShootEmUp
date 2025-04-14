@@ -13,7 +13,6 @@ public class UnitView : UnityView, IPositionListener
 
 	public void OnPosition(GameEntity entity, Vector3 value)
 	{
-		Debug.Log("da(");
 		transform.position = value;
 	}
 }

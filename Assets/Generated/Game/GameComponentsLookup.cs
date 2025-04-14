@@ -8,31 +8,43 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int Armor = 0;
-    public const int CreateUnitRequest = 1;
-    public const int Health = 2;
-    public const int Position = 3;
-    public const int TeamTag = 4;
-    public const int CreateUnitRequestListener = 5;
-    public const int PositionListener = 6;
+    public const int AttackRange = 0;
+    public const int CanAttack = 1;
+    public const int CreateUnitRequest = 2;
+    public const int Health = 3;
+    public const int Move = 4;
+    public const int NearestTarget = 5;
+    public const int Position = 6;
+    public const int SizeRadius = 7;
+    public const int TeamTag = 8;
+    public const int CreateUnitRequestListener = 9;
+    public const int PositionListener = 10;
 
-    public const int TotalComponents = 7;
+    public const int TotalComponents = 11;
 
     public static readonly string[] componentNames = {
-        "Armor",
+        "AttackRange",
+        "CanAttack",
         "CreateUnitRequest",
         "Health",
+        "Move",
+        "NearestTarget",
         "Position",
+        "SizeRadius",
         "TeamTag",
         "CreateUnitRequestListener",
         "PositionListener"
     };
 
     public static readonly System.Type[] componentTypes = {
-        typeof(Components.ArmorComponent),
+        typeof(Components.AttackRangeComponent),
+        typeof(Components.CanAttackComponent),
         typeof(Components.CreateUnitRequest),
         typeof(Components.HealthComponent),
+        typeof(Components.MoveComponent),
+        typeof(Components.NearestTargetComponent),
         typeof(Components.PositionComponent),
+        typeof(Components.SizeRadiusComponent),
         typeof(Components.TeamTagComponent),
         typeof(CreateUnitRequestListenerComponent),
         typeof(PositionListenerComponent)

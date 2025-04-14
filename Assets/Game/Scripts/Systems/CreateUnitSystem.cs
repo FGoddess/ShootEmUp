@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Components;
 using Entitas;
 using Factory;
 using UnityEngine;
@@ -32,16 +33,21 @@ public class CreateUnitSystem : ReactiveSystem<GameEntity>
 	{
 		foreach (var req in requests)
 		{
-			var unitType = req.createUnitRequest.UnitType;
-			var team     = req.createUnitRequest.TeamColor;
+			var unitType  = req.createUnitRequest.UnitType;
+			var teamColor = req.createUnitRequest.TeamColor;
 
 			var unit = Contexts.sharedInstance.game.CreateEntity();
 			unit.AddHealth(10);
-			unit.AddArmor(5);
-			unit.AddPosition(Vector3.zero);
-			
-			_factory.CreateView(unit, unitType, team);
-			
+			unit.AddAttackRange(3f);
+			unit.AddTeamTag(teamColor);
+			unit.AddSizeRadius(0.5f);
+			unit.AddMove(4f);
+			unit.isCanAttack = true;
+
+			var view = _factory.CreateView(unit, unitType, teamColor);
+
+			unit.AddPosition(view.transform.position);
+
 			req.Destroy();
 		}
 	}

@@ -8,25 +8,25 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public Components.ArmorComponent armor { get { return (Components.ArmorComponent)GetComponent(GameComponentsLookup.Armor); } }
-    public bool hasArmor { get { return HasComponent(GameComponentsLookup.Armor); } }
+    public Components.MoveComponent move { get { return (Components.MoveComponent)GetComponent(GameComponentsLookup.Move); } }
+    public bool hasMove { get { return HasComponent(GameComponentsLookup.Move); } }
 
-    public void AddArmor(int newValue) {
-        var index = GameComponentsLookup.Armor;
-        var component = (Components.ArmorComponent)CreateComponent(index, typeof(Components.ArmorComponent));
-        component.Value = newValue;
+    public void AddMove(float newSpeed) {
+        var index = GameComponentsLookup.Move;
+        var component = (Components.MoveComponent)CreateComponent(index, typeof(Components.MoveComponent));
+        component.Speed = newSpeed;
         AddComponent(index, component);
     }
 
-    public void ReplaceArmor(int newValue) {
-        var index = GameComponentsLookup.Armor;
-        var component = (Components.ArmorComponent)CreateComponent(index, typeof(Components.ArmorComponent));
-        component.Value = newValue;
+    public void ReplaceMove(float newSpeed) {
+        var index = GameComponentsLookup.Move;
+        var component = (Components.MoveComponent)CreateComponent(index, typeof(Components.MoveComponent));
+        component.Speed = newSpeed;
         ReplaceComponent(index, component);
     }
 
-    public void RemoveArmor() {
-        RemoveComponent(GameComponentsLookup.Armor);
+    public void RemoveMove() {
+        RemoveComponent(GameComponentsLookup.Move);
     }
 }
 
@@ -40,17 +40,17 @@ public partial class GameEntity {
 //------------------------------------------------------------------------------
 public sealed partial class GameMatcher {
 
-    static Entitas.IMatcher<GameEntity> _matcherArmor;
+    static Entitas.IMatcher<GameEntity> _matcherMove;
 
-    public static Entitas.IMatcher<GameEntity> Armor {
+    public static Entitas.IMatcher<GameEntity> Move {
         get {
-            if (_matcherArmor == null) {
-                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.Armor);
+            if (_matcherMove == null) {
+                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.Move);
                 matcher.componentNames = GameComponentsLookup.componentNames;
-                _matcherArmor = matcher;
+                _matcherMove = matcher;
             }
 
-            return _matcherArmor;
+            return _matcherMove;
         }
     }
 }

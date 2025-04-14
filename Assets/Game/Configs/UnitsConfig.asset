@@ -18,8 +18,8 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 6079207039170215223, guid: 6196d6c8477eb09428328e78ce7b8b70, type: 3}
     - {fileID: 8686854200743223338, guid: 9efe60d89fb4b4fa882e16b1af2b6b1a, type: 3}
-    - {fileID: 3427337855590375817, guid: d1cb281c3f321204495152487dd57cea, type: 3}
     - {fileID: 4668374738713906458, guid: 2edb3dcb9e85f4750b5bc0c0cac3d77f, type: 3}
+    - {fileID: 3427337855590375817, guid: d1cb281c3f321204495152487dd57cea, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -28,7 +28,7 @@ MonoBehaviour:
     - Name: UnitsPrefabs
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[System.ValueTuple`2[[Types.EUnitType,
-        Assembly-CSharp],[Types.ETeamColor, Assembly-CSharp]], mscorlib],[Views.UnitView,
+        Assembly-CSharp],[Types.ETeamColor, Assembly-CSharp]], mscorlib],[Configs.UnitsConfig+UnitData,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
@@ -57,8 +57,29 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: $v
+      Entry: 7
+      Data: 2|Configs.UnitsConfig+UnitData, Assembly-CSharp
+    - Name: ViewPrefab
       Entry: 10
       Data: 0
+    - Name: SpawnPosition
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 30
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -79,8 +100,29 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: $v
+      Entry: 7
+      Data: 3|Configs.UnitsConfig+UnitData, Assembly-CSharp
+    - Name: ViewPrefab
       Entry: 10
       Data: 1
+    - Name: SpawnPosition
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -96,13 +138,34 @@ MonoBehaviour:
       Data: 1
     - Name: Item2
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
     - Name: $v
+      Entry: 7
+      Data: 4|Configs.UnitsConfig+UnitData, Assembly-CSharp
+    - Name: ViewPrefab
       Entry: 10
       Data: 2
+    - Name: SpawnPosition
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: -3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -118,13 +181,34 @@ MonoBehaviour:
       Data: 1
     - Name: Item2
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: $v
+      Entry: 7
+      Data: 5|Configs.UnitsConfig+UnitData, Assembly-CSharp
+    - Name: ViewPrefab
       Entry: 10
       Data: 3
+    - Name: SpawnPosition
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 30
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: -3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
