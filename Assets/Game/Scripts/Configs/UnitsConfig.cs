@@ -22,6 +22,7 @@ public class UnitsConfig : SerializedScriptableObject
 		public float    AttackCooldown;
 		public float    SizeRadius;
 		public float    MoveSpeed;
+		public int      Damage;
 	}
 }
 }

@@ -12,7 +12,7 @@ public class InputSystem : IExecuteSystem
 	{
 		_context = contexts.game;
 	}
-	
+
 	public void Execute()
 	{
 		if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -31,8 +31,9 @@ public class InputSystem : IExecuteSystem
 		{
 			Create(EUnitType.Archer, ETeamColor.Blue);
 			Create(EUnitType.Archer, ETeamColor.Red);
+			Create(EUnitType.Swordsman, ETeamColor.Red);
+			Create(EUnitType.Swordsman, ETeamColor.Blue);
 		}
-		
 	}
 
 	private void Create(EUnitType type, ETeamColor color)

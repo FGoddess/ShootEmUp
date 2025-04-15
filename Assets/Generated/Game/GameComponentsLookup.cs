@@ -11,7 +11,7 @@ public static class GameComponentsLookup {
     public const int AttackRequestListener = 0;
     public const int AttackCooldown = 1;
     public const int AttackRange = 2;
-    public const int CanAttack = 3;
+    public const int Damage = 3;
     public const int Health = 4;
     public const int Move = 5;
     public const int NearestTarget = 6;
@@ -30,7 +30,7 @@ public static class GameComponentsLookup {
         "AttackRequestListener",
         "AttackCooldown",
         "AttackRange",
-        "CanAttack",
+        "Damage",
         "Health",
         "Move",
         "NearestTarget",
@@ -48,7 +48,7 @@ public static class GameComponentsLookup {
         typeof(AttackRequestListenerComponent),
         typeof(Components.AttackCooldownComponent),
         typeof(Components.AttackRangeComponent),
-        typeof(Components.CanAttackComponent),
+        typeof(Components.DamageComponent),
         typeof(Components.HealthComponent),
         typeof(Components.MoveComponent),
         typeof(Components.NearestTargetComponent),

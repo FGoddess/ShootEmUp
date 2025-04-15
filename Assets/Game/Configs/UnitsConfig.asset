@@ -18,14 +18,14 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 6079207039170215223, guid: 6196d6c8477eb09428328e78ce7b8b70, type: 3}
     - {fileID: 8686854200743223338, guid: 9efe60d89fb4b4fa882e16b1af2b6b1a, type: 3}
-    - {fileID: 4668374738713906458, guid: 2edb3dcb9e85f4750b5bc0c0cac3d77f, type: 3}
     - {fileID: 3427337855590375817, guid: d1cb281c3f321204495152487dd57cea, type: 3}
+    - {fileID: 4668374738713906458, guid: 2edb3dcb9e85f4750b5bc0c0cac3d77f, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: UnitsPrefabs
+    - Name: UnitsDataMap
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[System.ValueTuple`2[[Types.EUnitType,
         Assembly-CSharp],[Types.ETeamColor, Assembly-CSharp]], mscorlib],[Configs.UnitsConfig+UnitData,
@@ -67,7 +67,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 30
+      Data: 25
     - Name: 
       Entry: 4
       Data: 0
@@ -77,6 +77,24 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: Health
+      Entry: 3
+      Data: 100
+    - Name: AttackRange
+      Entry: 3
+      Data: 3
+    - Name: AttackCooldown
+      Entry: 4
+      Data: 3
+    - Name: SizeRadius
+      Entry: 4
+      Data: 0.5
+    - Name: MoveSpeed
+      Entry: 4
+      Data: 5
+    - Name: Damage
+      Entry: 3
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -110,7 +128,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 3
     - Name: 
       Entry: 4
       Data: 0
@@ -120,6 +138,24 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: Health
+      Entry: 3
+      Data: 100
+    - Name: AttackRange
+      Entry: 3
+      Data: 3
+    - Name: AttackCooldown
+      Entry: 4
+      Data: 3
+    - Name: SizeRadius
+      Entry: 4
+      Data: 0.5
+    - Name: MoveSpeed
+      Entry: 4
+      Data: 5
+    - Name: Damage
+      Entry: 3
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -138,7 +174,7 @@ MonoBehaviour:
       Data: 1
     - Name: Item2
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -153,7 +189,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 28
     - Name: 
       Entry: 4
       Data: 0
@@ -163,6 +199,24 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: Health
+      Entry: 3
+      Data: 50
+    - Name: AttackRange
+      Entry: 3
+      Data: 15
+    - Name: AttackCooldown
+      Entry: 4
+      Data: 2
+    - Name: SizeRadius
+      Entry: 4
+      Data: 0.5
+    - Name: MoveSpeed
+      Entry: 4
+      Data: 6
+    - Name: Damage
+      Entry: 3
+      Data: 20
     - Name: 
       Entry: 8
       Data: 
@@ -181,7 +235,7 @@ MonoBehaviour:
       Data: 1
     - Name: Item2
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -196,7 +250,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 30
+      Data: 0
     - Name: 
       Entry: 4
       Data: 0
@@ -206,6 +260,24 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: Health
+      Entry: 3
+      Data: 50
+    - Name: AttackRange
+      Entry: 3
+      Data: 15
+    - Name: AttackCooldown
+      Entry: 4
+      Data: 2
+    - Name: SizeRadius
+      Entry: 4
+      Data: 0.5
+    - Name: MoveSpeed
+      Entry: 4
+      Data: 6
+    - Name: Damage
+      Entry: 3
+      Data: 20
     - Name: 
       Entry: 8
       Data: 

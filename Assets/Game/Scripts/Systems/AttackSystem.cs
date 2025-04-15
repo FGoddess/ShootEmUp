@@ -39,7 +39,7 @@ public class AttackSystem : ReactiveSystem<GameEntity>
 	
 	private void PerformAttack(GameEntity attacker, GameEntity target)
 	{
-		target.ReplaceHealth(target.health.Value - 10);
+		target.ReplaceHealth(target.health.Value - attacker.damage.Value);
 		attacker.ReplaceAttackCooldown(attacker.attackCooldown.CooldownDuration, Time.time);
 	}
 }

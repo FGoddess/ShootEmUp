@@ -11,8 +11,6 @@ public class CreateUnitSystem : ReactiveSystem<GameEntity>
 
 	private readonly IUnitViewFactory _factory;
 
-	private readonly UnitsConfig _config;
-
 	public CreateUnitSystem(Contexts contexts, IUnitViewFactory factory) : base(contexts.game)
 	{
 		_contexts = contexts;
@@ -35,20 +33,9 @@ public class CreateUnitSystem : ReactiveSystem<GameEntity>
 		{
 			var unitType  = req.createUnitRequest.UnitType;
 			var teamColor = req.createUnitRequest.TeamColor;
-			var data      = _config.UnitsDataMap[(unitType, teamColor)];
 
 			var unit = Contexts.sharedInstance.game.CreateEntity();
-			unit.AddHealth(data.Health);
-			unit.AddAttackRange(data.AttackRange);
-			unit.AddTeamTag(teamColor);
-			unit.AddSizeRadius(data.SizeRadius);
-			unit.AddMove(data.MoveSpeed);
-			unit.AddAttackCooldown(data.AttackCooldown, 0f);
-			unit.isCanAttack = true;
-
-			var view = _factory.CreateView(unit, unitType, teamColor);
-
-			unit.AddPosition(view.transform.position);
+			_factory.CreateView(unit, unitType, teamColor);
 
 			req.Destroy();
 		}

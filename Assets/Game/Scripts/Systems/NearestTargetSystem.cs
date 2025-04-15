@@ -9,7 +9,7 @@ public class NearestTargetSystem : IExecuteSystem
 
 	public NearestTargetSystem(Contexts contexts)
 	{
-		_attackers = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Position, GameMatcher.TeamTag, GameMatcher.CanAttack));
+		_attackers = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Position, GameMatcher.TeamTag, GameMatcher.Damage));
 		_targets = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Position,
 		                                                    GameMatcher.TeamTag,
 		                                                    GameMatcher.Health,

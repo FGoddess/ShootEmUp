@@ -32,6 +32,16 @@ public class UnitViewFactory : IUnitViewFactory
 		if (!_config.UnitsDataMap.TryGetValue((unitType, teamColor), out var unitData))
 			throw new Exception($"Prefab not found for type {unitType}, TeamColor {teamColor}");
 
+		var data = _config.UnitsDataMap[(unitType, teamColor)];
+
+		entity.AddHealth(data.Health);
+		entity.AddAttackRange(data.AttackRange);
+		entity.AddTeamTag(teamColor);
+		entity.AddSizeRadius(data.SizeRadius);
+		entity.AddMove(data.MoveSpeed);
+		entity.AddAttackCooldown(data.AttackCooldown, 0f);
+		entity.AddDamage(data.Damage);
+
 		var view = _pools[(unitType, teamColor)].FirstOrDefault(v => !v.gameObject.activeInHierarchy);
 
 		if (view != null)
@@ -50,7 +60,10 @@ public class UnitViewFactory : IUnitViewFactory
 			Random.Range(unitData.SpawnPosition.z - 5f, unitData.SpawnPosition.z + 5f)
 		);
 
+		entity.AddPosition(view.transform.position);
+
 		view.Link(_contexts, entity);
+		
 		return view;
 	}
 }

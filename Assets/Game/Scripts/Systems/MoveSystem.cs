@@ -18,7 +18,7 @@ public class MoveSystem : IExecuteSystem
 		_positionEntities =
 			contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Position,
 			                                         GameMatcher.Move,
-			                                         GameMatcher.CanAttack,
+			                                         GameMatcher.Damage,
 			                                         GameMatcher.Health,
 			                                         GameMatcher.NearestTarget,
 			                                         GameMatcher.AttackRange));
