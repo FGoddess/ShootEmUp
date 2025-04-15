@@ -1,10 +1,9 @@
 ﻿using Entitas;
-using Entitas.CodeGeneration.Attributes;
 using Types;
 
-namespace Components
+namespace Components.Requests
 {
-[Game] [Event(EventTarget.Self)]
+[Game]
 public class CreateUnitRequest : IComponent
 {
 	public ETeamColor TeamColor;

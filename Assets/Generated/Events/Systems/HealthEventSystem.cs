@@ -6,31 +6,31 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public sealed class CreateUnitRequestEventSystem : Entitas.ReactiveSystem<GameEntity> {
+public sealed class HealthEventSystem : Entitas.ReactiveSystem<GameEntity> {
 
-    readonly System.Collections.Generic.List<ICreateUnitRequestListener> _listenerBuffer;
+    readonly System.Collections.Generic.List<IHealthListener> _listenerBuffer;
 
-    public CreateUnitRequestEventSystem(Contexts contexts) : base(contexts.game) {
-        _listenerBuffer = new System.Collections.Generic.List<ICreateUnitRequestListener>();
+    public HealthEventSystem(Contexts contexts) : base(contexts.game) {
+        _listenerBuffer = new System.Collections.Generic.List<IHealthListener>();
     }
 
     protected override Entitas.ICollector<GameEntity> GetTrigger(Entitas.IContext<GameEntity> context) {
         return Entitas.CollectorContextExtension.CreateCollector(
-            context, Entitas.TriggerOnEventMatcherExtension.Added(GameMatcher.CreateUnitRequest)
+            context, Entitas.TriggerOnEventMatcherExtension.Added(GameMatcher.Health)
         );
     }
 
     protected override bool Filter(GameEntity entity) {
-        return entity.hasCreateUnitRequest && entity.hasCreateUnitRequestListener;
+        return entity.hasHealth && entity.hasHealthListener;
     }
 
     protected override void Execute(System.Collections.Generic.List<GameEntity> entities) {
         foreach (var e in entities) {
-            var component = e.createUnitRequest;
+            var component = e.health;
             _listenerBuffer.Clear();
-            _listenerBuffer.AddRange(e.createUnitRequestListener.value);
+            _listenerBuffer.AddRange(e.healthListener.value);
             foreach (var listener in _listenerBuffer) {
-                listener.OnCreateUnitRequest(e, component.TeamColor, component.UnitType);
+                listener.OnHealth(e, component.Value);
             }
         }
     }

@@ -15,9 +15,15 @@ public abstract class UnityView : MonoBehaviour
 		gameObject.Link(entity);
 	}
 
-	public virtual void DestroyView()
+	public virtual void Unlink()
 	{
-		Destroy(gameObject);
+		gameObject.Unlink();
+		LinkedEntity = null;
+	}
+
+	public virtual void SetViewActive(bool isActive)
+	{
+		gameObject.SetActive(isActive);
 	}
 }
 }

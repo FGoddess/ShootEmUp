@@ -8,45 +8,57 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int AttackRange = 0;
-    public const int CanAttack = 1;
-    public const int CreateUnitRequest = 2;
-    public const int Health = 3;
-    public const int Move = 4;
-    public const int NearestTarget = 5;
-    public const int Position = 6;
-    public const int SizeRadius = 7;
-    public const int TeamTag = 8;
-    public const int CreateUnitRequestListener = 9;
-    public const int PositionListener = 10;
+    public const int AttackRequestListener = 0;
+    public const int AttackCooldown = 1;
+    public const int AttackRange = 2;
+    public const int CanAttack = 3;
+    public const int Health = 4;
+    public const int Move = 5;
+    public const int NearestTarget = 6;
+    public const int Position = 7;
+    public const int AttackRequest = 8;
+    public const int CreateUnitRequest = 9;
+    public const int UnitDiedEvent = 10;
+    public const int SizeRadius = 11;
+    public const int TeamTag = 12;
+    public const int HealthListener = 13;
+    public const int PositionListener = 14;
 
-    public const int TotalComponents = 11;
+    public const int TotalComponents = 15;
 
     public static readonly string[] componentNames = {
+        "AttackRequestListener",
+        "AttackCooldown",
         "AttackRange",
         "CanAttack",
-        "CreateUnitRequest",
         "Health",
         "Move",
         "NearestTarget",
         "Position",
+        "AttackRequest",
+        "CreateUnitRequest",
+        "UnitDiedEvent",
         "SizeRadius",
         "TeamTag",
-        "CreateUnitRequestListener",
+        "HealthListener",
         "PositionListener"
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(AttackRequestListenerComponent),
+        typeof(Components.AttackCooldownComponent),
         typeof(Components.AttackRangeComponent),
         typeof(Components.CanAttackComponent),
-        typeof(Components.CreateUnitRequest),
         typeof(Components.HealthComponent),
         typeof(Components.MoveComponent),
         typeof(Components.NearestTargetComponent),
         typeof(Components.PositionComponent),
+        typeof(Components.Requests.AttackRequest),
+        typeof(Components.Requests.CreateUnitRequest),
+        typeof(Components.Requests.UnitDiedEvent),
         typeof(Components.SizeRadiusComponent),
         typeof(Components.TeamTagComponent),
-        typeof(CreateUnitRequestListenerComponent),
+        typeof(HealthListenerComponent),
         typeof(PositionListenerComponent)
     };
 }

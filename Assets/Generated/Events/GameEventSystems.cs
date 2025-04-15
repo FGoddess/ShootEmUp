@@ -9,7 +9,8 @@
 public sealed class GameEventSystems : Feature {
 
     public GameEventSystems(Contexts contexts) {
-        Add(new CreateUnitRequestEventSystem(contexts)); // priority: 0
+        Add(new AttackRequestEventSystem(contexts)); // priority: 0
+        Add(new HealthEventSystem(contexts)); // priority: 0
         Add(new PositionEventSystem(contexts)); // priority: 0
     }
 }

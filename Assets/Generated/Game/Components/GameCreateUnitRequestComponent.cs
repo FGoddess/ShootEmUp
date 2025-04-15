@@ -8,12 +8,12 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public Components.CreateUnitRequest createUnitRequest { get { return (Components.CreateUnitRequest)GetComponent(GameComponentsLookup.CreateUnitRequest); } }
+    public Components.Requests.CreateUnitRequest createUnitRequest { get { return (Components.Requests.CreateUnitRequest)GetComponent(GameComponentsLookup.CreateUnitRequest); } }
     public bool hasCreateUnitRequest { get { return HasComponent(GameComponentsLookup.CreateUnitRequest); } }
 
     public void AddCreateUnitRequest(Types.ETeamColor newTeamColor, Types.EUnitType newUnitType) {
         var index = GameComponentsLookup.CreateUnitRequest;
-        var component = (Components.CreateUnitRequest)CreateComponent(index, typeof(Components.CreateUnitRequest));
+        var component = (Components.Requests.CreateUnitRequest)CreateComponent(index, typeof(Components.Requests.CreateUnitRequest));
         component.TeamColor = newTeamColor;
         component.UnitType = newUnitType;
         AddComponent(index, component);
@@ -21,7 +21,7 @@ public partial class GameEntity {
 
     public void ReplaceCreateUnitRequest(Types.ETeamColor newTeamColor, Types.EUnitType newUnitType) {
         var index = GameComponentsLookup.CreateUnitRequest;
-        var component = (Components.CreateUnitRequest)CreateComponent(index, typeof(Components.CreateUnitRequest));
+        var component = (Components.Requests.CreateUnitRequest)CreateComponent(index, typeof(Components.Requests.CreateUnitRequest));
         component.TeamColor = newTeamColor;
         component.UnitType = newUnitType;
         ReplaceComponent(index, component);

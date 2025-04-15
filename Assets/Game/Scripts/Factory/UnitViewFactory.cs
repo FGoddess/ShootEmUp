@@ -1,31 +1,55 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Configs;
 using Types;
 using UnityEngine;
 using Views;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace Factory
 {
 public class UnitViewFactory : IUnitViewFactory
 {
-	private readonly Contexts _contexts;
-
+	private readonly Contexts    _contexts;
 	private readonly UnitsConfig _config;
+
+	private readonly Dictionary<(EUnitType, ETeamColor), List<UnitView>> _pools;
 
 	public UnitViewFactory(Contexts contexts, UnitsConfig config)
 	{
 		_contexts = contexts;
 		_config   = config;
+		_pools    = new Dictionary<(EUnitType, ETeamColor), List<UnitView>>();
+
+		foreach (var unitData in _config.UnitsDataMap)
+			_pools[(unitData.Key.Item1, unitData.Key.Item2)] = new List<UnitView>();
 	}
 
-	//TODO: add container
 	public UnitView CreateView(GameEntity entity, EUnitType unitType, ETeamColor teamColor)
 	{
-		if (!_config.UnitsPrefabs.TryGetValue((unitType, teamColor), out var unitData))
+		if (!_config.UnitsDataMap.TryGetValue((unitType, teamColor), out var unitData))
 			throw new Exception($"Prefab not found for type {unitType}, TeamColor {teamColor}");
 
-		var view = Object.Instantiate(unitData.ViewPrefab, unitData.SpawnPosition, Quaternion.identity);
+		var view = _pools[(unitType, teamColor)].FirstOrDefault(v => !v.gameObject.activeInHierarchy);
+
+		if (view != null)
+		{
+			view.gameObject.SetActive(true);
+		}
+		else
+		{
+			view = Object.Instantiate(unitData.ViewPrefab);
+			_pools[(unitType, teamColor)].Add(view);
+		}
+
+		view.transform.position = new Vector3(
+			Random.Range(unitData.SpawnPosition.x - 2f, unitData.SpawnPosition.x + 2f),
+			0f,
+			Random.Range(unitData.SpawnPosition.z - 5f, unitData.SpawnPosition.z + 5f)
+		);
+
 		view.Link(_contexts, entity);
 		return view;
 	}

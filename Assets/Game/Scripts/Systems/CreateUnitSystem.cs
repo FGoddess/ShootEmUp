@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Components;
+﻿using System.Collections.Generic;
+using Configs;
 using Entitas;
 using Factory;
-using UnityEngine;
 
 namespace Systems
 {
@@ -12,6 +10,8 @@ public class CreateUnitSystem : ReactiveSystem<GameEntity>
 	private readonly Contexts _contexts;
 
 	private readonly IUnitViewFactory _factory;
+
+	private readonly UnitsConfig _config;
 
 	public CreateUnitSystem(Contexts contexts, IUnitViewFactory factory) : base(contexts.game)
 	{
@@ -35,13 +35,15 @@ public class CreateUnitSystem : ReactiveSystem<GameEntity>
 		{
 			var unitType  = req.createUnitRequest.UnitType;
 			var teamColor = req.createUnitRequest.TeamColor;
+			var data      = _config.UnitsDataMap[(unitType, teamColor)];
 
 			var unit = Contexts.sharedInstance.game.CreateEntity();
-			unit.AddHealth(10);
-			unit.AddAttackRange(3f);
+			unit.AddHealth(data.Health);
+			unit.AddAttackRange(data.AttackRange);
 			unit.AddTeamTag(teamColor);
-			unit.AddSizeRadius(0.5f);
-			unit.AddMove(4f);
+			unit.AddSizeRadius(data.SizeRadius);
+			unit.AddMove(data.MoveSpeed);
+			unit.AddAttackCooldown(data.AttackCooldown, 0f);
 			unit.isCanAttack = true;
 
 			var view = _factory.CreateView(unit, unitType, teamColor);

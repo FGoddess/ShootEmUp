@@ -6,6 +6,6 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public interface ICreateUnitRequestListener {
-    void OnCreateUnitRequest(GameEntity entity, Types.ETeamColor teamColor, Types.EUnitType unitType);
+public interface IHealthListener {
+    void OnHealth(GameEntity entity, int value);
 }

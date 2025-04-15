@@ -26,6 +26,13 @@ public class InputSystem : IExecuteSystem
 
 		if (Input.GetKeyDown(KeyCode.Alpha4))
 			Create(EUnitType.Archer, ETeamColor.Red);
+
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			Create(EUnitType.Archer, ETeamColor.Blue);
+			Create(EUnitType.Archer, ETeamColor.Red);
+		}
+		
 	}
 
 	private void Create(EUnitType type, ETeamColor color)
