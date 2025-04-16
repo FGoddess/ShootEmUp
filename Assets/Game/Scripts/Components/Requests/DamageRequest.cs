@@ -1,13 +1,13 @@
-﻿using Entitas;
+using Entitas;
 using Entitas.CodeGeneration.Attributes;
 
 namespace Components.Requests
 {
 [Game] [Event(EventTarget.Self)]
 [Cleanup(CleanupMode.RemoveComponent)]
-public class AttackRequest : IComponent 
+public class DamageRequest : IComponent 
 {
     public GameEntity Attacker;
     public GameEntity Target;
 }
-}
+} 

@@ -37,9 +37,10 @@ public class CleanInvalidTargetsSystem : ReactiveSystem<GameEntity>
 					entitiesToProcess.Add(entity);
 
 			foreach (var entity in entitiesToProcess)
+			{
 				entity.RemoveNearestTarget();
-
-			request.Destroy();
+				entity.RemoveAttackProcess();
+			}
 		}
 	}
 }

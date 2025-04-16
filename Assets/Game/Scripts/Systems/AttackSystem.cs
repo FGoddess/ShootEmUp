@@ -8,6 +8,8 @@ public class AttackSystem : ReactiveSystem<GameEntity>
 {
 	private readonly GameContext _context;
 
+	private const float HIT_DELAY = 0.5f;
+
 	public AttackSystem(Contexts contexts) : base(contexts.game)
 	{
 		_context = contexts.game;
@@ -29,18 +31,13 @@ public class AttackSystem : ReactiveSystem<GameEntity>
 		{
 			var attacker = request.attackRequest.Attacker;
 			var target   = request.attackRequest.Target;
-  
+
 			if (Time.time > attacker.attackCooldown.LastAttackTime + attacker.attackCooldown.CooldownDuration)
-				PerformAttack(attacker, target);
-			
-			request.Destroy();
+			{
+				attacker.AddAttackProcess(target, Time.time, Time.time + HIT_DELAY);
+				attacker.ReplaceAttackCooldown(attacker.attackCooldown.CooldownDuration, Time.time);
+			}
 		}
-	}
-	
-	private void PerformAttack(GameEntity attacker, GameEntity target)
-	{
-		target.ReplaceHealth(target.health.Value - attacker.damage.Value);
-		attacker.ReplaceAttackCooldown(attacker.attackCooldown.CooldownDuration, Time.time);
 	}
 }
 }

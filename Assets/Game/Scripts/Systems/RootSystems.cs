@@ -1,4 +1,5 @@
-﻿using Factory;
+﻿using Entitas.CodeGeneration.Attributes;
+using Factory;
 
 namespace Systems
 {
@@ -14,10 +15,14 @@ public sealed class RootSystems : Feature
 		Add(new HealthSystem(contexts));
 		Add(new MoveSystem(contexts));
 		Add(new AttackSystem(contexts));
+		Add(new AttackProcessSystem(contexts));
+		Add(new DamageSystem(contexts));
 		Add(new NearestTargetSystem(contexts));
 		Add(new GameEventSystems(contexts));
 		Add(new UnitDeathSystem(contexts));
 		Add(new CleanInvalidTargetsSystem(contexts));
+		
+		Add(new CleanupSystem(contexts));
 	}
 }
 }

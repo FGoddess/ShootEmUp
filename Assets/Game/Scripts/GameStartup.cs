@@ -26,5 +26,6 @@ public class GameStartup : SerializedMonoBehaviour
 	private void Update()
 	{
 		_rootSystems.Execute();
+		_rootSystems.Cleanup();
 	}
 }

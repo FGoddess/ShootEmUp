@@ -29,8 +29,8 @@ public class InputSystem : IExecuteSystem
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			Create(EUnitType.Archer, ETeamColor.Blue);
-			Create(EUnitType.Archer, ETeamColor.Red);
+			//Create(EUnitType.Archer, ETeamColor.Blue);
+			//Create(EUnitType.Archer, ETeamColor.Red);
 			Create(EUnitType.Swordsman, ETeamColor.Red);
 			Create(EUnitType.Swordsman, ETeamColor.Blue);
 		}

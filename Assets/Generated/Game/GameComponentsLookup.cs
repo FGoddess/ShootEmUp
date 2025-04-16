@@ -8,27 +8,33 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int AttackRequestListener = 0;
-    public const int AttackCooldown = 1;
-    public const int AttackRange = 2;
-    public const int Damage = 3;
-    public const int Health = 4;
-    public const int Move = 5;
-    public const int NearestTarget = 6;
-    public const int Position = 7;
-    public const int AttackRequest = 8;
-    public const int CreateUnitRequest = 9;
-    public const int UnitDiedEvent = 10;
-    public const int SizeRadius = 11;
-    public const int TeamTag = 12;
-    public const int HealthListener = 13;
-    public const int PositionListener = 14;
+    public const int AttackProcessListener = 0;
+    public const int AttackRequestListener = 1;
+    public const int AttackCooldown = 2;
+    public const int AttackProcess = 3;
+    public const int AttackRange = 4;
+    public const int Damage = 5;
+    public const int Health = 6;
+    public const int Move = 7;
+    public const int NearestTarget = 8;
+    public const int Position = 9;
+    public const int AttackRequest = 10;
+    public const int CreateUnitRequest = 11;
+    public const int DamageRequest = 12;
+    public const int UnitDiedEvent = 13;
+    public const int SizeRadius = 14;
+    public const int TeamTag = 15;
+    public const int DamageRequestListener = 16;
+    public const int HealthListener = 17;
+    public const int PositionListener = 18;
 
-    public const int TotalComponents = 15;
+    public const int TotalComponents = 19;
 
     public static readonly string[] componentNames = {
+        "AttackProcessListener",
         "AttackRequestListener",
         "AttackCooldown",
+        "AttackProcess",
         "AttackRange",
         "Damage",
         "Health",
@@ -37,16 +43,20 @@ public static class GameComponentsLookup {
         "Position",
         "AttackRequest",
         "CreateUnitRequest",
+        "DamageRequest",
         "UnitDiedEvent",
         "SizeRadius",
         "TeamTag",
+        "DamageRequestListener",
         "HealthListener",
         "PositionListener"
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(AttackProcessListenerComponent),
         typeof(AttackRequestListenerComponent),
         typeof(Components.AttackCooldownComponent),
+        typeof(Components.AttackProcess),
         typeof(Components.AttackRangeComponent),
         typeof(Components.DamageComponent),
         typeof(Components.HealthComponent),
@@ -55,9 +65,11 @@ public static class GameComponentsLookup {
         typeof(Components.PositionComponent),
         typeof(Components.Requests.AttackRequest),
         typeof(Components.Requests.CreateUnitRequest),
+        typeof(Components.Requests.DamageRequest),
         typeof(Components.Requests.UnitDiedEvent),
         typeof(Components.SizeRadiusComponent),
         typeof(Components.TeamTagComponent),
+        typeof(DamageRequestListenerComponent),
         typeof(HealthListenerComponent),
         typeof(PositionListenerComponent)
     };

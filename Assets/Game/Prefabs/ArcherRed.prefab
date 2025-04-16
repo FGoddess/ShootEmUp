@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bloodParticle: {fileID: 6170582255901819232}
+  _animator: {fileID: 3342404277150788418}
 --- !u!1001 &810736625954069558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -244,6 +245,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
+--- !u!95 &3342404277150788418 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9563318, guid: 04c79b5f6e9ebab48af48fdcf7b6d570,
+    type: 3}
+  m_PrefabInstance: {fileID: 3342404277158037492}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3342404277158530186 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 494462, guid: 04c79b5f6e9ebab48af48fdcf7b6d570,

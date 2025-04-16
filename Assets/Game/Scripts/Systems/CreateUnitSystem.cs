@@ -36,8 +36,6 @@ public class CreateUnitSystem : ReactiveSystem<GameEntity>
 
 			var unit = Contexts.sharedInstance.game.CreateEntity();
 			_factory.CreateView(unit, unitType, teamColor);
-
-			req.Destroy();
 		}
 	}
 }
