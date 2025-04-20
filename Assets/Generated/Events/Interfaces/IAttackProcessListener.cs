@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface IAttackProcessListener {
-    void OnAttackProcess(GameEntity entity, GameEntity target, float startTime, float hitTime);
+    void OnAttackProcess(GameEntity entity, float startTime, float hitTime);
 }

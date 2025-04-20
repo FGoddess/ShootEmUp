@@ -1,5 +1,4 @@
 ﻿using Components;
-using Components.Requests;
 using Entitas;
 using UnityEngine;
 
@@ -15,33 +14,25 @@ public class MoveSystem : IExecuteSystem
 	{
 		_context = contexts.game;
 
-		_positionEntities =
-			contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Position,
-			                                         GameMatcher.Move,
-			                                         GameMatcher.Damage,
-			                                         GameMatcher.Health,
-			                                         GameMatcher.NearestTarget,
-			                                         GameMatcher.AttackRange));
+		_positionEntities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Position,
+		                                                             GameMatcher.Move,
+		                                                             GameMatcher.NearestTarget,
+		                                                             GameMatcher.AttackRange)
+		                                                      .NoneOf(GameMatcher.TargetReached));
 	}
-
 
 	public void Execute()
 	{
-		foreach (var entity in _positionEntities)
+		foreach (var entity in _positionEntities.GetEntities())
 		{
 			var   target         = entity.nearestTarget.Target;
 			var   dir            = target.position.Value - entity.position.Value;
 			float distanceToEdge = dir.magnitude - target.sizeRadius.Radius;
 
 			if (distanceToEdge > entity.attackRange.Value)
-			{
 				entity.ReplacePosition(entity.position.Value + dir.normalized * Time.deltaTime * entity.move.Speed);
-			}
 			else
-			{
-				var req = _context.CreateEntity();
-				req.AddAttackRequest(entity, target);
-			}
+				entity.isTargetReached = true;
 		}
 	}
 }

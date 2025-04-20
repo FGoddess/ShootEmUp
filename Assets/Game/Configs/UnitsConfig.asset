@@ -62,30 +62,39 @@ MonoBehaviour:
     - Name: ViewPrefab
       Entry: 10
       Data: 0
-    - Name: SpawnPosition
+    - Name: MinSpawnPosRange
       Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 20
+    - Name: 
+      Entry: 4
+      Data: -4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: MaxSpawnPosRange
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
       Data: 25
     - Name: 
       Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 8
       Data: 
     - Name: Health
       Entry: 3
-      Data: 100
+      Data: 30
     - Name: AttackRange
       Entry: 3
       Data: 3
     - Name: AttackCooldown
       Entry: 4
-      Data: 3
+      Data: 1.5
     - Name: SizeRadius
       Entry: 4
       Data: 0.5
@@ -123,18 +132,27 @@ MonoBehaviour:
     - Name: ViewPrefab
       Entry: 10
       Data: 1
-    - Name: SpawnPosition
+    - Name: MinSpawnPosRange
       Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
       Data: 3
     - Name: 
       Entry: 4
-      Data: 0
+      Data: -4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: MaxSpawnPosRange
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 3
+      Data: 8
+    - Name: 
+      Entry: 4
+      Data: 4
     - Name: 
       Entry: 8
       Data: 
@@ -146,7 +164,7 @@ MonoBehaviour:
       Data: 3
     - Name: AttackCooldown
       Entry: 4
-      Data: 3
+      Data: 1.5
     - Name: SizeRadius
       Entry: 4
       Data: 0.5
@@ -184,18 +202,27 @@ MonoBehaviour:
     - Name: ViewPrefab
       Entry: 10
       Data: 2
-    - Name: SpawnPosition
+    - Name: MinSpawnPosRange
       Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 28
+      Data: 25
     - Name: 
       Entry: 4
-      Data: 0
+      Data: -4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: MaxSpawnPosRange
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -3
+      Data: 30
+    - Name: 
+      Entry: 4
+      Data: 4
     - Name: 
       Entry: 8
       Data: 
@@ -245,18 +272,27 @@ MonoBehaviour:
     - Name: ViewPrefab
       Entry: 10
       Data: 3
-    - Name: SpawnPosition
+    - Name: MinSpawnPosRange
       Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: -2
     - Name: 
       Entry: 4
-      Data: 0
+      Data: -4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: MaxSpawnPosRange
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -3
+      Data: 3
+    - Name: 
+      Entry: 4
+      Data: 4
     - Name: 
       Entry: 8
       Data: 

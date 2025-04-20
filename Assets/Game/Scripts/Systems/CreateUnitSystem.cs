@@ -2,16 +2,16 @@
 using Configs;
 using Entitas;
 using Factory;
+using UnityEngine;
 
 namespace Systems
 {
 public class CreateUnitSystem : ReactiveSystem<GameEntity>
 {
-	private readonly Contexts _contexts;
-
+	private readonly Contexts         _contexts;
 	private readonly IUnitViewFactory _factory;
 
-	public CreateUnitSystem(Contexts contexts, IUnitViewFactory factory) : base(contexts.game)
+	public CreateUnitSystem(Contexts contexts, IUnitViewFactory factory, Transform unitsContainer = null) : base(contexts.game)
 	{
 		_contexts = contexts;
 		_factory  = factory;

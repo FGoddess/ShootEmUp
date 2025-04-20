@@ -7,7 +7,8 @@ public abstract class UnityView : MonoBehaviour
 {
 	protected Contexts   Contexts;
 	protected GameEntity LinkedEntity;
-
+	
+	
 	public virtual void Link(Contexts contexts, GameEntity entity)
 	{
 		Contexts     = contexts;

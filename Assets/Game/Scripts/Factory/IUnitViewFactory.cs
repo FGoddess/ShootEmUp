@@ -1,10 +1,11 @@
 ﻿using Types;
+using UnityEngine;
 using Views;
 
 namespace Factory
 {
 public interface IUnitViewFactory
 {
-	UnitView CreateView(GameEntity entity, EUnitType unitType, ETeamColor teamColor);
+	void CreateView(GameEntity entity, EUnitType unitType, ETeamColor teamColor);
 }
 }

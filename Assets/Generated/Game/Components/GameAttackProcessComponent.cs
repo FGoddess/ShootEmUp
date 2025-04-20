@@ -8,22 +8,20 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public Components.AttackProcess attackProcess { get { return (Components.AttackProcess)GetComponent(GameComponentsLookup.AttackProcess); } }
+    public Components.AttackProcessComponent attackProcess { get { return (Components.AttackProcessComponent)GetComponent(GameComponentsLookup.AttackProcess); } }
     public bool hasAttackProcess { get { return HasComponent(GameComponentsLookup.AttackProcess); } }
 
-    public void AddAttackProcess(GameEntity newTarget, float newStartTime, float newHitTime) {
+    public void AddAttackProcess(float newStartTime, float newHitTime) {
         var index = GameComponentsLookup.AttackProcess;
-        var component = (Components.AttackProcess)CreateComponent(index, typeof(Components.AttackProcess));
-        component.Target = newTarget;
+        var component = (Components.AttackProcessComponent)CreateComponent(index, typeof(Components.AttackProcessComponent));
         component.StartTime = newStartTime;
         component.HitTime = newHitTime;
         AddComponent(index, component);
     }
 
-    public void ReplaceAttackProcess(GameEntity newTarget, float newStartTime, float newHitTime) {
+    public void ReplaceAttackProcess(float newStartTime, float newHitTime) {
         var index = GameComponentsLookup.AttackProcess;
-        var component = (Components.AttackProcess)CreateComponent(index, typeof(Components.AttackProcess));
-        component.Target = newTarget;
+        var component = (Components.AttackProcessComponent)CreateComponent(index, typeof(Components.AttackProcessComponent));
         component.StartTime = newStartTime;
         component.HitTime = newHitTime;
         ReplaceComponent(index, component);

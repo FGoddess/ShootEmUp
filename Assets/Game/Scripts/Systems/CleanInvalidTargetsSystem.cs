@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Entitas;
+using UnityEngine;
 
 namespace Systems
 {
@@ -10,7 +11,7 @@ public class CleanInvalidTargetsSystem : ReactiveSystem<GameEntity>
 	public CleanInvalidTargetsSystem(Contexts contexts) : base(contexts.game)
 	{
 		var context = contexts.game;
-		
+
 		_targets = context.GetGroup(GameMatcher.NearestTarget);
 	}
 
@@ -30,17 +31,20 @@ public class CleanInvalidTargetsSystem : ReactiveSystem<GameEntity>
 		{
 			var deadEntity = request.unitDiedEvent.Entity;
 
-			var entitiesToProcess = new List<GameEntity>();
-
-			foreach (var entity in _targets)
+			foreach (var entity in _targets.GetEntities())
 				if (entity.nearestTarget.Target == deadEntity)
-					entitiesToProcess.Add(entity);
+				{
+					if (entity.isArrowTag)
+						entity.isArrowTag = false;
 
-			foreach (var entity in entitiesToProcess)
-			{
-				entity.RemoveNearestTarget();
-				entity.RemoveAttackProcess();
-			}
+					entity.RemoveNearestTarget();
+
+					if (entity.hasAttackProcess)
+						entity.RemoveAttackProcess();
+
+					if (entity.isTargetReached)
+						entity.isTargetReached = false;
+				}
 		}
 	}
 }

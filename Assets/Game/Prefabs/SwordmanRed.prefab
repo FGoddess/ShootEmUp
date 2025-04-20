@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f8852bd4790416da63fd8399aa3a572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bloodParticle: {fileID: 8738288722594437703}
   _animator: {fileID: 3306551169244983340}
+  _damageTakeParticle: {fileID: 8738288722594437703}
 --- !u!1001 &2857177995053123345
 PrefabInstance:
   m_ObjectHideFlags: 0

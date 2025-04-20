@@ -9,24 +9,32 @@ namespace Factory
 {
 public class BaseViewFactory : IBaseViewFactory
 {
-	private readonly Contexts _contexts;
-
+	private readonly Contexts    _contexts;
 	private readonly BasesConfig _config;
+	private readonly Transform   _container;
 
-	public BaseViewFactory(Contexts contexts, BasesConfig config)
+	public BaseViewFactory(Contexts contexts, BasesConfig config, Transform container)
 	{
-		_contexts = contexts;
-		_config   = config;
+		_contexts  = contexts;
+		_config    = config;
+		_container = container;
 	}
 
-	public BaseView CreateView(GameEntity entity, ETeamColor teamColor)
+	public void CreateView(GameEntity entity, ETeamColor teamColor)
 	{
 		if (!_config.BasesPrefabs.TryGetValue(teamColor, out var baseData))
 			throw new Exception($"Prefab not found for TeamColor {teamColor}");
 
-		var view = Object.Instantiate(baseData.ViewPrefab, baseData.SpawnPosition, Quaternion.identity);
+		entity.AddHealth(200);
+		entity.AddTeamColor(teamColor);
+		entity.AddSizeRadius(3.5f);
+		entity.isBaseTag = true;
+
+		var view = Object.Instantiate(baseData.ViewPrefab, baseData.SpawnPosition, Quaternion.identity, _container);
+
 		view.Link(_contexts, entity);
-		return view;
+
+		entity.AddPosition(view.transform.position);
 	}
 }
 }

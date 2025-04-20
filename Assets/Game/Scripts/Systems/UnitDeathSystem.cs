@@ -19,16 +19,13 @@ public class UnitDeathSystem : ReactiveSystem<GameEntity>
 
 	protected override bool Filter(GameEntity entity)
 	{
-		return entity.hasHealth;
+		return entity.hasHealth && entity.health.Value <= 0;
 	}
 
 	protected override void Execute(List<GameEntity> entities)
 	{
 		foreach (var entity in entities)
 		{
-			if (entity.health.Value > 0)
-				continue;
-			
 			var cleanRequest = _contexts.game.CreateEntity();
 			cleanRequest.AddUnitDiedEvent(entity);
 			

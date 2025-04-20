@@ -16,7 +16,8 @@ public class UnitsConfig : SerializedScriptableObject
 	public class UnitData
 	{
 		public UnitView ViewPrefab;
-		public Vector3  SpawnPosition;
+		public Vector2  MinSpawnPosRange;
+		public Vector2  MaxSpawnPosRange;
 		public int      Health;
 		public int      AttackRange;
 		public float    AttackCooldown;

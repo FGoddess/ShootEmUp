@@ -13,10 +13,9 @@ public class CleanupSystem : ICleanupSystem
 	{
 		_context = contexts.game;
 
-		_requests = _context.GetGroup(GameMatcher.AnyOf(GameMatcher.AttackRequest,
-		                                               GameMatcher.DamageRequest,
-		                                               GameMatcher.CreateUnitRequest,
-		                                               GameMatcher.UnitDiedEvent));
+		_requests = _context.GetGroup(GameMatcher.AnyOf(GameMatcher.DamageRequest,
+		                                                GameMatcher.CreateUnitRequest,
+		                                                GameMatcher.UnitDiedEvent));
 	}
 
 	public void Cleanup()

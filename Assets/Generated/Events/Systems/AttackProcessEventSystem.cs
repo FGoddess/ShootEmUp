@@ -30,7 +30,7 @@ public sealed class AttackProcessEventSystem : Entitas.ReactiveSystem<GameEntity
             _listenerBuffer.Clear();
             _listenerBuffer.AddRange(e.attackProcessListener.value);
             foreach (var listener in _listenerBuffer) {
-                listener.OnAttackProcess(e, component.Target, component.StartTime, component.HitTime);
+                listener.OnAttackProcess(e, component.StartTime, component.HitTime);
             }
         }
     }

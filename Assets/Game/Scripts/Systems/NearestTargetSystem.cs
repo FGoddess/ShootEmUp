@@ -9,9 +9,9 @@ public class NearestTargetSystem : IExecuteSystem
 
 	public NearestTargetSystem(Contexts contexts)
 	{
-		_attackers = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Position, GameMatcher.TeamTag, GameMatcher.Damage));
+		_attackers = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Position, GameMatcher.TeamColor, GameMatcher.Damage));
 		_targets = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Position,
-		                                                    GameMatcher.TeamTag,
+		                                                    GameMatcher.TeamColor,
 		                                                    GameMatcher.Health,
 		                                                    GameMatcher.SizeRadius));
 	}
@@ -23,11 +23,11 @@ public class NearestTargetSystem : IExecuteSystem
 			GameEntity closestTarget = null;
 			var        minDistSqr    = float.MaxValue;
 			var        attackerPos   = attacker.position.Value;
-			var        attackerTeam  = attacker.teamTag.TeamColor;
+			var        attackerTeam  = attacker.teamColor.TeamColor;
 
 			foreach (var target in _targets)
 			{
-				if (target.teamTag.TeamColor == attackerTeam)
+				if (target.teamColor.TeamColor == attackerTeam)
 					continue;
 
 				float distSqr = (target.position.Value - attackerPos).sqrMagnitude;

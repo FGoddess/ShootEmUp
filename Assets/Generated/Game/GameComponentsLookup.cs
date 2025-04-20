@@ -8,69 +8,90 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int AttackProcessListener = 0;
-    public const int AttackRequestListener = 1;
-    public const int AttackCooldown = 2;
-    public const int AttackProcess = 3;
-    public const int AttackRange = 4;
-    public const int Damage = 5;
-    public const int Health = 6;
-    public const int Move = 7;
-    public const int NearestTarget = 8;
-    public const int Position = 9;
-    public const int AttackRequest = 10;
-    public const int CreateUnitRequest = 11;
-    public const int DamageRequest = 12;
-    public const int UnitDiedEvent = 13;
-    public const int SizeRadius = 14;
-    public const int TeamTag = 15;
-    public const int DamageRequestListener = 16;
-    public const int HealthListener = 17;
-    public const int PositionListener = 18;
+    public const int ArrowTagRemovedListener = 0;
+    public const int AttackProcessListener = 1;
+    public const int ArrowTag = 2;
+    public const int AttackCooldown = 3;
+    public const int AttackProcess = 4;
+    public const int AttackRange = 5;
+    public const int BaseTag = 6;
+    public const int Damage = 7;
+    public const int Facing = 8;
+    public const int Health = 9;
+    public const int Move = 10;
+    public const int NearestTarget = 11;
+    public const int Position = 12;
+    public const int ArrowCreateRequest = 13;
+    public const int CreateUnitRequest = 14;
+    public const int DamageRequest = 15;
+    public const int UnitDiedEvent = 16;
+    public const int SizeRadius = 17;
+    public const int TargetReached = 18;
+    public const int TeamColor = 19;
+    public const int UnitType = 20;
+    public const int DamageRequestListener = 21;
+    public const int FacingListener = 22;
+    public const int HealthListener = 23;
+    public const int PositionListener = 24;
+    public const int TargetReachedListener = 25;
 
-    public const int TotalComponents = 19;
+    public const int TotalComponents = 26;
 
     public static readonly string[] componentNames = {
+        "ArrowTagRemovedListener",
         "AttackProcessListener",
-        "AttackRequestListener",
+        "ArrowTag",
         "AttackCooldown",
         "AttackProcess",
         "AttackRange",
+        "BaseTag",
         "Damage",
+        "Facing",
         "Health",
         "Move",
         "NearestTarget",
         "Position",
-        "AttackRequest",
+        "ArrowCreateRequest",
         "CreateUnitRequest",
         "DamageRequest",
         "UnitDiedEvent",
         "SizeRadius",
-        "TeamTag",
+        "TargetReached",
+        "TeamColor",
+        "UnitType",
         "DamageRequestListener",
+        "FacingListener",
         "HealthListener",
-        "PositionListener"
+        "PositionListener",
+        "TargetReachedListener"
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(ArrowTagRemovedListenerComponent),
         typeof(AttackProcessListenerComponent),
-        typeof(AttackRequestListenerComponent),
+        typeof(Components.ArrowTagComponent),
         typeof(Components.AttackCooldownComponent),
-        typeof(Components.AttackProcess),
+        typeof(Components.AttackProcessComponent),
         typeof(Components.AttackRangeComponent),
+        typeof(Components.BaseTagComponent),
         typeof(Components.DamageComponent),
+        typeof(Components.FacingComponent),
         typeof(Components.HealthComponent),
         typeof(Components.MoveComponent),
         typeof(Components.NearestTargetComponent),
         typeof(Components.PositionComponent),
-        typeof(Components.Requests.AttackRequest),
+        typeof(Components.Requests.ArrowCreateRequest),
         typeof(Components.Requests.CreateUnitRequest),
         typeof(Components.Requests.DamageRequest),
         typeof(Components.Requests.UnitDiedEvent),
         typeof(Components.SizeRadiusComponent),
-        typeof(Components.TeamTagComponent),
+        typeof(Components.TargetReachedComponent),
+        typeof(Components.TeamColorComponent),
+        typeof(Components.UnitTypeComponent),
         typeof(DamageRequestListenerComponent),
+        typeof(FacingListenerComponent),
         typeof(HealthListenerComponent),
-        typeof(PositionListenerComponent)
+        typeof(PositionListenerComponent),
+        typeof(TargetReachedListenerComponent)
     };
 }

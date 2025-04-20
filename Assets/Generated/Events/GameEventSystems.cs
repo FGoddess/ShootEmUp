@@ -9,10 +9,12 @@
 public sealed class GameEventSystems : Feature {
 
     public GameEventSystems(Contexts contexts) {
+        Add(new ArrowTagRemovedEventSystem(contexts)); // priority: 0
         Add(new AttackProcessEventSystem(contexts)); // priority: 0
-        Add(new AttackRequestEventSystem(contexts)); // priority: 0
         Add(new DamageRequestEventSystem(contexts)); // priority: 0
+        Add(new FacingEventSystem(contexts)); // priority: 0
         Add(new HealthEventSystem(contexts)); // priority: 0
         Add(new PositionEventSystem(contexts)); // priority: 0
+        Add(new TargetReachedEventSystem(contexts)); // priority: 0
     }
 }

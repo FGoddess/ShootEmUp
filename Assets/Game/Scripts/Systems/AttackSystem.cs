@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using Types;
 using UnityEngine;
 
 namespace Systems
@@ -17,26 +18,35 @@ public class AttackSystem : ReactiveSystem<GameEntity>
 
 	protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
 	{
-		return context.CreateCollector(GameMatcher.AttackRequest);
+		return context.CreateCollector(GameMatcher.AllOf(GameMatcher.TargetReached, GameMatcher.NearestTarget));
 	}
 
 	protected override bool Filter(GameEntity entity)
 	{
-		return entity.hasAttackRequest;
+		if (!entity.hasAttackCooldown)
+			return true;
+
+		var cooldown = entity.attackCooldown;
+		return Time.time > cooldown.LastAttackTime + cooldown.CooldownDuration;
 	}
 
 	protected override void Execute(List<GameEntity> entities)
 	{
-		foreach (var request in entities)
+		foreach (var entity in entities)
 		{
-			var attacker = request.attackRequest.Attacker;
-			var target   = request.attackRequest.Target;
+			var target = entity.nearestTarget.Target;
 
-			if (Time.time > attacker.attackCooldown.LastAttackTime + attacker.attackCooldown.CooldownDuration)
+			if (entity.hasUnitType)
 			{
-				attacker.AddAttackProcess(target, Time.time, Time.time + HIT_DELAY);
-				attacker.ReplaceAttackCooldown(attacker.attackCooldown.CooldownDuration, Time.time);
+				if (entity.unitType.Type is EUnitType.Archer)
+					_context.CreateEntity().AddArrowCreateRequest(entity, target);
+
+				entity.AddAttackProcess(Time.time, Time.time + HIT_DELAY);
+				entity.ReplaceAttackCooldown(entity.attackCooldown.CooldownDuration, Time.time);
+				continue;
 			}
+
+			entity.AddAttackProcess(0f, Time.time);
 		}
 	}
 }
