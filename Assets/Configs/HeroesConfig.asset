@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 427835329f7f4195b67c26d7497088bf, type: 3}
+  m_Name: HeroesConfig
+  m_EditorClassIdentifier: 
+  BluePlayerConfigs:
+  - {fileID: 11400000, guid: 4528c8e2211b95d4fabafef3a1023b94, type: 2}
+  - {fileID: 11400000, guid: 8591bac69a6b86240a99a98b9dc80edf, type: 2}
+  - {fileID: 11400000, guid: 85a2ed24cfbb0c148811ac72528aea69, type: 2}
+  - {fileID: 11400000, guid: d70b428ca6c0b8b459a47a341f775a56, type: 2}
+  RedPlayerConfigs:
+  - {fileID: 11400000, guid: b3404e5bcceef7d4f810f36e8d8eec12, type: 2}
+  - {fileID: 11400000, guid: dd9ab45753155c244892198aa8eee08d, type: 2}
+  - {fileID: 11400000, guid: 309cd8fedc7a9f54eaf7d266c846d972, type: 2}
+  - {fileID: 11400000, guid: dc76be3c85041244ab527c44c5e83634, type: 2}

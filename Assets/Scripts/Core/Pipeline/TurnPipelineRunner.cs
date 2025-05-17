@@ -5,11 +5,9 @@ namespace Core
 {
 public class TurnPipelineRunner : IInitializable, ITickable
 {
-	private TurnPipeline _pipeline;
+	private readonly TurnPipeline _pipeline;
 
-
-	[Inject]
-	public void Construct(TurnPipeline pipeline)
+	public TurnPipelineRunner(TurnPipeline pipeline)
 	{
 		_pipeline = pipeline;
 	}

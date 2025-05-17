@@ -12,31 +12,44 @@ public class SceneInstaller : MonoInstaller
 {
 	public override void InstallBindings()
 	{
-		InstallSignalBus(Container);
+		InstallSignals();
+		InstallPipelines();
+		InstallServices();
 
-		//Container.Bind<EventBus>().AsSingle();
+		Container.BindInterfacesAndSelfTo<HeroesCreator>().AsSingle();
+	}
 
+	private void InstallSignals()
+	{
+		SignalBusInstaller.Install(Container);
+
+		Container.DeclareSignal<SelectHeroSignal>();
+		Container.DeclareSignal<SelectTargetSignal>();
+
+		Container.Bind<SelectHeroTask>().AsSingle();
+		Container.Bind<SelectTargetTask>().AsSingle();
+		Container.Bind<DealDamageTask>().AsSingle();
+
+		Container.Bind<SelectHeroHandler>().AsSingle();
+		Container.Bind<SelectTargetHandler>().AsSingle();
+
+		Container.BindSignal<SelectHeroSignal>().ToMethod<SelectHeroHandler>(x => x.SetupHeroSelection).FromResolve();
+		Container.BindSignal<SelectTargetSignal>().ToMethod<SelectTargetHandler>(x => x.SetupTargetSelection).FromResolve();
+	}
+
+	private void InstallPipelines()
+	{
 		Container.BindInterfacesAndSelfTo<TurnPipelineInstaller>().AsSingle();
 		Container.BindInterfacesAndSelfTo<TurnPipelineRunner>().AsSingle();
 
 		Container.Bind<TurnPipeline>().AsSingle();
-
-		Container.Bind<PlayerService>().AsSingle();
-		
-		Container.Bind<UIService>().FromComponentInHierarchy().AsSingle();
 	}
 
-	private void InstallSignalBus(DiContainer container)
+	private void InstallServices()
 	{
-		SignalBusInstaller.Install(container);
+		Container.Bind<PlayerService>().AsSingle();
 
-		container.DeclareSignal<SelectHeroSignal>();
-
-		container.Bind<SelectHeroTask>().AsSingle();
-		container.Bind<DealDamageTask>().AsSingle();
-		container.Bind<SelectHeroHandler>().AsSingle();
-
-		container.BindSignal<SelectHeroSignal>().ToMethod<SelectHeroHandler>(x => x.WaitHeroSelectionAsync).FromResolve();
+		Container.Bind<UIService>().FromComponentInHierarchy().AsSingle();
 	}
 }
 }

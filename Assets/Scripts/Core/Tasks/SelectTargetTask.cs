@@ -4,24 +4,24 @@ using Zenject;
 
 namespace Core.Tasks
 {
-public class SelectHeroTask : EventTask
+public class SelectTargetTask : EventTask
 {
 	private readonly SignalBus _signalBus;
 	
-	public SelectHeroTask(SignalBus signalBus)
+	public SelectTargetTask(SignalBus signalBus)
 	{
 		_signalBus = signalBus;
 	}
 	
 	protected override void OnStart()
 	{
-		Debug.Log("start SelectHeroTask");
-		_signalBus.Fire<SelectHeroSignal>();
+		Debug.Log("start SelectTargetTask");
+		_signalBus.Fire<SelectTargetSignal>();
 	}
 
 	protected override void OnComplete()
 	{
-		Debug.Log("complete SelectHeroTask");
+		Debug.Log("complete SelectTargetTask");
 	}
 }
 }
