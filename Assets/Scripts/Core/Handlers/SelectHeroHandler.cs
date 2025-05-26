@@ -22,33 +22,31 @@ public class SelectHeroHandler
 
 	public void SetupHeroSelection(SelectHeroSignal signal)
 	{
-		if (_playerService.IsBluePlayerTurn)
-		{
-			_uIService.BluePlayer.SetActive(true);
-			_uIService.BluePlayer.OnHeroClicked += OnHeroClicked;
-		}
-		else
-		{
-			_uIService.RedPlayer.SetActive(true);
-			_uIService.RedPlayer.OnHeroClicked += OnHeroClicked;
-		}
+		var view = _uIService.GetCurrentPlayerView(_playerService.IsBluePlayerTurn);
+		
+		view.SetActive(true);
+		view.OnHeroClicked += OnHeroClicked;
 	}
 
 	private void OnHeroClicked(HeroView view)
 	{
-		view.SetActive(true);
-		_selectHeroTask.Complete();
+		var playerView = _uIService.GetCurrentPlayerView(_playerService.IsBluePlayerTurn);
+		
+		foreach (var heroData in _playerService.CurrentPlayerHeroes)
+			if (heroData.View == view)
+			{
+				if (heroData.IsFrozen)
+					return;
 
-		if (_playerService.IsBluePlayerTurn)
-		{
-			_uIService.BluePlayer.SetActive(false);
-			_uIService.BluePlayer.OnHeroClicked -= OnHeroClicked;
-		}
-		else
-		{
-			_uIService.RedPlayer.SetActive(true);
-			_uIService.RedPlayer.OnHeroClicked -= OnHeroClicked;
-		}
+				playerView.SetActive(false);
+				playerView.OnHeroClicked -= OnHeroClicked;
+
+				_playerService.SelectedAttacker = heroData;
+			}
+
+		view.SetActive(true);
+
+		_selectHeroTask.Complete();
 	}
 }
 }

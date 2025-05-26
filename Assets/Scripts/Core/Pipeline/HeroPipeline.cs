@@ -1,7 +1,4 @@
 ﻿namespace Core
 {
-public class HeroPipeline : Pipeline
-{
-	
-}
+public class HeroPipeline : Pipeline { }
 }

@@ -36,18 +36,27 @@ public class SelectTargetHandler
 	private void OnHeroClicked(HeroView view)
 	{
 		view.SetActive(true);
-		_selectTargetTask.Complete();
 
 		if (_playerService.IsBluePlayerTurn)
 		{
 			_uIService.RedPlayer.SetActive(true);
 			_uIService.RedPlayer.OnHeroClicked -= OnHeroClicked;
+
+			foreach (var heroData in _playerService.RedPlayerHeroes)
+				if (heroData.View == view)
+					_playerService.SelectedTarget = heroData;
 		}
 		else
 		{
 			_uIService.BluePlayer.SetActive(false);
 			_uIService.BluePlayer.OnHeroClicked -= OnHeroClicked;
+
+			foreach (var heroData in _playerService.BluePlayerHeroes)
+				if (heroData.View == view)
+					_playerService.SelectedTarget = heroData;
 		}
+
+		_selectTargetTask.Complete();
 	}
 }
 }

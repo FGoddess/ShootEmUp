@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b481e7daefd47d6804c83b67e02a8ad, type: 3}
   m_Name: ElectroHeroConfig
   m_EditorClassIdentifier: 
-  MaxHealth: 7
-  Damage: 13
+  MaxHealth: 9
+  Damage: 3
+  AbilityType: 7
   Sprite: {fileID: 21300000, guid: f6d397e5cec894f3cbbb28a24524a3db, type: 3}

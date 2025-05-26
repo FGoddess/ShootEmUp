@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Abilities;
+using UnityEngine;
 
 namespace Configs
 {
@@ -7,6 +8,8 @@ public class HeroConfig : ScriptableObject
 {
 	public int MaxHealth;
 	public int Damage;
+
+	public EAbilityType AbilityType;
 
 	public Sprite Sprite;
 }

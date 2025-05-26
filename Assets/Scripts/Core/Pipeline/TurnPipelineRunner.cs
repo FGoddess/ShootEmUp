@@ -21,6 +21,7 @@ public class TurnPipelineRunner : IInitializable, ITickable
 	private void OnTurnCompleted()
 	{
 		_pipeline.ResetIndex();
+		StartNextTask();
 	}
 
 	private void StartNextTask()

@@ -18,6 +18,9 @@ public class TurnPipelineInstaller : IInitializable
 	{
 		_pipeline.AddTask(_container.Resolve<SelectHeroTask>());
 		_pipeline.AddTask(_container.Resolve<SelectTargetTask>());
+		_pipeline.AddTask(_container.Resolve<StartHeroActionsPipelineTask>());
+		_pipeline.AddTask(_container.Resolve<StartHeroesTurnEndPipelineTask>());
+		_pipeline.AddTask(_container.Resolve<CleanupTask>());
 	}
 }
 }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b481e7daefd47d6804c83b67e02a8ad, type: 3}
   m_Name: DevourerHeroConfig
   m_EditorClassIdentifier: 
-  MaxHealth: 5
-  Damage: 10
+  MaxHealth: 9
+  Damage: 3
+  AbilityType: 0
   Sprite: {fileID: 21300000, guid: 313dedf7220414e3c869a853d03060bc, type: 3}
