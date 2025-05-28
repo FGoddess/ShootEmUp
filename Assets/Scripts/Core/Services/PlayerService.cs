@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Hero;
 using UnityEngine;
 
 namespace Core.Services

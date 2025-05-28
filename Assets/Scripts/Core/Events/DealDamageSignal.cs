@@ -1,4 +1,6 @@
-﻿namespace Core.Events
+﻿using Core.Hero;
+
+namespace Core.Events
 {
 public class DealDamageSignal
 {

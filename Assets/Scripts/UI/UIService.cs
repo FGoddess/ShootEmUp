@@ -13,7 +13,7 @@ public sealed class UIService : MonoBehaviour
 	public HeroListView RedPlayer  => _redPlayer;
 
 	
-	public HeroListView GetCurrentPlayerView(bool isBlue)
+	public HeroListView GetPlayerView(bool isBlue)
 	{
 		return isBlue ? _bluePlayer : _redPlayer;
 	}

@@ -2,7 +2,7 @@
 using Configs;
 using UI;
 
-namespace Core
+namespace Core.Hero
 {
 public class HeroData
 {
@@ -24,7 +24,7 @@ public class HeroData
 
 	public void ChangeHealth(int value)
 	{
-		Health = Math.Min(Health + value, Config.MaxHealth);
+		Health = Math.Clamp(Health + value, 0, Config.MaxHealth);
 	}
 }
 }

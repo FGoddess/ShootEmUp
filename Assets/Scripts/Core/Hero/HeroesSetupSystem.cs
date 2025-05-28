@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using Abilities;
 using Configs;
 using Core.Services;
-using Core.Tasks;
 using Core.Tasks.Hero;
 using UI;
 using Zenject;
 
-namespace Core
+namespace Core.Hero
 {
 public class HeroesSetupSystem : IInitializable
 {
@@ -73,17 +72,16 @@ public class HeroesSetupSystem : IInitializable
 					hero.ActionsPipeline.AddTask(_container.Instantiate<DealDamageTask>());
 					break;
 				case EAbilityType.BeforeAttackWrongTargetChance:
-					hero.ActionsPipeline.AddTask(_container.Instantiate<HeroWrongTargetChanceTask>());
+					hero.ActionsPipeline.AddTask(_container.Instantiate<BeforeAttackWrongTargetChanceTask>());
 					hero.ActionsPipeline.AddTask(_container.Instantiate<DealDamageTask>());
 					break;
 				case EAbilityType.AfterAttackLifeStealChance:
 					hero.ActionsPipeline.AddTask(_container.Instantiate<DealDamageTask>());
-					hero.ActionsPipeline.AddTask(_container.Instantiate<HeroLifeStealChanceTask>());
+					hero.ActionsPipeline.AddTask(_container.Instantiate<AfterAttackLifeStealChanceTask>());
 					break;
 				case EAbilityType.OnDamagedHolyShield:
 					hero.HasHolyShield = true;
 					hero.ActionsPipeline.AddTask(_container.Instantiate<DealDamageTask>());
-					//hero.ActionsPipeline.AddTask(new OnDamagedTask());
 					break;
 				case EAbilityType.AfterAttackFreezeTarget:
 					hero.ActionsPipeline.AddTask(_container.Instantiate<DealDamageTask>());

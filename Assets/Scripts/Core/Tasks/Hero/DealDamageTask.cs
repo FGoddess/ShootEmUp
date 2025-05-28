@@ -1,6 +1,7 @@
 ﻿using Abilities;
 using Core.Events;
 using Core.Services;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -18,9 +19,12 @@ public class DealDamageTask : EventTask
 		_signalBus     = signalBus;
 	}
 
-	protected override void OnStart()
+	protected override async void OnStart()
 	{
 		Debug.Log("DealDamageTask started");
+		
+		await _playerService.SelectedAttacker.View.AnimateAttack(_playerService.SelectedTarget.View);
+
 		_signalBus.Fire(new DealDamageSignal(_playerService.SelectedAttacker,
 		                                     _playerService.SelectedTarget,
 		                                     _playerService.SelectedAttacker.Config.Damage));

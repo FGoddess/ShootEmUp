@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Core.Hero;
+using UnityEngine;
 
 namespace Core.Events
 {

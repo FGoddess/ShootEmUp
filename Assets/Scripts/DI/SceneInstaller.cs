@@ -1,6 +1,7 @@
 ﻿using Core;
 using Core.Events;
 using Core.Handlers;
+using Core.Hero;
 using Core.Services;
 using Core.Tasks;
 using Core.Tasks.Hero;
@@ -16,6 +17,7 @@ public class SceneInstaller : MonoInstaller
 		InstallSignals();
 		InstallPipelines();
 		InstallServices();
+		InstallUI();
 
 		Container.BindInterfacesAndSelfTo<HeroesSetupSystem>().AsSingle();
 	}
@@ -28,6 +30,7 @@ public class SceneInstaller : MonoInstaller
 		Container.DeclareSignal<SelectTargetSignal>();
 		Container.DeclareSignal<DealDamageSignal>();
 		Container.DeclareSignal<DamageDealtSignal>();
+		Container.DeclareSignal<HeroDeathSignal>();
 
 		Container.Bind<SelectHeroTask>().AsSingle();
 		Container.Bind<SelectTargetTask>().AsSingle();
@@ -39,11 +42,15 @@ public class SceneInstaller : MonoInstaller
 		Container.Bind<SelectTargetHandler>().AsSingle();
 		Container.Bind<DealDamageHandler>().AsSingle();
 		Container.Bind<DamageAllHandler>().AsSingle();
+		Container.Bind<HeroDeathHandler>().AsSingle();
+		Container.Bind<GameEndHandler>().AsSingle();
 
 		Container.BindSignal<SelectHeroSignal>().ToMethod<SelectHeroHandler>(x => x.SetupHeroSelection).FromResolve();
 		Container.BindSignal<SelectTargetSignal>().ToMethod<SelectTargetHandler>(x => x.SetupTargetSelection).FromResolve();
 		Container.BindSignal<DealDamageSignal>().ToMethod<DealDamageHandler>(x => x.DealDamage).FromResolve();
 		Container.BindSignal<DamageDealtSignal>().ToMethod<DamageAllHandler>(x => x.DamageAll).FromResolve();
+		Container.BindSignal<DamageDealtSignal>().ToMethod<HeroDeathHandler>(x => x.OnDamageDealt).FromResolve();
+		Container.BindSignal<HeroDeathSignal>().ToMethod<GameEndHandler>(x => x.OnHeroDeath).FromResolve();
 	}
 
 	private void InstallPipelines()
@@ -59,6 +66,11 @@ public class SceneInstaller : MonoInstaller
 		Container.Bind<PlayerService>().AsSingle();
 
 		Container.Bind<UIService>().FromComponentInHierarchy().AsSingle();
+	}
+
+	private void InstallUI()
+	{
+		Container.Bind<UiWinScreen>().FromComponentInHierarchy().AsSingle();
 	}
 }
 }

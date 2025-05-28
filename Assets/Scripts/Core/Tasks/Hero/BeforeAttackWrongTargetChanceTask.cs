@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Core.Tasks.Hero
 {
-public class HeroWrongTargetChanceTask : EventTask
+public class BeforeAttackWrongTargetChanceTask : EventTask
 {
 	private readonly PlayerService _playerService;
 
-	public HeroWrongTargetChanceTask(PlayerService playerService)
+	public BeforeAttackWrongTargetChanceTask(PlayerService playerService)
 	{
 		_playerService = playerService;
 	}
@@ -24,7 +24,7 @@ public class HeroWrongTargetChanceTask : EventTask
 		Debug.Log($"HeroWrongTargetChanceTask chance");
 		_playerService.SelectedTarget.View.SetActive(false);
 
-		var heroes = _playerService.IsBluePlayerTurn ? _playerService.BluePlayerHeroes : _playerService.RedPlayerHeroes;
+		var heroes = _playerService.CurrentEnemyHeroes;
 		_playerService.SelectedTarget = heroes[Random.Range(0, heroes.Count)];
 		
 		Complete();

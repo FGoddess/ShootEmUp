@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Core.Tasks.Hero
 {
-public class HeroLifeStealChanceTask : EventTask
+public class AfterAttackLifeStealChanceTask : EventTask
 {
 	private readonly PlayerService _playerService;
 
-	public HeroLifeStealChanceTask(PlayerService playerService)
+	public AfterAttackLifeStealChanceTask(PlayerService playerService)
 	{
 		_playerService = playerService;
 	}

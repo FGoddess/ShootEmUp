@@ -22,7 +22,7 @@ public class SelectHeroHandler
 
 	public void SetupHeroSelection(SelectHeroSignal signal)
 	{
-		var view = _uIService.GetCurrentPlayerView(_playerService.IsBluePlayerTurn);
+		var view = _uIService.GetPlayerView(_playerService.IsBluePlayerTurn);
 		
 		view.SetActive(true);
 		view.OnHeroClicked += OnHeroClicked;
@@ -30,7 +30,7 @@ public class SelectHeroHandler
 
 	private void OnHeroClicked(HeroView view)
 	{
-		var playerView = _uIService.GetCurrentPlayerView(_playerService.IsBluePlayerTurn);
+		var playerView = _uIService.GetPlayerView(_playerService.IsBluePlayerTurn);
 		
 		foreach (var heroData in _playerService.CurrentPlayerHeroes)
 			if (heroData.View == view)

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using Abilities;
 using Core.Events;
+using Core.Hero;
 using Core.Services;
+using UnityEngine;
 using Zenject;
 
 namespace Core.Handlers
@@ -22,11 +24,11 @@ public class DamageAllHandler
 		if (signal.Target.Config.AbilityType is not EAbilityType.OnDamagedDealDamageToAll)
 			return;
 
-		DealDamage(signal.Target, _playerService.BluePlayerHeroes);
-		DealDamage(signal.Target, _playerService.RedPlayerHeroes);
+		DealDamage(signal.Target, _playerService.BluePlayerHeroes.ToArray());
+		DealDamage(signal.Target, _playerService.RedPlayerHeroes.ToArray());
 	}
 
-	private void DealDamage(HeroData attacker, IReadOnlyList<HeroData> heroes)
+	private void DealDamage(HeroData attacker, HeroData[] heroes)
 	{
 		foreach (var hero in heroes)
 		{
