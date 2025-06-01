@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e1b8f6139a1450c955d7b6e85472f76, type: 3}
-  m_Name: UnloadStorageConfig
+  m_Script: {fileID: 11500000, guid: 83cd78cd706e42dfaedc7e7b8d6c32a3, type: 3}
+  m_Name: LoadAreaConfig
   m_EditorClassIdentifier: 
-  Type: 1
-  MaxLevel: 5
-  PricesByIdx: 0a0000001e000000320000004600000064000000
-  StorageUpgradesConfig:
-    CapacityByIdx: 0100000002000000030000000400000005000000
+  PricesByIdx: 010000000200000003000000
+  AreaUpgradesConfig:
+    CapacityByIdx: 010000000200000003000000
