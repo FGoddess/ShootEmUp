@@ -132,7 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 403815552}
-  - component: {fileID: 403815554}
   - component: {fileID: 403815553}
   m_Layer: 0
   m_Name: '[Helpers]'
@@ -165,21 +164,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 403815551}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36f2fc961ebc4ab0a9a665fa68ca6dc0, type: 3}
+  m_Script: {fileID: 11500000, guid: 947ae016ffae4c7dadf918e2196bdd98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &403815554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 403815551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71e9b22da01ac8d499047f5089503bc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _inventory:
+    Items: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
