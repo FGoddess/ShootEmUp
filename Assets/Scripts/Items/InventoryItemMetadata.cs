@@ -1,7 +1,9 @@
 ﻿using System;
+using Inventory;
+using Inventory.Interfaces;
 using UnityEngine;
 
-namespace Inventory
+namespace Items
 {
 [Serializable]
 public class InventoryItemMetadata : ICloneable<InventoryItemMetadata>

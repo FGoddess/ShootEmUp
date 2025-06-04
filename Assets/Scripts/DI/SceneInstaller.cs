@@ -12,6 +12,7 @@ public class SceneInstaller : MonoInstaller<SceneInstaller>
 		Container.BindInterfacesAndSelfTo<InventoryList>().AsSingle();
 
 		Container.BindInterfacesAndSelfTo<HeroItemEffectsController>().AsSingle();
+		Container.BindInterfacesAndSelfTo<HeroConsumableController>().AsSingle();
 
 		Container.BindInterfacesAndSelfTo<HeroData>().AsSingle();
 	}

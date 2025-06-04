@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Inventory
+namespace Items
 {
 [Flags]
 public enum InventoryItemFlags

@@ -1,4 +1,6 @@
-﻿namespace Inventory
+﻿using Items;
+
+namespace Inventory.Interfaces
 {
 public interface IInventoryObserver
 {

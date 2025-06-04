@@ -1,10 +1,12 @@
 ﻿using System;
 using Hero;
 using Inventory.Comps;
+using Inventory.Interfaces;
+using Items;
 
 namespace Inventory.Controllers
 {
-public class HeroItemEffectsController : IDisposable
+public class HeroItemEffectsController : IInventoryObserver, IDisposable
 {
 	private readonly InventoryList _inventory;
 	private readonly HeroData      _heroData;
@@ -18,7 +20,7 @@ public class HeroItemEffectsController : IDisposable
 		_inventory.OnItemRemoved += OnItemRemoved;
 	}
 
-	private void OnItemAdded(InventoryItem item)
+	public void OnItemAdded(InventoryItem item)
 	{
 		if (item.Flags.HasFlag(InventoryItemFlags.Effectable))
 			return;
@@ -28,7 +30,7 @@ public class HeroItemEffectsController : IDisposable
 		_heroData.Damage += damageComp.Damage;
 	}
 
-	private void OnItemRemoved(InventoryItem item)
+	public void OnItemRemoved(InventoryItem item)
 	{
 		if (item.Flags.HasFlag(InventoryItemFlags.Effectable))
 			return;

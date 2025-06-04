@@ -1,4 +1,6 @@
-﻿namespace Inventory.Comps
+﻿using Items;
+
+namespace Inventory.Comps
 {
 public class StackableComp : IInventoryItemComp
 {
@@ -7,7 +9,7 @@ public class StackableComp : IInventoryItemComp
 	
 	public IInventoryItemComp Clone()
 	{
-		return (IInventoryItemComp)this.MemberwiseClone();
+		return (IInventoryItemComp)MemberwiseClone();
 	}
 }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using Inventory;
+using Inventory.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Inventory
+namespace Items
 {
 [Serializable]
 public class InventoryItem : ICloneable<InventoryItem>
@@ -16,7 +17,7 @@ public class InventoryItem : ICloneable<InventoryItem>
 	public IInventoryItemComp[] Components;
 
 	[ReadOnly]
-	public int Amount;
+	public int Amount = 1;
 
 	public InventoryItem Clone()
 	{
@@ -24,6 +25,8 @@ public class InventoryItem : ICloneable<InventoryItem>
 		{
 			Id         = Id,
 			Metadata   = Metadata.Clone(),
+			Flags      = Flags,
+			Amount     = Amount,
 			Components = new IInventoryItemComp[Components.Length]
 		};
 

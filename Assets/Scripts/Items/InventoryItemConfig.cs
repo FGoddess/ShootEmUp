@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Inventory
+namespace Items
 {
 [CreateAssetMenu(menuName = "InventoryItemConfig", fileName = "InventoryItemConfig")]
 public class InventoryItemConfig : ScriptableObject
