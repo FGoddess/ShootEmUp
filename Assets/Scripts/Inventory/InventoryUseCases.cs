@@ -153,7 +153,7 @@ public static class InventoryUseCases
 	{
 		if (!ValidateEquipmentItem(config, out var comp))
 			return;
-			
+
 		if (!inventoryList.EquipmentMap.TryGetValue(comp.Slot, out var item))
 		{
 			Debug.LogWarning($"Can't unequip item with id: {config.Item.Id}. Item is not equipped");
@@ -169,20 +169,29 @@ public static class InventoryUseCases
 	private static bool ValidateEquipmentItem(InventoryItemConfig config, out EquipmentComp comp)
 	{
 		comp = null;
-		
+
 		if (!config.Item.Flags.HasFlag(InventoryItemFlags.Equippable))
 		{
 			Debug.LogWarning($"Can't process item with id: {config.Item.Id}. Isn't equippable");
 			return false;
 		}
-		
+
 		if (!config.Item.TryGetComponent(out comp))
 		{
 			Debug.LogWarning($"Can't process item with id: {config.Item.Id}. Don't have an equipment component");
 			return false;
 		}
-		
+
 		return true;
+	}
+
+	public static bool HasItem(InventoryList inventoryList, int itemId)
+	{
+		foreach (var item in inventoryList.Items)
+			if (item.Id == itemId)
+				return true;
+
+		return false;
 	}
 }
 }

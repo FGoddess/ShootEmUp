@@ -1,0 +1,20 @@
+{
+    "name": "EquippableTestsAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3708af3adb80c074f81d530cce298411"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
