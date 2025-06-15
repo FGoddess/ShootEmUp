@@ -1,4 +1,4 @@
-using Comps;
+using Components;
 using Conveyor;
 using Money;
 using Upgrades;
@@ -13,9 +13,9 @@ public class SceneInstaller : MonoInstaller<SceneInstaller>
 		Container.BindInterfacesAndSelfTo<MoneyService>().AsSingle();
 		Container.BindInterfacesAndSelfTo<UpgradesService>().AsSingle();
 
-		Container.Bind<LoadAreaComp>().AsSingle();
-		Container.Bind<UnloadAreaComp>().AsSingle();
-		Container.Bind<ProduceTimeComp>().AsSingle();
+		Container.Bind<LoadAreaComponent>().AsSingle();
+		Container.Bind<UnloadAreaComponent>().AsSingle();
+		Container.Bind<ProduceTimeComponent>().AsSingle();
 
 		Container.Bind<ConveyorManager>().AsSingle();
 	}

@@ -1,6 +1,6 @@
-﻿namespace Comps
+﻿namespace Components
 {
-public class UnloadAreaComp : IComp<int>
+public class LoadAreaComponent : IComponent<int>
 {
 	public int Value { get; private set; }
 

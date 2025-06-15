@@ -1,4 +1,4 @@
-﻿using Comps;
+﻿using Components;
 using UnityEngine;
 using Zenject;
 
@@ -6,22 +6,22 @@ namespace Conveyor
 {
 public class ConveyorManager
 {
-	private readonly LoadAreaComp   _loadAreaComp;
-	private readonly UnloadAreaComp _unloadAreaComp;
-	private readonly ProduceTimeComp   _produceTimeComp;
+	private readonly LoadAreaComponent   _loadAreaComponent;
+	private readonly UnloadAreaComponent _unloadAreaComponent;
+	private readonly ProduceTimeComponent   _produceTimeComponent;
 
-	public ConveyorManager(LoadAreaComp loadAreaComp, UnloadAreaComp unloadAreaComp, ProduceTimeComp produceTimeComp)
+	public ConveyorManager(LoadAreaComponent loadAreaComponent, UnloadAreaComponent unloadAreaComponent, ProduceTimeComponent produceTimeComponent)
 	{
-		_loadAreaComp   = loadAreaComp;
-		_unloadAreaComp = unloadAreaComp;
-		_produceTimeComp   = produceTimeComp;
+		_loadAreaComponent   = loadAreaComponent;
+		_unloadAreaComponent = unloadAreaComponent;
+		_produceTimeComponent   = produceTimeComponent;
 	}
 
 	public void DebugAllComps()
 	{
-		Debug.Log($"Load Area capacity: {_loadAreaComp.Value} units");
-		Debug.Log($"Unload Area capacity: {_unloadAreaComp.Value} units");
-		Debug.Log($"Produce Time: {_produceTimeComp.Value} secs");
+		Debug.Log($"Load Area capacity: {_loadAreaComponent.Value} units");
+		Debug.Log($"Unload Area capacity: {_unloadAreaComponent.Value} units");
+		Debug.Log($"Produce Time: {_produceTimeComponent.Value} secs");
 	}
 }
 }

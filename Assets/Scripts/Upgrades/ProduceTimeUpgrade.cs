@@ -1,4 +1,4 @@
-﻿using Comps;
+﻿using Components;
 using Configs;
 using Zenject;
 
@@ -6,7 +6,7 @@ namespace Upgrades
 {
 public class ProduceTimeUpgrade : UpgradeBase
 {
-	private ProduceTimeComp _produceTimeComp;
+	private ProduceTimeComponent _produceTimeComponent;
 
 	private readonly ProduceTimeConfig _config;
 
@@ -16,9 +16,9 @@ public class ProduceTimeUpgrade : UpgradeBase
 	}
 
 	[Inject]
-	private void Construct(ProduceTimeComp produceTimeComp)
+	private void Construct(ProduceTimeComponent produceTimeComponent)
 	{
-		_produceTimeComp = produceTimeComp;
+		_produceTimeComponent = produceTimeComponent;
 	}
 
 	protected override void OnUpgrade(int level)
@@ -28,7 +28,7 @@ public class ProduceTimeUpgrade : UpgradeBase
 
 	private void SetLevel(int level)
 	{
-		_produceTimeComp.Set(_config.ProduceTimeUpgradesConfig.GetTime(level));
+		_produceTimeComponent.Set(_config.ProduceTimeUpgradesConfig.GetTime(level));
 	}
 }
 }

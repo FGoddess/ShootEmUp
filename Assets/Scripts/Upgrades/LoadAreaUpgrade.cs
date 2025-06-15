@@ -1,4 +1,4 @@
-﻿using Comps;
+﻿using Components;
 using Configs;
 using Zenject;
 
@@ -6,7 +6,7 @@ namespace Upgrades
 {
 public class LoadAreaUpgrade : UpgradeBase
 {
-	private LoadAreaComp _loadAreaComp;
+	private LoadAreaComponent _loadAreaComponent;
 
 	private readonly LoadAreaConfig _config;
 
@@ -16,9 +16,9 @@ public class LoadAreaUpgrade : UpgradeBase
 	}
 	
 	[Inject]
-	private void Construct(LoadAreaComp loadAreaComp)
+	private void Construct(LoadAreaComponent loadAreaComponent)
 	{
-		_loadAreaComp = loadAreaComp;
+		_loadAreaComponent = loadAreaComponent;
 	}
 
 	protected override void OnUpgrade(int level)
@@ -28,7 +28,7 @@ public class LoadAreaUpgrade : UpgradeBase
 
 	private void SetLevel(int level)
 	{
-		_loadAreaComp.Set(_config.AreaUpgradesConfig.GetCapacity(level));
+		_loadAreaComponent.Set(_config.AreaUpgradesConfig.GetCapacity(level));
 	}
 }
 }

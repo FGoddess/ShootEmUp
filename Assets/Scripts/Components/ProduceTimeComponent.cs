@@ -1,6 +1,6 @@
-﻿namespace Comps
+﻿namespace Components
 {
-public class ProduceTimeComp : IComp<float>
+public class ProduceTimeComponent : IComponent<float>
 {
 	public float Value { get; private set; }
 

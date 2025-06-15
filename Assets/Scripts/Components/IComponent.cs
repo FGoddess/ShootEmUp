@@ -1,6 +1,6 @@
-﻿namespace Comps
+﻿namespace Components
 {
-public interface IComp<T>
+public interface IComponent<T>
 {
 	public T Value { get; }
 	
