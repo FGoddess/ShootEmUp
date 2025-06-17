@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Locs
+  m_EditorClassIdentifier: 
+  m_GroupName: Locs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: bd0feb36717afe449aa1f5357ed5f5d2
+  m_SerializeEntries:
+  - m_GUID: 530fc116bd1a04640a1dfef064287abc
+    m_Address: Assets/Game/Prefabs/Gameplay/Locs/Location1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a328352953fefae4682b234ff205064a
+    m_Address: Assets/Game/Prefabs/Gameplay/Locs/Location2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b29d17add54fefd48abab36d4622094c
+    m_Address: Assets/Game/Prefabs/Gameplay/Locs/Location3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d6301a55ed3e06c4692474f80c2d06b6
+    m_Address: Assets/Game/Prefabs/Gameplay/Locs/Location4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: e3a781b9f6cc3f34bb071d2750b65efa, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5812e6db64921a847b2cfd154226ecfd, type: 2}
+    - {fileID: 11400000, guid: f1494562279b7c54483754f4d8a66301, type: 2}
