@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576e9fa5bf1a4910b5fcfddfef651208, type: 3}
   m_Name: LocationsConfig
   m_EditorClassIdentifier: 
-  LocationsReferences:
-  - m_AssetGUID: 530fc116bd1a04640a1dfef064287abc
+  LocationsReferencesById:
+  - m_AssetGUID: a328352953fefae4682b234ff205064a
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: a328352953fefae4682b234ff205064a
+  - m_AssetGUID: d6301a55ed3e06c4692474f80c2d06b6
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -25,7 +25,8 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: d6301a55ed3e06c4692474f80c2d06b6
+  BaseLocation:
+    m_AssetGUID: 530fc116bd1a04640a1dfef064287abc
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

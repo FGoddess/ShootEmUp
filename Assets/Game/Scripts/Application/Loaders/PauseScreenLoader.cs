@@ -24,7 +24,7 @@ public class PauseScreenLoader : MonoBehaviour
 		_container = container;
 	}
 
-	private async void Awake()
+	private async UniTaskVoid Awake()
 	{
 		await LoadPauseScreen();
 		await LoadPauseButton();

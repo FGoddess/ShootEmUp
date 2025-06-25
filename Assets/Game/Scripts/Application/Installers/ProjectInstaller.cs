@@ -15,7 +15,7 @@ public sealed class ProjectInstaller : ScriptableObjectInstaller
 		Container.Bind<GameLoader>().AsSingle().NonLazy();
 		Container.Bind<MenuLoader>().AsSingle().NonLazy();
 		Container.Bind<SceneLoader>().AsSingle().NonLazy();
-		
+
 		Container.BindInstance(_scenesConfig);
 		Container.BindInstance(_locationsConfig);
 	}

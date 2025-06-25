@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -14,7 +12,11 @@ public class LocationsLoader : MonoBehaviour
 
 	private LocationsConfig _config;
 
-	private readonly List<AsyncOperationHandle<GameObject>> _loadedLocations = new();
+	private int _currentLocationId = -1;
+
+	private AsyncOperationHandle<GameObject> _baseLocationHandle;
+	private AsyncOperationHandle<GameObject> _currentLoadedLocation;
+
 
 	[Inject]
 	public void Construct(LocationsConfig config)
@@ -22,44 +24,69 @@ public class LocationsLoader : MonoBehaviour
 		_config = config;
 	}
 
-	private void Awake()
+	private async UniTaskVoid Start()
 	{
-		LoadAllLocations().Forget();
-	}
-
-	public async UniTask LoadAllLocations()
-	{
-		foreach (var locationReference in _config.LocationsReferences)
-			await LoadLocation(locationReference);
-
-		Debug.Log($"Loaded {_loadedLocations.Count} locations");
-	}
-
-	private async UniTask LoadLocation(AssetReference locationReference)
-	{
-		var instantiateHandle = Addressables.InstantiateAsync(locationReference, _locationsParent);
-		_loadedLocations.Add(instantiateHandle);
-
-		await instantiateHandle.Task;
-
-		if (instantiateHandle.Status == AsyncOperationStatus.Succeeded)
-			Debug.Log($"Location loaded: {instantiateHandle.Result.name}");
-		else
-			Debug.LogError($"Failed to load location: {locationReference}");
+		_baseLocationHandle = await LoadLocation(_config.BaseLocation);
 	}
 
 	private void OnDestroy()
 	{
-		UnloadAllLocations();
+		TryUnloadCurrentLocation();
+		UnloadLocation(_baseLocationHandle);
 	}
 
-	public void UnloadAllLocations()
+	public void OnZoneLoadSignal(ZoneLoadSignal signal)
 	{
-		foreach (var handle in _loadedLocations)
-			if (handle.IsValid())
-				Addressables.ReleaseInstance(handle);
+		if (_currentLocationId == signal.ZoneId)
+			return;
 
-		_loadedLocations.Clear();
+		LoadLocation(signal.ZoneId).Forget();
+	}
+
+	public async UniTask LoadLocation(int locationId)
+	{
+		if (locationId < 0 || locationId >= _config.LocationsReferencesById.Length)
+		{
+			Debug.LogError($"Invalid location id: {locationId}");
+			return;
+		}
+
+		if (_currentLocationId >= 0)
+			TryUnloadCurrentLocation();
+
+		var locationReference = _config.LocationsReferencesById[locationId];
+		_currentLoadedLocation = await LoadLocation(locationReference);
+
+		if (_currentLoadedLocation.Status == AsyncOperationStatus.Succeeded)
+			_currentLocationId = locationId;
+	}
+
+	private async UniTask<AsyncOperationHandle<GameObject>> LoadLocation(AssetReference locationReference)
+	{
+		var handle = Addressables.InstantiateAsync(locationReference, _locationsParent);
+		await handle.Task;
+
+		if (handle.Status == AsyncOperationStatus.Succeeded)
+			Debug.Log($"Location loaded: {handle.Result.name}");
+		else
+			Debug.LogError($"Failed to load location: {locationReference}");
+
+		return handle;
+	}
+
+	public void TryUnloadCurrentLocation()
+	{
+		if (_currentLocationId < 0)
+			return;
+
+		UnloadLocation(_currentLoadedLocation);
+		_currentLocationId = -1;
+	}
+
+	private void UnloadLocation(AsyncOperationHandle<GameObject> handle)
+	{
+		if (handle.IsValid())
+			Addressables.ReleaseInstance(handle);
 	}
 }
 }

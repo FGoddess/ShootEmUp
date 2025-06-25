@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -22,7 +23,7 @@ public class MenuScreenLoader : MonoBehaviour
 		_container = container;
 	}
 
-	private async void Awake()
+	private async UniTaskVoid Awake()
 	{
 		_loadHandle = Addressables.LoadAssetAsync<GameObject>(_menuScreenReference);
 		await _loadHandle.Task;

@@ -21,7 +21,8 @@
 
         [InjectLocal]
         public DisposableManager DisposablesManager { get; protected set; } = null;
-
+        
+        
         public virtual bool ShouldInitializeOnStart() => true;
         
         public virtual void Initialize()
