@@ -18,9 +18,20 @@ MonoBehaviour:
   OpenTimeMins: 1
   Rewards:
   - rid: 1277785606861094944
+  - rid: 1005560597024866326
+  - rid: 1005560597024866330
   references:
     version: 2
     RefIds:
+    - rid: 1005560597024866326
+      type: {class: ArtifactReward, ns: Rewards, asm: Assembly-CSharp}
+      data:
+        ArtifactId: 0
+        ArtifactName: Claymore
+    - rid: 1005560597024866330
+      type: {class: ExperienceReward, ns: Rewards, asm: Assembly-CSharp}
+      data:
+        ExperienceAmount: 100
     - rid: 1277785606861094944
       type: {class: SoftMoneyReward, ns: Rewards, asm: Assembly-CSharp}
       data:

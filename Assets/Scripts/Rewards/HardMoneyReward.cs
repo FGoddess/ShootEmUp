@@ -1,4 +1,6 @@
 ﻿using System;
+using DI.Contexts;
+using Money;
 using Rewards.Interfaces;
 
 namespace Rewards
@@ -8,9 +10,15 @@ public struct HardMoneyReward : IReward
 {
 	public int HardMoneyAmount;
 
-	public void Accept(IRewardVisitor visitor)
+	public void Apply(IServicesContext servicesContext)
 	{
-		visitor.Visit(this);
+		var moneyService = servicesContext.GetService<MoneyService>();
+		moneyService.ChangeHard(HardMoneyAmount);
+	}
+
+	public string GetDescription()
+	{
+		return $"Твёрдая валюта: {HardMoneyAmount}";
 	}
 }
 }

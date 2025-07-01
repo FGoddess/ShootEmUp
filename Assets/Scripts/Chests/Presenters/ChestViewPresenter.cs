@@ -31,16 +31,20 @@ public class ChestViewPresenter : IChestViewPresenter
 
 		UpdateTimeLeft().Forget();
 		OpenCommand.Subscribe(_ => chestsService.Open(chest)).AddTo(_disposable);
+		
+		_chestsService.ChestOpened
+			.Where(openedChest => openedChest == _chest)
+			.Subscribe(_ => CanOpen.Value = false)
+			.AddTo(_disposable);
 	}
 
 	private async UniTask UpdateTimeLeft()
 	{
-		while (!CanOpen.Value)
+		while (true)
 		{
 			TimeLeft.Value = _chestsService.TryGetChestTimeLeft(_chest, out var timeLeft) ? timeLeft.ToString(@"hh\:mm\:ss") : "Loading";
 
-			if (timeLeft == TimeSpan.Zero)
-				CanOpen.Value = true;
+			CanOpen.Value = timeLeft == TimeSpan.Zero;
 
 			await UniTask.Delay(1000);
 		}

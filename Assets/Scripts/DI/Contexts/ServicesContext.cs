@@ -1,16 +1,23 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace DI.Contexts
 {
-public class ServicesContext
+public class ServicesContext : IServicesContext, IInitializable
 {
 	private readonly Dictionary<Type, object> _services = new();
+	private readonly DiContainer              _container;
 
-	private ServicesContext(List<IGameService> services)
+	public ServicesContext(DiContainer container)
 	{
-		foreach (var service in services)
+		_container = container;
+	}
+
+	public void Initialize()
+	{
+		foreach (var service in _container.ResolveAll<IGameService>())
 			RegisterService(service);
 	}
 

@@ -13,5 +13,10 @@ public class Chest
 		Config     = config;
 		CreateTime = createTime;
 	}
+
+	public void RestartTimer(DateTime newCreateTime)
+	{
+		CreateTime = newCreateTime;
+	}
 }
 }

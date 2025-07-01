@@ -1,21 +1,21 @@
 ﻿using DI.Contexts;
+using UniRx;
 
 namespace Money
 {
 public class MoneyService : IGameService
 {
-	public int SoftMoney { get; private set; }
-	public int HardMoney { get; private set; }
+	private ReactiveProperty<int> SoftMoney { get; } = new();
+	private ReactiveProperty<int> HardMoney { get; } = new();
 
-	
-	public void ChangeSoft(int delta)
+	public void ChangeSoft(int value)
 	{
-		SoftMoney += delta;
+		SoftMoney.Value += value;
 	}
 
-	public void ChangeHard(int delta)
+	public void ChangeHard(int value)
 	{
-		HardMoney += delta;
+		HardMoney.Value += value;
 	}
 }
 }
